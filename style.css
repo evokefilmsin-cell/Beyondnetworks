@@ -290,11 +290,50 @@ nav a:hover {
   cursor: pointer;
 }
 
-footer {
+.footer {
+  background: #111;
+  border-top: 1px solid #222;
+  padding-top: 60px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding: 0 60px 50px;
+}
+
+.footer-column h3,
+.footer-column h4 {
+  margin-bottom: 20px;
+}
+
+.footer-column h3 {
+  font-size: 30px;
+}
+
+.footer-column p {
+  color: #a0a0a0;
+  line-height: 1.8;
+}
+
+.footer-column a {
+  display: block;
+  color: #bdbdbd;
+  text-decoration: none;
+  margin-bottom: 14px;
+  transition: 0.3s;
+}
+
+.footer-column a:hover {
+  color: white;
+}
+
+.footer-bottom {
   border-top: 1px solid #222;
   text-align: center;
-  padding: 30px;
-  color: #888;
+  padding: 25px;
+  color: #777;
 }
 
 @media (max-width: 900px) {
@@ -369,5 +408,9 @@ footer {
 .newsletter-form input,
 .newsletter-form button {
   width: 100%;
+}
+.footer-grid {
+  grid-template-columns: 1fr;
+  padding: 0 25px 40px;
 }
 }
