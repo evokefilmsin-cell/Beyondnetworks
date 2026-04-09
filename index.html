@@ -1,18 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BeyondNetworks News</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Welcome to My Website</h1>
-    <p>Your business tagline here</p>
+
+  <header class="topbar">
+    <div class="logo">BeyondNetworks</div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Politics</a>
+      <a href="#">Business</a>
+      <a href="#">Technology</a>
+      <a href="#">Sports</a>
+      <a href="#">Entertainment</a>
+    </nav>
   </header>
 
-  <section>
-    <h2>About</h2>
-    <p>Add your content here.</p>
+  <section class="hero">
+    <div class="hero-content">
+      <p class="tag">Breaking News</p>
+      <h1>The Future of Independent News and Media</h1>
+      <p class="subtitle">
+        BeyondNetworks brings you the latest updates in politics, business, sports and technology.
+      </p>
+      <a href="#latest" class="button">Explore Stories</a>
+    </div>
   </section>
+
+  <section class="section-title" id="latest">
+    <h2>Latest Stories</h2>
+  </section>
+
+  <main class="news-grid">
+
+    <article class="card featured">
+      <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1200&q=80" alt="Technology News">
+      <div class="content">
+        <span>Technology</span>
+        <h2>AI is changing the future of global newsrooms</h2>
+        <p>Media companies around the world are adopting AI tools to publish faster and engage more readers.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=80" alt="Business News">
+      <div class="content">
+        <span>Business</span>
+        <h3>Stock markets rise after major tech announcements</h3>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Sports News">
+      <div class="content">
+        <span>Sports</span>
+        <h3>International finals attract record-breaking audiences</h3>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?auto=format&fit=crop&w=800&q=80" alt="Entertainment News">
+      <div class="content">
+        <span>Entertainment</span>
+        <h3>Streaming services compete to dominate worldwide markets</h3>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <p>© 2026 BeyondNetworks. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>
