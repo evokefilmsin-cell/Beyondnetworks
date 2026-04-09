@@ -1,8 +1,111 @@
 * {
-  background: #151515;
-  border-radius: 18px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #0b0b0b;
+  color: white;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 60px;
+  background: rgba(10,10,10,0.95);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #222;
+}
+
+.logo {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+nav a {
+  color: #bdbdbd;
+  text-decoration: none;
+  margin-left: 22px;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.hero {
+  height: 85vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.8)),
+    url('https://images.unsplash.com/photo-1504711331083-9c895941bf81?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.tag {
+  color: #ff4b4b;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  line-height: 1.1;
+  margin-bottom: 22px;
+}
+
+.subtitle {
+  color: #d0d0d0;
+  font-size: 20px;
+  line-height: 1.7;
+  margin-bottom: 35px;
+}
+
+.button {
+  display: inline-block;
+  background: #ff4b4b;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.section-title {
+  padding: 50px 60px 10px;
+}
+
+.section-title h2 {
+  font-size: 36px;
+}
+
+.news-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 25px;
+  padding: 20px 60px 60px;
+}
+
+.card {
+  background: #141414;
+  border-radius: 20px;
   overflow: hidden;
-  transition: transform 0.3s;
+  border: 1px solid #222;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
@@ -15,43 +118,45 @@
   object-fit: cover;
 }
 
-.large img {
+.featured img {
   height: 420px;
 }
 
 .content {
-  padding: 20px;
+  padding: 22px;
 }
 
 .content span {
-  color: #ff4d4d;
-  font-size: 14px;
+  color: #ff4b4b;
   text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
 }
 
 .content h2,
 .content h3 {
-  margin-top: 12px;
+  margin-top: 14px;
   line-height: 1.4;
 }
 
 .content p {
-  color: #aaa;
   margin-top: 12px;
+  color: #a9a9a9;
+  line-height: 1.6;
 }
 
 footer {
+  border-top: 1px solid #222;
   text-align: center;
   padding: 30px;
-  border-top: 1px solid #222;
-  color: #777;
+  color: #888;
 }
 
 @media (max-width: 900px) {
   .topbar {
     flex-direction: column;
-    gap: 15px;
     padding: 20px;
+    gap: 15px;
   }
 
   nav {
@@ -61,17 +166,20 @@ footer {
   }
 
   .hero {
-    padding: 30px;
     height: auto;
-    min-height: 70vh;
+    padding: 40px 25px;
   }
 
   .hero h1 {
-    font-size: 40px;
+    font-size: 42px;
   }
 
   .news-grid {
     grid-template-columns: 1fr;
-    padding: 30px;
+    padding: 20px 25px 40px;
+  }
+
+  .section-title {
+    padding: 40px 25px 10px;
   }
 }
