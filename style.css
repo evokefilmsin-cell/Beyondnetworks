@@ -238,6 +238,57 @@ nav a:hover {
   line-height: 1.8;
   margin-bottom: 30px;
 }
+.newsletter-section {
+  padding: 20px 60px 60px;
+}
+
+.newsletter-box {
+  background: #141414;
+  border: 1px solid #222;
+  border-radius: 24px;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.newsletter-box h2 {
+  font-size: 42px;
+  margin-bottom: 16px;
+}
+
+.newsletter-box p {
+  color: #b0b0b0;
+  max-width: 650px;
+  margin: 0 auto 30px;
+  line-height: 1.7;
+}
+
+.newsletter-form {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.newsletter-form input {
+  width: 360px;
+  max-width: 100%;
+  padding: 16px 20px;
+  border-radius: 40px;
+  border: 1px solid #333;
+  background: #0b0b0b;
+  color: white;
+  font-size: 16px;
+}
+
+.newsletter-form button {
+  padding: 16px 30px;
+  border: none;
+  border-radius: 40px;
+  background: #ff4b4b;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
 
 footer {
   border-top: 1px solid #222;
@@ -298,5 +349,25 @@ footer {
 
 .video-content h3 {
   font-size: 28px;
+}
+.newsletter-section {
+  padding: 20px 25px 40px;
+}
+
+.newsletter-box {
+  padding: 40px 25px;
+}
+
+.newsletter-box h2 {
+  font-size: 32px;
+}
+
+.newsletter-form {
+  flex-direction: column;
+}
+
+.newsletter-form input,
+.newsletter-form button {
+  width: 100%;
 }
 }
