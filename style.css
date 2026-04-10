@@ -22,11 +22,15 @@ body {
   z-index: 1000;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  width: 220px;
+}
+
 .logo img {
-  height: 40px;
-  width: auto;
-  max-width: 60px;
-  object-fit: contain;
+  width: 100%;
+  height: auto;
   display: block;
 }
 
