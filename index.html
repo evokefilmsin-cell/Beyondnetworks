@@ -44,7 +44,8 @@
     </div>
   </div>
 
-  <section class="hero">
+  <section class="hero slider-hero">
+  <div class="hero-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1504711331083-9c895941bf81?auto=format&fit=crop&w=1600&q=80');">
     <div class="hero-content">
       <p class="tag">Breaking News</p>
       <h1>The Future of Independent News and Media</h1>
@@ -53,7 +54,35 @@
       </p>
       <a href="#latest" class="button">Explore Stories</a>
     </div>
-  </section>
+  </div>
+
+  <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1600&q=80');">
+    <div class="hero-content">
+      <p class="tag">Beyond Politics</p>
+      <h1>World leaders gather for a major international summit</h1>
+      <p class="subtitle">
+        Exclusive coverage and analysis from the biggest political story of the week.
+      </p>
+      <a href="politics.html" class="button">Watch Coverage</a>
+    </div>
+  </div>
+
+  <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)), url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=1600&q=80');">
+    <div class="hero-content">
+      <p class="tag">Beyond Technology</p>
+      <h1>AI tools are reshaping the future of media and journalism</h1>
+      <p class="subtitle">
+        Inside the latest developments in technology, startups and innovation.
+      </p>
+      <a href="technology.html" class="button">Read More</a>
+    </div>
+  </div>
+
+  <div class="hero-controls">
+    <button class="hero-arrow prev">‹</button>
+    <button class="hero-arrow next">›</button>
+  </div>
+</section>
 
   <div class="side-news right-news">
     <h3>Trending Now</h3>
@@ -117,7 +146,7 @@
       <p>Movies, OTT, celebrities and trending culture.</p>
     </a>
 
-    <a href="video.html" class="channel-card">
+    <a href="videos.html" class="channel-card">
       <span>07</span>
       <h3>Beyond Talks</h3>
       <p>Podcast interviews, discussions and exclusive video content.</p>
@@ -130,7 +159,7 @@
   </div>
 
   <div class="shows-grid">
-    <a href="video.html" class="show-card">
+    <a href="videos.html" class="show-card">
       <img src="https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=900&q=80" alt="Beyond News">
       <div class="show-overlay">
         <span>Beyond News</span>
@@ -138,7 +167,7 @@
       </div>
     </a>
 
-    <a href="video.html" class="show-card">
+    <a href="videos.html" class="show-card">
       <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80" alt="Beyond Politics">
       <div class="show-overlay">
         <span>Beyond Politics</span>
@@ -146,7 +175,7 @@
       </div>
     </a>
 
-    <a href="video.html" class="show-card">
+    <a href="videos.html" class="show-card">
       <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80" alt="Beyond Technology">
       <div class="show-overlay">
         <span>Beyond Technology</span>
@@ -302,6 +331,31 @@
     <p>© 2026 BeyondNetworks. All Rights Reserved.</p>
   </div>
 </footer>
+<script>
+  const slides = document.querySelectorAll('.hero-slide');
+  const next = document.querySelector('.next');
+  const prev = document.querySelector('.prev');
+  let current = 0;
 
+  function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+  }
+
+  next.addEventListener('click', () => {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  });
+
+  prev.addEventListener('click', () => {
+    current = (current - 1 + slides.length) % slides.length;
+    showSlide(current);
+  });
+
+  setInterval(() => {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }, 5000);
+</script>
 </body>
 </html>
