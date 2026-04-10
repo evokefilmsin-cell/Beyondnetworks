@@ -394,7 +394,53 @@ nav a:hover {
   padding: 25px;
   color: #777;
 }
+.channels-section {
+  padding: 10px 60px 60px;
+}
 
+.channels-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.channel-card {
+  background: #111;
+  border: 1px solid #222;
+  border-radius: 24px;
+  padding: 28px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.channel-card:hover {
+  transform: translateY(-8px);
+  border-color: #ff4b4b;
+}
+
+.channel-card span {
+  color: #ff4b4b;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.channel-card h3 {
+  margin-top: 18px;
+  font-size: 26px;
+}
+
+.channel-card p {
+  margin-top: 14px;
+  color: #b0b0b0;
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .channels-grid {
+    grid-template-columns: 1fr;
+  }
+}
 @media (max-width: 900px) {
   .topbar {
     flex-direction: column;
