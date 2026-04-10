@@ -22,9 +22,10 @@ body {
   z-index: 1000;
 }
 
-.logo {
-  font-size: 30px;
-  font-weight: bold;
+.logo img {
+  height: 42px;
+  width: auto;
+  display: block;
 }
 
 nav a {
