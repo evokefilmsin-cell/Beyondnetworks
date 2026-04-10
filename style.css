@@ -23,15 +23,18 @@ body {
 }
 
 .logo {
+  width: 220px;
+  height: 60px;
+  overflow: hidden;
   display: flex;
   align-items: center;
-  width: 220px;
 }
 
 .logo img {
   width: 100%;
-  height: auto;
-  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 nav a {
