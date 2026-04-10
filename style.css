@@ -40,9 +40,7 @@ nav a:hover {
 
 .slider-hero {
   position: relative;
-  min-height: 75vh;
   overflow: hidden;
-  border-radius: 24px;
 }
 
 ..hero-slide {
