@@ -14,7 +14,11 @@
 <link rel="stylesheet" href="css/dashboard.css">
 
 </head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script src="js/supabase.js"></script>
+
+<script src="js/articles.js"></script>
 <body>
 
 <div class="sidebar">
@@ -179,26 +183,7 @@ Filter
 <td>India Signs New Trade Agreement</td>
 
 <td>Beyond News</td>
-
-<td>Politics</td>
-
-<td>15 Jul 2026</td>
-
-<td><span class="badge bg-success">Published</span></td>
-
-<td>
-
-<button class="btn btn-sm btn-outline-light">
-<i class="bi bi-pencil"></i>
-</button>
-
-<button class="btn btn-sm btn-outline-danger">
-<i class="bi bi-trash"></i>
-</button>
-
-</td>
-
-</tr>
+<tbody id="articlesTable">
 
 </tbody>
 
