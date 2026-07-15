@@ -88,8 +88,54 @@ publishBtn.addEventListener("click",publishArticle);
 
 async function publishArticle(){
 
-    const content=editor.getData();
+    // Validation
+    if(title.value.trim() === ""){
+        alert("Please enter an article title.");
+        title.focus();
+        return;
+    }
 
-    console.log(content);
+    if(category.value.trim() === ""){
+        alert("Please select a category.");
+        return;
+    }
+
+    const content = editor.getData();
+
+    if(content.trim() === ""){
+        alert("Article content cannot be empty.");
+        return;
+    }
+
+    const article = {
+
+        title: title.value.trim(),
+
+        slug: slug.value.trim(),
+
+        summary: summary.value.trim(),
+
+        content: content,
+
+        category: category.value,
+
+        author: author.value.trim(),
+
+        status: status.value,
+
+        seo_title: seoTitle.value.trim(),
+
+        meta_description: metaDescription.value.trim()
+
+    };
+
+    console.log("Publishing Article...");
+    console.log(article);
+
+    const { data, error } = await supabase
+.from("articles")
+.insert([article]);
+
+}
 
 }
