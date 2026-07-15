@@ -14,14 +14,12 @@
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 <!-- Dashboard CSS -->
 <link rel="stylesheet" href="css/dashboard.css">
 
 <!-- Editor CSS -->
 <link rel="stylesheet" href="css/editor.css">
-
-<!-- TinyMCE -->
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js"></script>
 
 </head>
 
@@ -141,7 +139,7 @@ Article Content
 </label>
 
 <textarea id="editor"></textarea>
-
+  
 </div>
 
 </div>
@@ -303,40 +301,6 @@ placeholder="Meta Description"></textarea>
 </form>
 
 </div>
-
-<!-- TinyMCE -->
-
-<script>
-
-tinymce.init({
-
-selector:'#editor',
-
-height:650,
-
-menubar:true,
-
-plugins:[
-'advlist',
-'autolink',
-'lists',
-'link',
-'image',
-'preview',
-'searchreplace',
-'fullscreen',
-'table',
-'code',
-'wordcount',
-'media'
-],
-
-toolbar:
-'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | image media table | link | code fullscreen preview'
-
-});
-
-</script>
 
 <!-- Supabase -->
 
