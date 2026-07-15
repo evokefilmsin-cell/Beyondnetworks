@@ -1,1 +1,198 @@
+/* ===========================
+   ARTICLE EDITOR
+=========================== */
 
+.editor-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:35px;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.editor-buttons{
+display:flex;
+gap:12px;
+}
+
+.editor-layout{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+align-items:start;
+}
+
+/* Left Side */
+
+.editor-left .card,
+.editor-right .card{
+background:#161616;
+border:1px solid #222;
+border-radius:16px;
+}
+
+/* Labels */
+
+.form-label{
+color:#bbb;
+font-weight:600;
+margin-bottom:10px;
+}
+
+/* Inputs */
+
+.form-control,
+.form-select{
+background:#101010;
+border:1px solid #333;
+color:white;
+border-radius:10px;
+padding:14px;
+}
+
+.form-control:focus,
+.form-select:focus{
+background:#101010;
+border-color:#ff4040;
+box-shadow:none;
+color:white;
+}
+
+.form-control::placeholder{
+color:#666;
+}
+
+.form-select option{
+background:#161616;
+color:white;
+}
+
+/* Buttons */
+
+.btn{
+border-radius:10px;
+padding:11px 20px;
+font-weight:600;
+}
+
+.btn-danger{
+background:#ff4040;
+border:none;
+}
+
+.btn-danger:hover{
+background:#ff2020;
+}
+
+.btn-outline-light{
+border:1px solid #444;
+}
+
+.btn-outline-light:hover{
+background:#222;
+}
+
+/* TinyMCE */
+
+.tox{
+border-radius:14px !important;
+border:1px solid #333 !important;
+overflow:hidden;
+}
+
+.tox .tox-toolbar,
+.tox .tox-toolbar__primary,
+.tox .tox-editor-header{
+background:#181818 !important;
+border:none !important;
+}
+
+.tox .tox-edit-area{
+background:#fff !important;
+}
+
+.tox-statusbar{
+border-top:1px solid #333 !important;
+}
+
+/* Right Sidebar */
+
+.editor-right{
+position:sticky;
+top:30px;
+}
+
+.editor-right h5{
+margin-bottom:15px;
+font-weight:700;
+}
+
+/* Upload Button */
+
+.editor-right .btn{
+margin-top:15px;
+}
+
+/* Cards */
+
+.card{
+transition:.25s;
+}
+
+.card:hover{
+border-color:#ff4040;
+}
+
+/* Headings */
+
+.editor-top h1{
+font-size:38px;
+font-weight:700;
+}
+
+.editor-top p{
+margin-top:5px;
+color:#888;
+}
+
+/* Mobile */
+
+@media(max-width:1100px){
+
+.editor-layout{
+grid-template-columns:1fr;
+}
+
+.editor-right{
+position:relative;
+top:0;
+}
+
+.editor-buttons{
+width:100%;
+flex-wrap:wrap;
+}
+
+.editor-buttons .btn{
+flex:1;
+}
+
+}
+
+@media(max-width:700px){
+
+.editor-top{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.editor-buttons{
+width:100%;
+}
+
+.editor-buttons .btn{
+width:100%;
+}
+
+}
