@@ -14,18 +14,20 @@
 <!-- Bootstrap Icons -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-<!-- TinyMCE -->
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
 <!-- Dashboard CSS -->
 <link rel="stylesheet" href="css/dashboard.css">
 
 <!-- Editor CSS -->
 <link rel="stylesheet" href="css/editor.css">
 
+<!-- TinyMCE -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js"></script>
+
 </head>
 
 <body>
+
+<!-- Sidebar -->
 
 <div class="sidebar">
 
@@ -33,23 +35,27 @@
 <img src="../images/logo.png">
 </div>
 
-<a href="dashboard.html"><i class="bi bi-grid-fill"></i> Dashboard</a>
+<a href="dashboard.html">🏠 Dashboard</a>
 
-<a href="articles.html"><i class="bi bi-newspaper"></i> Articles</a>
+<a href="articles.html">📰 Articles</a>
 
-<a href="article-editor.html" class="active"><i class="bi bi-pencil-square"></i> New Article</a>
+<a href="article-editor.html" class="active">✍ New Article</a>
 
-<a href="videos.html"><i class="bi bi-camera-reels"></i> Videos</a>
+<a href="videos.html">🎥 Videos</a>
 
-<a href="media.html"><i class="bi bi-images"></i> Media Library</a>
+<a href="media.html">🖼 Media Library</a>
 
-<a href="categories.html"><i class="bi bi-folder2-open"></i> Categories</a>
+<a href="categories.html">📂 Categories</a>
 
-<a href="settings.html"><i class="bi bi-gear-fill"></i> Settings</a>
+<a href="settings.html">⚙ Settings</a>
 
 </div>
 
+<!-- Main -->
+
 <div class="main">
+
+<!-- Top -->
 
 <div class="editor-top">
 
@@ -57,26 +63,22 @@
 
 <h1>Create New Article</h1>
 
-<p class="text-secondary">
-Create and publish news articles.
-</p>
+<p>Write, optimize and publish your news article.</p>
 
 </div>
 
 <div class="editor-buttons">
 
 <button class="btn btn-outline-light">
-<i class="bi bi-save"></i>
-Save Draft
-</button>
-
-<button class="btn btn-outline-light">
 <i class="bi bi-eye"></i>
 Preview
 </button>
 
+<button class="btn btn-outline-light">
+Save Draft
+</button>
+
 <button class="btn btn-danger">
-<i class="bi bi-send"></i>
 Publish
 </button>
 
@@ -90,32 +92,43 @@ Publish
 
 <div class="editor-left">
 
-<div class="card bg-dark border-secondary p-4 mb-4">
+<div class="card p-4">
 
-<label class="form-label">Headline</label>
+<div class="mb-4">
 
-<input
-type="text"
-class="form-control mb-4"
-placeholder="Enter article headline">
-
-<label class="form-label">Slug</label>
+<label class="form-label">
+Article Title
+</label>
 
 <input
 type="text"
-class="form-control mb-4"
-placeholder="article-url-slug">
+class="form-control"
+placeholder="Enter article title">
 
-<label class="form-label">Summary</label>
+</div>
+
+<div class="mb-4">
+
+<label class="form-label">
+Short Description
+</label>
 
 <textarea
-class="form-control mb-4"
-rows="4"
-placeholder="Short summary..."></textarea>
+rows="3"
+class="form-control"
+placeholder="Write a short summary..."></textarea>
 
-<label class="form-label">Article Content</label>
+</div>
+
+<div>
+
+<label class="form-label">
+Article Content
+</label>
 
 <textarea id="editor"></textarea>
+
+</div>
 
 </div>
 
@@ -125,103 +138,119 @@ placeholder="Short summary..."></textarea>
 
 <div class="editor-right">
 
-<div class="card bg-dark border-secondary p-4 mb-4">
+<!-- Publish -->
+
+<div class="card p-4 mb-4">
 
 <h5>Publishing</h5>
 
-<label class="form-label mt-3">Status</label>
+<div class="d-grid gap-2 mt-3">
 
-<select class="form-select">
+<button class="btn btn-danger">
 
-<option>Draft</option>
+<i class="bi bi-send"></i>
 
-<option>Published</option>
+Publish Article
 
-<option>Scheduled</option>
+</button>
 
-</select>
+<button class="btn btn-outline-light">
 
-<label class="form-label mt-3">Brand</label>
-
-<select class="form-select">
-
-<option>Beyond News</option>
-
-<option>Beyond Entertainment</option>
-
-<option>Beyond Talks</option>
-
-</select>
-
-<label class="form-label mt-3">Category</label>
-
-<select class="form-select">
-
-<option>Politics</option>
-
-<option>Business</option>
-
-<option>Technology</option>
-
-<option>Sports</option>
-
-<option>Entertainment</option>
-
-<option>International</option>
-
-</select>
-
-<label class="form-label mt-3">Author</label>
-
-<input
-type="text"
-class="form-control"
-placeholder="Author Name">
-
-</div>
-
-<div class="card bg-dark border-secondary p-4 mb-4">
-
-<h5>Featured Image</h5>
-
-<button class="btn btn-danger w-100 mt-3">
-
-<i class="bi bi-upload"></i>
-
-Upload Image
+Save Draft
 
 </button>
 
 </div>
 
-<div class="card bg-dark border-secondary p-4">
+</div>
+
+<!-- Category -->
+
+<div class="card p-4 mb-4">
+
+<h5>Category</h5>
+
+<select class="form-select mt-3">
+
+<option>News</option>
+<option>Politics</option>
+<option>Business</option>
+<option>Technology</option>
+<option>Sports</option>
+<option>Entertainment</option>
+
+</select>
+
+</div>
+
+<!-- Featured Image -->
+
+<div class="card p-4 mb-4">
+
+<h5>Featured Image</h5>
+
+<input
+type="file"
+class="form-control mt-3">
+
+</div>
+
+<!-- Tags -->
+
+<div class="card p-4 mb-4">
+
+<h5>Tags</h5>
+
+<input
+class="form-control mt-3"
+placeholder="AI, Politics, India">
+
+</div>
+
+<!-- URL -->
+
+<div class="card p-4 mb-4">
+
+<h5>Article URL</h5>
+
+<input
+class="form-control mt-3"
+placeholder="ai-changing-journalism">
+
+</div>
+
+<!-- Status -->
+
+<div class="card p-4 mb-4">
+
+<h5>Status</h5>
+
+<select class="form-select mt-3">
+
+<option>Draft</option>
+
+<option selected>Published</option>
+
+<option>Scheduled</option>
+
+</select>
+
+</div>
+
+<!-- SEO -->
+
+<div class="card p-4">
 
 <h5>SEO</h5>
 
-<label class="form-label mt-3">
-SEO Title
-</label>
-
 <input
-type="text"
-class="form-control">
-
-<label class="form-label mt-3">
-Meta Description
-</label>
+class="form-control mt-3 mb-3"
+placeholder="SEO Title">
 
 <textarea
-rows="5"
-class="form-control"></textarea>
-
-<label class="form-label mt-3">
-Tags
-</label>
-
-<input
-type="text"
+rows="4"
 class="form-control"
-placeholder="news, politics, india">
+placeholder="Meta Description"></textarea>
 
 </div>
 
@@ -230,6 +259,8 @@ placeholder="news, politics, india">
 </div>
 
 </div>
+
+<!-- TinyMCE -->
 
 <script>
 
@@ -239,25 +270,30 @@ selector:'#editor',
 
 height:650,
 
-branding:false,
-
 menubar:true,
 
-plugins:
-
-'advlist autolink lists link image media table code fullscreen wordcount preview searchreplace autosave',
+plugins:[
+'advlist',
+'autolink',
+'lists',
+'link',
+'image',
+'preview',
+'searchreplace',
+'fullscreen',
+'table',
+'code',
+'wordcount',
+'media'
+],
 
 toolbar:
 
-'undo redo | blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist | link image media table | blockquote | code | fullscreen preview',
-
-placeholder:'Start writing your story...'
+'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | image media table | link | code fullscreen preview'
 
 });
 
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
