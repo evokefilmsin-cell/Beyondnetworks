@@ -24,11 +24,7 @@
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js"></script>
 
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="js/supabase.js"></script>
-
-<script src="js/editor.js"></script>
 <body>
 
 <!-- Sidebar -->
@@ -59,6 +55,8 @@
 
 <div class="main">
 
+<form id="articleForm">
+
 <!-- Top -->
 
 <div class="editor-top">
@@ -73,17 +71,27 @@
 
 <div class="editor-buttons">
 
-<button class="btn btn-outline-light">
+<button type="button" class="btn btn-outline-light">
 <i class="bi bi-eye"></i>
 Preview
 </button>
 
-<button class="btn btn-outline-light">
+<button
+type="button"
+id="saveDraftBtn"
+class="btn btn-outline-light">
+
 Save Draft
+
 </button>
 
-<button class="btn btn-danger">
+<button
+type="button"
+id="publishBtn"
+class="btn btn-danger">
+
 Publish
+
 </button>
 
 </div>
@@ -105,6 +113,7 @@ Article Title
 </label>
 
 <input
+id="title"
 type="text"
 class="form-control"
 placeholder="Enter article title">
@@ -118,6 +127,7 @@ Short Description
 </label>
 
 <textarea
+id="summary"
 rows="3"
 class="form-control"
 placeholder="Write a short summary..."></textarea>
@@ -150,7 +160,10 @@ Article Content
 
 <div class="d-grid gap-2 mt-3">
 
-<button class="btn btn-danger">
+<button
+type="button"
+id="publishBtn2"
+class="btn btn-danger">
 
 <i class="bi bi-send"></i>
 
@@ -158,7 +171,10 @@ Publish Article
 
 </button>
 
-<button class="btn btn-outline-light">
+<button
+type="button"
+id="draftBtn2"
+class="btn btn-outline-light">
 
 Save Draft
 
@@ -174,7 +190,9 @@ Save Draft
 
 <h5>Category</h5>
 
-<select class="form-select mt-3">
+<select
+id="category"
+class="form-select mt-3">
 
 <option>News</option>
 <option>Politics</option>
@@ -194,8 +212,22 @@ Save Draft
 <h5>Featured Image</h5>
 
 <input
+id="featuredImage"
 type="file"
 class="form-control mt-3">
+
+</div>
+
+<!-- Author -->
+
+<div class="card p-4 mb-4">
+
+<h5>Author</h5>
+
+<input
+id="author"
+class="form-control mt-3"
+placeholder="Author Name">
 
 </div>
 
@@ -206,6 +238,7 @@ class="form-control mt-3">
 <h5>Tags</h5>
 
 <input
+id="tags"
 class="form-control mt-3"
 placeholder="AI, Politics, India">
 
@@ -218,8 +251,9 @@ placeholder="AI, Politics, India">
 <h5>Article URL</h5>
 
 <input
+id="slug"
 class="form-control mt-3"
-placeholder="ai-changing-journalism">
+placeholder="Auto Generated">
 
 </div>
 
@@ -229,7 +263,9 @@ placeholder="ai-changing-journalism">
 
 <h5>Status</h5>
 
-<select class="form-select mt-3">
+<select
+id="status"
+class="form-select mt-3">
 
 <option>Draft</option>
 
@@ -248,10 +284,12 @@ placeholder="ai-changing-journalism">
 <h5>SEO</h5>
 
 <input
+id="seoTitle"
 class="form-control mt-3 mb-3"
 placeholder="SEO Title">
 
 <textarea
+id="metaDescription"
 rows="4"
 class="form-control"
 placeholder="Meta Description"></textarea>
@@ -261,6 +299,8 @@ placeholder="Meta Description"></textarea>
 </div>
 
 </div>
+
+</form>
 
 </div>
 
@@ -292,13 +332,19 @@ plugins:[
 ],
 
 toolbar:
-
 'undo redo | blocks | bold italic underline | forecolor backcolor | alignleft aligncenter alignright | bullist numlist | image media table | link | code fullscreen preview'
 
 });
 
 </script>
 
-</body>
+<!-- Supabase -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
+<script src="js/editor.js"></script>
+
+</body>
 </html>
