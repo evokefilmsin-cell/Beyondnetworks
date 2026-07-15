@@ -84,58 +84,70 @@ title.addEventListener("keyup",()=>{
 // Publish
 // ----------------------------
 
-publishBtn.addEventListener("click",publishArticle);
+// ----------------------------
+// Publish Article
+// ----------------------------
 
-async function publishArticle(){
+publishBtn.addEventListener("click", publishArticle);
 
-    // Validation
-    if(title.value.trim() === ""){
-        alert("Please enter an article title.");
-        title.focus();
-        return;
-    }
-
-    if(category.value.trim() === ""){
-        alert("Please select a category.");
-        return;
-    }
+async function publishArticle() {
 
     const content = editor.getData();
 
-    if(content.trim() === ""){
-        alert("Article content cannot be empty.");
-        return;
-    }
-
     const article = {
 
-        title: title.value.trim(),
+        title: title.value,
 
-        slug: slug.value.trim(),
+        slug: slug.value,
 
-        summary: summary.value.trim(),
+        summary: summary.value,
 
         content: content,
 
         category: category.value,
 
-        author: author.value.trim(),
+        author: author.value,
 
         status: status.value,
 
-        seo_title: seoTitle.value.trim(),
+        featured_image: "",
 
-        meta_description: metaDescription.value.trim()
+        seo_title: seoTitle.value,
+
+        meta_description: metaDescription.value,
+
+        is_breaking: false,
+
+        is_featured: false,
+
+        is_trending: false,
+
+        publish_date: new Date(),
+
+        updated_at: new Date()
 
     };
 
-    console.log("Publishing Article...");
-    console.log(article);
-
     const { data, error } = await supabase
-.from("articles")
-.insert([article]);
 
-}
+        .from("articles")
+
+        .insert([article])
+
+        .select();
+
+    if(error){
+
+        console.error(error);
+
+        alert(error.message);
+
+        return;
+
+    }
+
+    alert("Article Published Successfully!");
+
+    console.log(data);
 
 }
