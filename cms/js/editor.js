@@ -93,7 +93,7 @@ function createSlug(text){
 
 async function loadArticle(id){
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
 
         .from("articles")
 
@@ -188,7 +188,7 @@ async function publishArticle() {
 
 if(articleId){
 
-    response = await supabase
+    response = await supabaseClient
 
         .from("articles")
 
@@ -200,7 +200,7 @@ if(articleId){
 
 }else{
 
-    response = await supabase
+    response = await supabaseClient
 
         .from("articles")
 
