@@ -17,7 +17,7 @@ async function loadArticles() {
     </tr>
     `;
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
 
         .from("articles")
 
@@ -139,7 +139,7 @@ async function deleteArticle(id){
     if(!confirm("Delete this article?"))
         return;
 
-    const { error } = await supabase
+    const { error } = await supabaseClient
 
         .from("articles")
 
