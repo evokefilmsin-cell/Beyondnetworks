@@ -8,7 +8,13 @@ let editor;
 // ----------------------------
 // CKEditor
 // ----------------------------
+// =====================================
+// Edit Mode
+// =====================================
 
+const params = new URLSearchParams(window.location.search);
+
+const articleId = params.get("id");
 ClassicEditor
 .create(document.querySelector("#editor"),{
 
@@ -33,9 +39,16 @@ ClassicEditor
 
 })
 
-.then(newEditor=>{
+.then(async newEditor => {
 
-    editor=newEditor;
+    editor = newEditor;
+
+    if(articleId){
+
+        await loadArticle(articleId);
+
+    }
+
 
 })
 
@@ -74,6 +87,49 @@ function createSlug(text){
 
 }
 
+// =====================================
+// Load Existing Article
+// =====================================
+
+async function loadArticle(id){
+
+    const { data, error } = await supabase
+
+        .from("articles")
+
+        .select("*")
+
+        .eq("id", id)
+
+        .single();
+
+    if(error){
+
+        console.error(error);
+
+        return;
+
+    }
+
+    title.value = data.title;
+
+    slug.value = data.slug;
+
+    summary.value = data.summary;
+
+    category.value = data.category;
+
+    author.value = data.author;
+
+    status.value = data.status;
+
+    seoTitle.value = data.seo_title;
+
+    metaDescription.value = data.meta_description;
+
+    editor.setData(data.content);
+
+}
 title.addEventListener("keyup",()=>{
 
     slug.value=createSlug(title.value);
@@ -128,7 +184,23 @@ async function publishArticle() {
 
     };
 
-    const { data, error } = await supabase
+    let response;
+
+if(articleId){
+
+    response = await supabase
+
+        .from("articles")
+
+        .update(article)
+
+        .eq("id", articleId)
+
+        .select();
+
+}else{
+
+    response = await supabase
 
         .from("articles")
 
@@ -136,18 +208,20 @@ async function publishArticle() {
 
         .select();
 
-    if(error){
+}
 
-        console.error(error);
+const { data, error } = response;
 
-        alert(error.message);
+if(error){
 
-        return;
+    alert(error.message);
 
-    }
+    return;
 
-    alert("Article Published Successfully!");
+}
 
-    console.log(data);
+alert(articleId ? "Article Updated!" : "Article Published!");
+
+window.location = "articles.html";
 
 }
