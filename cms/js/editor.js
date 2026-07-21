@@ -71,13 +71,23 @@ const status=document.getElementById("status");
 const seoTitle=document.getElementById("seoTitle");
 const metaDescription=document.getElementById("metaDescription");
 const featuredImage = document.getElementById("featuredImage");
-
+const imagePreview = document.getElementById("imagePreview");
 const publishBtn=document.getElementById("publishBtn");
 
 // ----------------------------
 // Slug Generator
 // ----------------------------
+featuredImage.addEventListener("change", () => {
 
+    const file = featuredImage.files[0];
+
+    if (!file) return;
+
+    imagePreview.src = URL.createObjectURL(file);
+
+    imagePreview.style.display = "block";
+
+});
 function createSlug(text){
 
     return text
@@ -130,6 +140,13 @@ async function loadArticle(id){
     metaDescription.value = data.meta_description;
 
     editor.setData(data.content);
+    if (data.featured_image) {
+
+    imagePreview.src = data.featured_image;
+
+    imagePreview.style.display = "block";
+
+}
 
 }
 title.addEventListener("keyup",()=>{
@@ -156,7 +173,9 @@ publishBtn.addEventListener("click", () => {
 async function publishArticle() {
     console.log("🚀 publishArticle started");
     const content = editor.getData();
-    let imageUrl = "";
+    let imageUrl = articleId
+    ? imagePreview.src
+    : "";
 
 if (featuredImage.files.length > 0) {
 
