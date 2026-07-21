@@ -70,6 +70,8 @@ const author=document.getElementById("author");
 const status=document.getElementById("status");
 const seoTitle=document.getElementById("seoTitle");
 const metaDescription=document.getElementById("metaDescription");
+const featuredImage = document.getElementById("featuredImage");
+
 const publishBtn=document.getElementById("publishBtn");
 
 // ----------------------------
@@ -154,6 +156,36 @@ publishBtn.addEventListener("click", () => {
 async function publishArticle() {
     console.log("🚀 publishArticle started");
     const content = editor.getData();
+    let imageUrl = "";
+
+if (featuredImage.files.length > 0) {
+
+    const file = featuredImage.files[0];
+
+    const fileName =
+        Date.now() + "-" + file.name;
+
+    const { error: uploadError } =
+        await supabase.storage
+            .from("news-images")
+            .upload(fileName, file);
+
+    if (uploadError) {
+
+        alert(uploadError.message);
+
+        return;
+
+    }
+
+    const { data } =
+        supabase.storage
+            .from("news-images")
+            .getPublicUrl(fileName);
+
+    imageUrl = data.publicUrl;
+
+}
 
     const article = {
 
@@ -171,7 +203,7 @@ async function publishArticle() {
 
         status: status.value,
 
-        featured_image: "",
+        featured_image: imageUrl,
 
         seo_title: seoTitle.value,
 
