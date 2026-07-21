@@ -6,7 +6,11 @@
 console.log("articles.js loaded");
 
 const table = document.getElementById("articlesTable");
-
+const searchInput = document.getElementById("searchInput");
+const brandFilter = document.getElementById("brandFilter");
+const categoryFilter = document.getElementById("categoryFilter");
+const statusFilter = document.getElementById("statusFilter");
+const filterBtn = document.getElementById("filterBtn");
 console.log(table);
 
 loadArticles();
@@ -21,16 +25,31 @@ async function loadArticles() {
     </tr>
     `;
 
-    const { data, error } = await supabaseClient
+    let query = supabaseClient
+    .from("articles")
+    .select("*");
+    // Search
+if (searchInput.value.trim() !== "") {
+    query = query.ilike("title", `%${searchInput.value.trim()}%`);
+}
 
-        .from("articles")
+// Brand
+if (brandFilter.value !== "All Brands") {
+    query = query.eq("brand", brandFilter.value);
+}
 
-        .select("*")
+// Category
+if (categoryFilter.value !== "Category") {
+    query = query.eq("category", categoryFilter.value);
+}
 
-        .order("publish_date", {
-            ascending: false
-        });
+// Status
+if (statusFilter.value !== "Status") {
+    query = query.eq("status", statusFilter.value);
+}
+    query = query.order("publish_date", { ascending: false });
 
+const { data, error } = await query;
     if (error) {
 
         console.error(error);
@@ -96,9 +115,13 @@ ${article.publish_date
 
 <td>
 
-<span class="badge ${article.status=="Published"
+<span class="badge ${
+article.status === "Published"
 ? "bg-success"
-: "bg-warning"}">
+: article.status === "Draft"
+? "bg-warning"
+: "bg-primary"
+}">
 
 ${article.status}
 
@@ -173,3 +196,12 @@ function editArticle(id){
         "article-editor.html?id="+id;
 
 }
+searchInput.addEventListener("input", loadArticles);
+
+brandFilter.addEventListener("change", loadArticles);
+
+categoryFilter.addEventListener("change", loadArticles);
+
+statusFilter.addEventListener("change", loadArticles);
+
+filterBtn.addEventListener("click", loadArticles);
