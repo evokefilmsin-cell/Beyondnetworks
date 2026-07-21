@@ -166,7 +166,7 @@ if (featuredImage.files.length > 0) {
         Date.now() + "-" + file.name;
 
     const { error: uploadError } =
-        await supabase.storage
+        await supabaseClient.storage
             .from("news-images")
             .upload(fileName, file);
 
@@ -179,7 +179,7 @@ if (featuredImage.files.length > 0) {
     }
 
     const { data } =
-        supabase.storage
+        supabaseClient.storage
             .from("news-images")
             .getPublicUrl(fileName);
 
