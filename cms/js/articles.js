@@ -3,7 +3,11 @@
 // articles.js
 // ======================================
 
+console.log("articles.js loaded");
+
 const table = document.getElementById("articlesTable");
+
+console.log(table);
 
 loadArticles();
 
