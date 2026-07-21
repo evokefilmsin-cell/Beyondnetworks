@@ -68,13 +68,17 @@ New Article
 <div class="row g-3">
 
 <div class="col-md-4">
-<input class="form-control bg-black text-white border-secondary"
+<input 
+  id="searchInput"
+  class="form-control bg-black text-white border-secondary"
 placeholder="Search articles...">
 </div>
 
 <div class="col-md-2">
 
-<select class="form-select bg-black text-white border-secondary">
+<select
+  id="brandFilter"
+  class="form-select bg-black text-white border-secondary">
 
 <option>All Brands</option>
 
@@ -89,8 +93,9 @@ placeholder="Search articles...">
 </div>
 
 <div class="col-md-2">
-
-<select class="form-select bg-black text-white border-secondary">
+<select
+  id="categoryFilter"
+  class="form-select bg-black text-white border-secondary">
 
 <option>Category</option>
 
@@ -108,7 +113,9 @@ placeholder="Search articles...">
 
 <div class="col-md-2">
 
-<select class="form-select bg-black text-white border-secondary">
+<select
+  id="statusFilter"
+  class="form-select bg-black text-white border-secondary">
 
 <option>Status</option>
 
@@ -124,7 +131,9 @@ placeholder="Search articles...">
 
 <div class="col-md-2">
 
-<button class="btn btn-outline-light w-100">
+<button
+  id="filterBtn"
+  class="btn btn-outline-light w-100">
 
 Filter
 
