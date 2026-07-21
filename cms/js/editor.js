@@ -144,10 +144,15 @@ title.addEventListener("keyup",()=>{
 // Publish Article
 // ----------------------------
 
-publishBtn.addEventListener("click", publishArticle);
+publishBtn.addEventListener("click", () => {
 
+    console.log("✅ Publish button clicked");
+
+    publishArticle();
+
+});
 async function publishArticle() {
-
+    console.log("🚀 publishArticle started");
     const content = editor.getData();
 
     const article = {
@@ -183,6 +188,7 @@ async function publishArticle() {
         updated_at: new Date()
 
     };
+console.log(article);
 
     let response;
 
@@ -211,7 +217,8 @@ if(articleId){
 }
 
 const { data, error } = response;
-
+console.log(data);
+console.log(error);
 if(error){
 
     alert(error.message);
