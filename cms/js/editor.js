@@ -13,7 +13,27 @@ let editor;
 // =====================================
 
 const params = new URLSearchParams(window.location.search);
+let publishTime = null;
 
+if (status === "Published") {
+
+    publishTime = new Date().toISOString();
+
+}
+
+if (status === "Scheduled") {
+
+    if (!publishDate.value) {
+
+        alert("Please choose a publish date.");
+
+        return;
+
+    }
+
+    publishTime = publishDate.value;
+
+}
 const articleId = params.get("id");
 ClassicEditor
 .create(document.querySelector("#editor"),{
@@ -67,12 +87,17 @@ const slug=document.getElementById("slug");
 const summary=document.getElementById("summary");
 const category=document.getElementById("category");
 const author=document.getElementById("author");
-const status=document.getElementById("status");
 const seoTitle=document.getElementById("seoTitle");
 const metaDescription=document.getElementById("metaDescription");
 const featuredImage = document.getElementById("featuredImage");
 const imagePreview = document.getElementById("imagePreview");
 const publishBtn=document.getElementById("publishBtn");
+const draftBtn = document.getElementById("draftBtn");
+const scheduleBtn = document.getElementById("scheduleBtn");
+const previewBtn = document.getElementById("previewBtn");
+
+const publishDate = document.getElementById("publishDate");
+const statusInfo = document.getElementById("statusInfo");
 
 // ----------------------------
 // Slug Generator
@@ -120,6 +145,14 @@ async function loadArticle(id){
         console.error(error);
 
         return;
+        if(data.publish_date){
+
+    publishDate.value =
+        new Date(data.publish_date)
+        .toISOString()
+        .slice(0,16);
+
+}
 
     }
 
@@ -133,7 +166,9 @@ async function loadArticle(id){
 
     author.value = data.author;
 
-    status.value = data.status;
+    statusInfo.innerHTML = `
+<strong>Status:</strong> ${data.status}
+`;
 
     seoTitle.value = data.seo_title;
 
@@ -160,17 +195,20 @@ title.addEventListener("keyup",()=>{
 // ----------------------------
 
 // ----------------------------
-// Publish Article
-// ----------------------------
+draftBtn.addEventListener("click", () => {
+    saveArticle("Draft");
+});
+
+scheduleBtn.addEventListener("click", () => {
+    saveArticle("Scheduled");
+});
 
 publishBtn.addEventListener("click", () => {
-
-    console.log("✅ Publish button clicked");
-
-    publishArticle();
-
+    saveArticle("Published");
 });
-async function publishArticle() {
+
+previewBtn.addEventListener("click", previewArticle);
+async function saveArticle(status) {
     console.log("🚀 publishArticle started");
     const content = editor.getData();
     let imageUrl = articleId
@@ -205,7 +243,9 @@ if (featuredImage.files.length > 0) {
     imageUrl = data.publicUrl;
 
 }
-
+statusInfo.innerHTML = `
+<strong>Status:</strong> ${status}
+`;
     const article = {
 
         title: title.value,
@@ -219,8 +259,8 @@ if (featuredImage.files.length > 0) {
         category: category.value,
 
         author: author.value,
-
-        status: status.value,
+        
+        status: status,
 
         featured_image: imageUrl,
 
@@ -234,7 +274,7 @@ if (featuredImage.files.length > 0) {
 
         is_trending: false,
 
-        publish_date: new Date(),
+        publish_date: publishTime,
 
         updated_at: new Date()
 
@@ -278,8 +318,29 @@ if(error){
 
 }
 
-alert(articleId ? "Article Updated!" : "Article Published!");
+if(status==="Draft"){
+
+    alert("Draft saved successfully.");
+
+}
+
+if(status==="Scheduled"){
+
+    alert("Article scheduled successfully.");
+
+}
+
+if(status==="Published"){
+
+    alert("Article published successfully.");
+
+}
 
 window.location = "articles.html";
+
+}
+function previewArticle(){
+
+    alert("Preview feature coming next.");
 
 }
