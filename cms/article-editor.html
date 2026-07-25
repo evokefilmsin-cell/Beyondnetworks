@@ -67,35 +67,6 @@
 
 </div>
 
-<div class="editor-buttons">
-
-<button type="button" class="btn btn-outline-light">
-<i class="bi bi-eye"></i>
-Preview
-</button>
-
-<button
-type="button"
-id="saveDraftBtn"
-class="btn btn-outline-light">
-
-Save Draft
-
-</button>
-
-<button
-type="button"
-id="publishBtn"
-class="btn btn-danger">
-
-Publish
-
-</button>
-
-</div>
-
-</div>
-
 <div class="editor-layout">
 
 <!-- LEFT -->
@@ -154,34 +125,75 @@ Article Content
 
 <div class="card p-4 mb-4">
 
-<h5>Publishing</h5>
+    <h5>Publishing</h5>
 
-<div class="d-grid gap-2 mt-3">
+    <div id="statusInfo" class="alert alert-secondary mt-3">
+        <strong>Status:</strong> New Article
+    </div>
 
-<button
-type="button"
-id="publishBtn2"
-class="btn btn-danger">
+    <label class="form-label mt-3">
+        Publish Date & Time
+    </label>
 
-<i class="bi bi-send"></i>
+    <input
+        type="datetime-local"
+        id="publishDate"
+        class="form-control">
 
-Publish Article
+    <div class="d-grid gap-2 mt-4">
 
-</button>
+        <button
+            id="draftBtn"
+            type="button"
+            class="btn btn-secondary">
+            <i class="bi bi-file-earmark"></i>
+            Save Draft
+        </button>
 
-<button
-type="button"
-id="draftBtn2"
-class="btn btn-outline-light">
+        <button
+            id="previewBtn"
+            type="button"
+            class="btn btn-outline-light">
+            <i class="bi bi-eye"></i>
+            Preview
+        </button>
 
-Save Draft
+        <button
+            id="scheduleBtn"
+            type="button"
+            class="btn btn-warning">
+            <i class="bi bi-clock-history"></i>
+            Schedule Article
+        </button>
 
-</button>
+        <button
+            id="publishBtn"
+            type="button"
+            class="btn btn-danger">
+            <i class="bi bi-send"></i>
+            Publish Now
+        </button>
+
+    </div>
 
 </div>
+<div class="card p-4 mb-4">
+
+    <h5>Brand</h5>
+
+    <select
+        id="brand"
+        class="form-select mt-3">
+
+        <option>Beyond News</option>
+        <option>Beyond Entertainment</option>
+        <option>Beyond Talks</option>
+        <option>Beyond Sports</option>
+
+    </select>
 
 </div>
-
+  
 <!-- Category -->
 
 <div class="card p-4 mb-4">
@@ -202,7 +214,26 @@ class="form-select mt-3">
 </select>
 
 </div>
+<div class="card p-4 mb-4">
 
+    <h5>Display Options</h5>
+
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" id="breaking">
+        <label class="form-check-label">Breaking News</label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="featured">
+        <label class="form-check-label">Featured Story</label>
+    </div>
+
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="trending">
+        <label class="form-check-label">Trending Story</label>
+    </div>
+
+</div>
 <!-- Featured Image -->
 
 <div class="card p-4 mb-4">
@@ -267,26 +298,6 @@ placeholder="article-url">
 
 </div>
 
-<!-- Status -->
-
-<div class="card p-4 mb-4">
-
-<h5>Status</h5>
-
-<select
-id="status"
-class="form-select mt-3">
-
-<option>Draft</option>
-
-<option selected>Published</option>
-
-<option>Scheduled</option>
-
-</select>
-
-</div>
-
 <!-- SEO -->
 
 <div class="card p-4">
@@ -305,7 +316,22 @@ class="form-control"
 placeholder="Meta Description"></textarea>
 
 </div>
+<div class="card p-4 mt-4">
 
+    <h5>Social Media</h5>
+
+    <input
+        id="facebookTitle"
+        class="form-control mt-3"
+        placeholder="Facebook Title">
+
+    <input
+        id="twitterTitle"
+        class="form-control mt-3"
+        placeholder="Twitter / X Title">
+
+</div>
+  
 </div>
 
 </div>
