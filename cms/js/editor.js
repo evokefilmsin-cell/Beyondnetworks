@@ -98,7 +98,10 @@ const previewBtn = document.getElementById("previewBtn");
 
 const publishDate = document.getElementById("publishDate");
 const statusInfo = document.getElementById("statusInfo");
-
+console.log(draftBtn);
+console.log(scheduleBtn);
+console.log(previewBtn);
+console.log(publishBtn);
 // ----------------------------
 // Slug Generator
 // ----------------------------
@@ -196,15 +199,22 @@ title.addEventListener("keyup",()=>{
 
 // ----------------------------
 draftBtn.addEventListener("click", () => {
+    console.log("Draft clicked");
     saveArticle("Draft");
 });
 
 scheduleBtn.addEventListener("click", () => {
+    console.log("Schedule clicked");
     saveArticle("Scheduled");
 });
 
 publishBtn.addEventListener("click", () => {
+    console.log("Publish clicked");
     saveArticle("Published");
+});
+
+previewBtn.addEventListener("click", () => {
+    console.log("Preview clicked");
 });
 
 previewBtn.addEventListener("click", previewArticle);
