@@ -95,7 +95,7 @@ style="border-radius:8px;">
 
 <td>
 
-Beyond News
+${article.brand || "Beyond News"}
 
 </td>
 
