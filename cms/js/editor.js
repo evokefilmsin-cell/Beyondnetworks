@@ -147,6 +147,7 @@ if(data.publish_date){
     category.value = data.category;
 
     author.value = data.author;
+    brand.value = data.brand || "Beyond News";
 
     statusInfo.innerHTML = `
 <strong>Status:</strong> ${data.status}`;
@@ -260,7 +261,9 @@ statusInfo.innerHTML = `
 
         content: content,
 
-        category: category.value,
+        brand: brand.value,
+
+category: category.value,
 
         author: author.value,
         
