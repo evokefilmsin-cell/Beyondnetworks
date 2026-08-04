@@ -345,7 +345,7 @@ window.location = "articles.html";
 }
 function previewArticle(){
 
-    const previewArticle = {
+    const article = {
 
         title: title.value,
 
@@ -369,7 +369,7 @@ function previewArticle(){
 
     localStorage.setItem(
         "previewArticle",
-        JSON.stringify(previewArticle)
+        JSON.stringify(article)
     );
 
     window.open(
