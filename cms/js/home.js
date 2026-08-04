@@ -1,17 +1,9 @@
-// =====================================
-// Beyond Networks Homepage
-// home.js
-// =====================================
+console.log("home.js loaded");
 
-async function loadHeroSlider() {
+// Wait until page loads
+document.addEventListener("DOMContentLoaded", loadFeaturedStory);
 
-    const heroSlider = document.getElementById("heroSlider");
-
-    heroSlider.innerHTML = `
-        <div style="padding:80px;text-align:center;">
-            Loading Featured Stories...
-        </div>
-    `;
+async function loadFeaturedStory() {
 
     const { data, error } = await supabaseClient
 
@@ -19,91 +11,24 @@ async function loadHeroSlider() {
 
         .select("*")
 
-        .eq("status","Published")
+        .eq("is_featured", true)
 
-        .eq("is_featured",true)
+        .eq("status", "Published")
 
-        .order("publish_date",{ascending:false})
+        .order("publish_date", { ascending: false })
 
-        .limit(5);
+        .limit(1)
 
-    if(error){
+        .single();
 
-        console.error(error);
+    if (error) {
 
-        heroSlider.innerHTML = `
-            <div style="padding:80px;text-align:center;">
-                Failed to load featured stories.
-            </div>
-        `;
+        console.log("No featured article found");
 
         return;
 
     }
 
-    if(data.length===0){
-
-        heroSlider.innerHTML = `
-            <div style="padding:80px;text-align:center;">
-                No Featured Stories
-            </div>
-        `;
-
-        return;
-
-    }
-
-    heroSlider.innerHTML="";
-
-    data.forEach((article,index)=>{
-
-        heroSlider.innerHTML += `
-
-<div
-class="hero-slide ${index===0 ? "active":""}"
-
-style="
-background-image:
-linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.75)),
-url('${article.featured_image}');
-">
-
-<div class="hero-content">
-
-<p class="tag">
-
-${article.category}
-
-</p>
-
-<h1>
-
-${article.title}
-
-</h1>
-
-<p class="subtitle">
-
-${article.summary}
-
-</p>
-
-<a
-href="article.html?id=${article.id}"
-class="button">
-
-Read Story
-
-</a>
-
-</div>
-
-</div>
-
-`;
-
-    });
+    console.log(data);
 
 }
-
-loadHeroSlider();
