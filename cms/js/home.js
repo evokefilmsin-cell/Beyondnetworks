@@ -49,3 +49,4 @@ if(article.featured_image){
         `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.75)), url('${article.featured_image}')`;
 
 }
+}
