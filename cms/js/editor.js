@@ -166,8 +166,6 @@ if(data.publish_date){
     imagePreview.style.display = "block";
 
 }
-
-}
 title.addEventListener("keyup",()=>{
 
     slug.value=createSlug(title.value);
