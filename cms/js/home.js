@@ -1,8 +1,13 @@
 console.log("home.js loaded");
 
 // Wait until page loads
-document.addEventListener("DOMContentLoaded", loadFeaturedStory);
+document.addEventListener("DOMContentLoaded", () => {
 
+    loadFeaturedStory();
+
+    loadBreakingNews();
+
+});
 async function loadFeaturedStory() {
 
     const { data, error } = await supabaseClient
@@ -23,7 +28,35 @@ async function loadFeaturedStory() {
         console.log("No featured article found");
         return;
     }
+async function loadBreakingNews() {
 
+    const { data, error } = await supabaseClient
+        .from("articles")
+        .select("title,slug")
+        .eq("status", "Published")
+        .eq("is_breaking", true)
+        .order("publish_date", { ascending: false });
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    const ticker = document.getElementById("breakingTicker");
+
+    if (!ticker) return;
+
+    if (!data || data.length === 0) {
+        ticker.innerHTML = "No Breaking News";
+        return;
+    }
+
+    ticker.innerHTML = data.map(article => `
+        <a href="article.html?slug=${article.slug}">
+            🔴 ${article.title}
+        </a>
+    `).join("&nbsp;&nbsp;&nbsp;&nbsp;");
+}
     const article = data[0];
 
     console.log(article);
