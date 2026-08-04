@@ -76,6 +76,11 @@ const scheduleBtn = document.getElementById("scheduleBtn");
 const previewBtn = document.getElementById("previewBtn");
 
 const publishDate = document.getElementById("publishDate");
+const breakingNews = document.getElementById("breakingNews");
+
+const featuredStory = document.getElementById("featuredStory");
+
+const trendingStory = document.getElementById("trendingStory");
 const statusInfo = document.getElementById("statusInfo");
 console.log(draftBtn);
 console.log(scheduleBtn);
@@ -147,6 +152,11 @@ if(data.publish_date){
     category.value = data.category;
 
     author.value = data.author;
+    breakingNews.checked = data.is_breaking;
+
+featuredStory.checked = data.is_featured;
+
+trendingStory.checked = data.is_trending;
     brand.value = data.brand || "Beyond News";
 
     statusInfo.innerHTML = `
@@ -275,11 +285,11 @@ category: category.value,
 
         meta_description: metaDescription.value,
 
-        is_breaking: false,
+        is_breaking: breakingNews.checked,
 
-        is_featured: false,
+is_featured: featuredStory.checked,
 
-        is_trending: false,
+is_trending: trendingStory.checked,
 
         publish_date: publishTime,
 
