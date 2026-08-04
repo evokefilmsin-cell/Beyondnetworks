@@ -13,27 +13,6 @@ let editor;
 // =====================================
 
 const params = new URLSearchParams(window.location.search);
-let publishTime = null;
-
-if (status === "Published") {
-
-    publishTime = new Date().toISOString();
-
-}
-
-if (status === "Scheduled") {
-
-    if (!publishDate.value) {
-
-        alert("Please choose a publish date.");
-
-        return;
-
-    }
-
-    publishTime = publishDate.value;
-
-}
 const articleId = params.get("id");
 ClassicEditor
 .create(document.querySelector("#editor"),{
@@ -142,13 +121,15 @@ async function loadArticle(id){
         .eq("id", id)
 
         .single();
+if(error){
 
-    if(error){
+    console.error(error);
 
-        console.error(error);
+    return;
 
-        return;
-        if(data.publish_date){
+}
+
+if(data.publish_date){
 
     publishDate.value =
         new Date(data.publish_date)
@@ -213,10 +194,6 @@ publishBtn.addEventListener("click", () => {
     saveArticle("Published");
 });
 
-previewBtn.addEventListener("click", () => {
-    console.log("Preview clicked");
-});
-
 previewBtn.addEventListener("click", previewArticle);
 async function saveArticle(status) {
     console.log("🚀 publishArticle started");
@@ -224,7 +201,27 @@ async function saveArticle(status) {
     let imageUrl = articleId
     ? imagePreview.src
     : "";
+let publishTime = null;
 
+    if (status === "Published") {
+
+        publishTime = new Date().toISOString();
+
+    }
+
+    if (status === "Scheduled") {
+
+        if (!publishDate.value) {
+
+            alert("Please choose a publish date.");
+
+            return;
+
+        }
+
+        publishTime = publishDate.value;
+
+    }
 if (featuredImage.files.length > 0) {
 
     const file = featuredImage.files[0];
