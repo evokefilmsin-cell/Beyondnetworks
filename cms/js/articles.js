@@ -92,7 +92,21 @@ style="border-radius:8px;">
 <strong>${article.title}</strong>
 
 </td>
+<td>
 
+${article.is_breaking
+? '<span class="badge bg-danger me-1">LIVE</span>'
+: ''}
+
+${article.is_featured
+? '<span class="badge bg-warning text-dark me-1">FEATURED</span>'
+: ''}
+
+${article.is_trending
+? '<span class="badge bg-primary">TRENDING</span>'
+: ''}
+
+</td>
 <td>
 
 ${article.brand || "Beyond News"}
