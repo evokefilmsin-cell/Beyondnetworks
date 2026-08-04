@@ -138,8 +138,6 @@ if(data.publish_date){
 
 }
 
-    }
-
     title.value = data.title;
 
     slug.value = data.slug;
@@ -164,6 +162,8 @@ if(data.publish_date){
     imagePreview.src = data.featured_image;
 
     imagePreview.style.display = "block";
+
+}
 
 }
 title.addEventListener("keyup",()=>{
