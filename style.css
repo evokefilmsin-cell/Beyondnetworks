@@ -656,3 +656,58 @@ channels-section {
   order: 3;
 }
 }
+.breaking-bar{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#111;
+
+    border-top:1px solid #222;
+
+    border-bottom:1px solid #222;
+
+    height:48px;
+
+}
+
+.breaking-label{
+
+    background:#e60023;
+
+    color:white;
+
+    font-weight:700;
+
+    padding:12px 20px;
+
+    white-space:nowrap;
+
+}
+
+#breakingTicker{
+
+    color:white;
+
+    padding-left:15px;
+
+    font-size:15px;
+
+}
+
+#breakingTicker a{
+
+    color:white;
+
+    text-decoration:none;
+
+    margin-right:40px;
+
+}
+
+#breakingTicker a:hover{
+
+    color:#ff4444;
+
+}
