@@ -149,8 +149,7 @@ if(data.publish_date){
     author.value = data.author;
 
     statusInfo.innerHTML = `
-<strong>Status:</strong> ${data.status}
-`;
+<strong>Status:</strong> ${data.status}`;
 
     seoTitle.value = data.seo_title;
 
@@ -346,6 +345,36 @@ window.location = "articles.html";
 }
 function previewArticle(){
 
-    alert("Preview feature coming next.");
+    const previewArticle = {
+
+        title: title.value,
+
+        summary: summary.value,
+
+        content: editor.getData(),
+
+        category: category.value,
+
+        author: author.value,
+
+        seoTitle: seoTitle.value,
+
+        metaDescription: metaDescription.value,
+
+        image: imagePreview.src,
+
+        publishDate: publishDate.value
+
+    };
+
+    localStorage.setItem(
+        "previewArticle",
+        JSON.stringify(previewArticle)
+    );
+
+    window.open(
+        "article-preview.html",
+        "_blank"
+    );
 
 }
