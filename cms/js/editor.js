@@ -60,7 +60,7 @@ ClassicEditor
 // ----------------------------
 // Elements
 // ----------------------------
-
+const brand = document.getElementById("brand");
 const title=document.getElementById("title");
 const slug=document.getElementById("slug");
 const summary=document.getElementById("summary");
