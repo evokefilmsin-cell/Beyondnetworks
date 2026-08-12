@@ -711,3 +711,11 @@ channels-section {
     color:#ff4444;
 
 }
+#latestUpdates a{
+    color:white;
+    text-decoration:none;
+}
+
+#latestUpdates a:hover{
+    color:#ff3b3b;
+}
