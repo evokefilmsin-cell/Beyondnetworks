@@ -7,6 +7,7 @@ console.log("home.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
     loadFeaturedStory();
     loadBreakingNews();
+    loadLatestUpdates();
 });
 
 // ======================================
@@ -101,5 +102,57 @@ async function loadBreakingNews() {
         </a>`
 
     ).join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+
+}
+// ======================================
+// LATEST UPDATES
+// ======================================
+
+async function loadLatestUpdates() {
+
+    const { data, error } = await supabaseClient
+        .from("articles")
+        .select("title, category, slug")
+        .eq("status", "Published")
+        .order("publish_date", { ascending: false })
+        .limit(3);
+
+    if (error) {
+
+        console.error("Latest Updates Error:", error);
+        return;
+
+    }
+
+    const container = document.getElementById("latestUpdates");
+
+    if (!container) return;
+
+    if (!data || data.length === 0) {
+
+        container.innerHTML = "<p>No latest articles.</p>";
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(article => {
+
+        container.innerHTML += `
+            <div class="mini-news">
+
+                <span>${article.category}</span>
+
+                <p>
+                    <a href="article.html?slug=${article.slug}">
+                        ${article.title}
+                    </a>
+                </p>
+
+            </div>
+        `;
+
+    });
 
 }
