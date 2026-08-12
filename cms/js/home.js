@@ -44,8 +44,12 @@ async function loadFeaturedStory() {
         article.category || "Breaking News";
 
     // Hero Title
-    document.getElementById("heroTitle").textContent =
-        article.title || "";
+   const title =
+    article.title.length > 70
+        ? article.title.substring(0, 70) + "..."
+        : article.title;
+
+document.getElementById("heroTitle").textContent = title;
 
     // Hero Summary
     document.getElementById("heroSummary").textContent =
