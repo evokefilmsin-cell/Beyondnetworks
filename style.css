@@ -719,3 +719,30 @@ channels-section {
 #latestUpdates a:hover{
     color:#ff3b3b;
 }
+#trendingStories a{
+    color:white;
+    text-decoration:none;
+}
+
+#trendingStories a:hover{
+    color:#ff3b3b;
+}
+
+#trendingStories .mini-news{
+    border-bottom:1px solid rgba(255,255,255,.08);
+    padding:18px 0;
+}
+
+#trendingStories span{
+    display:block;
+    color:#ff4444;
+    font-size:13px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    font-weight:700;
+}
+
+#trendingStories p{
+    margin:0;
+    line-height:1.6;
+}
