@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFeaturedStory();
     loadBreakingNews();
     loadLatestUpdates();
+    loadTrendingStories();
 });
 
 // ======================================
@@ -151,6 +152,62 @@ async function loadLatestUpdates() {
                 </p>
 
             </div>
+        `;
+
+    });
+
+}
+// ======================================
+// TRENDING STORIES
+// ======================================
+
+async function loadTrendingStories() {
+
+    const { data, error } = await supabaseClient
+        .from("articles")
+        .select("*")
+        .eq("status", "Published")
+        .eq("is_trending", true)
+        .order("publish_date", { ascending: false })
+        .limit(3);
+
+    if (error) {
+        console.error("Trending Error:", error);
+        return;
+    }
+
+    const container = document.getElementById("trendingStories");
+
+    if (!container) return;
+
+    if (!data || data.length === 0) {
+
+        container.innerHTML = `
+            <p>No Trending Stories</p>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(article => {
+
+        container.innerHTML += `
+
+        <div class="mini-news">
+
+            <span>${article.category}</span>
+
+            <p>
+                <a href="article.html?slug=${article.slug}">
+                    ${article.title}
+                </a>
+            </p>
+
+        </div>
+
         `;
 
     });
