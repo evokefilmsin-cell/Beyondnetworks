@@ -1,44 +1,84 @@
 console.log("home.js loaded");
 
-// Wait until page loads
+// ======================================
+// Load everything after page loads
+// ======================================
+
 document.addEventListener("DOMContentLoaded", () => {
-
     loadFeaturedStory();
-
     loadBreakingNews();
-
 });
+
+// ======================================
+// FEATURED STORY
+// ======================================
+
 async function loadFeaturedStory() {
 
     const { data, error } = await supabaseClient
-
         .from("articles")
         .select("*")
-        .eq("is_featured", true)
         .eq("status", "Published")
+        .eq("is_featured", true)
         .order("publish_date", { ascending: false })
         .limit(1);
 
     if (error) {
-        console.error(error);
+        console.error("Featured Story Error:", error);
         return;
     }
 
     if (!data || data.length === 0) {
-        console.log("No featured article found");
+        console.log("No featured story found");
         return;
     }
+
+    const article = data[0];
+
+    console.log("Featured:", article);
+
+    // Hero Category
+    document.getElementById("heroCategory").textContent =
+        article.category || "Breaking News";
+
+    // Hero Title
+    document.getElementById("heroTitle").textContent =
+        article.title || "";
+
+    // Hero Summary
+    document.getElementById("heroSummary").textContent =
+        article.summary || "";
+
+    // Hero Button
+    document.getElementById("heroButton").href =
+        "article.html?slug=" + article.slug;
+
+    // Hero Background
+    if (article.featured_image) {
+
+        document.getElementById("featuredHero").style.backgroundImage =
+            `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.75)),
+             url('${article.featured_image}')`;
+
+    }
+
+}
+
+// ======================================
+// BREAKING NEWS TICKER
+// ======================================
+
 async function loadBreakingNews() {
 
     const { data, error } = await supabaseClient
         .from("articles")
-        .select("title,slug")
+        .select("title, slug")
         .eq("status", "Published")
         .eq("is_breaking", true)
         .order("publish_date", { ascending: false });
 
     if (error) {
-        console.error(error);
+        console.error("Breaking News Error:", error);
         return;
     }
 
@@ -47,39 +87,19 @@ async function loadBreakingNews() {
     if (!ticker) return;
 
     if (!data || data.length === 0) {
+
         ticker.innerHTML = "No Breaking News";
+
         return;
+
     }
 
-    ticker.innerHTML = data.map(article => `
-        <a href="article.html?slug=${article.slug}">
+    ticker.innerHTML = data.map(article =>
+
+        `<a href="article.html?slug=${article.slug}">
             🔴 ${article.title}
-        </a>
-    `).join("&nbsp;&nbsp;&nbsp;&nbsp;");
-}
-    const article = data[0];
+        </a>`
 
-    console.log(article);
+    ).join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 
-    // -------------------------
-    // Update Hero
-    // -------------------------
-document.getElementById("heroCategory").textContent =
-    article.category;
-
-document.getElementById("heroTitle").textContent =
-    article.title;
-
-document.getElementById("heroSummary").textContent =
-    article.summary;
-
-document.getElementById("heroButton").href =
-    "article.html?slug=" + article.slug;
-
-if(article.featured_image){
-
-    document.getElementById("featuredHero").style.backgroundImage =
-        `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.75)), url('${article.featured_image}')`;
-
-}
 }
