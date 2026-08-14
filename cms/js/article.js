@@ -58,10 +58,12 @@ async function loadArticle() {
             new Date(data.publish_date).toLocaleDateString();
     }
 
-    if(document.getElementById("articleImage")){
-        document.getElementById("articleImage").src =
-            data.featured_image;
-    }
+   const image = document.getElementById("articleImage");
+
+if(image){
+    image.src = data.featured_image;
+    image.alt = data.title;
+}
 
     if(document.getElementById("imageCaption")){
         document.getElementById("imageCaption").textContent =
