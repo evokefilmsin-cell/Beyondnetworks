@@ -136,15 +136,29 @@ async function loadTrendingSidebar(){
 
 <img src="${article.featured_image}">
 
-<p>
+sidebar.innerHTML += `
+<div class="mini-news">
 
-<a href="article.html?slug=${article.slug}">
+    <img src="${article.featured_image}" alt="${article.title}">
 
-${article.title}
+    <div>
 
-</a>
+        <span class="mini-category">
+            ${article.category}
+        </span>
 
-</p>
+        <p>
+
+            <a href="article.html?slug=${article.slug}">
+                ${article.title}
+            </a>
+
+        </p>
+
+    </div>
+
+</div>
+`;
 
 </div>
 
