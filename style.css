@@ -878,3 +878,12 @@ object-fit:cover;
 .mini-news a:hover{
     color:#ff4040;
 }
+.mini-category{
+    color:#ff4040;
+    font-size:12px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    display:block;
+    margin-bottom:8px;
+}
