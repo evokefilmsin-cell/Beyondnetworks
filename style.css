@@ -806,9 +806,9 @@ object-fit:cover;
 }
 
 .article-main h1{
-    font-size:52px;
-    line-height:1.15;
-    margin:20px 0;
+    font-size:38px;
+    line-height:1.2;
+    margin:20px 35px;
 }
 
 .article-meta{
