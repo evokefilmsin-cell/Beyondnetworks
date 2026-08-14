@@ -1080,3 +1080,45 @@ ARTICLE PAGE
     border-radius:30px;
 
 }
+/* ==============================
+   PREMIUM ARTICLE LAYOUT
+============================== */
+
+.article-page{
+    max-width:1500px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:280px minmax(0,1fr) 340px;
+    gap:40px;
+    padding:0 25px;
+    align-items:start;
+}
+
+.article-left,
+.article-right{
+    position:sticky;
+    top:100px;
+}
+
+.article-main{
+    background:#111;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+@media(max-width:1200px){
+
+.article-page{
+
+grid-template-columns:1fr;
+
+}
+
+.article-left,
+.article-right{
+
+display:none;
+
+}
+
+}
