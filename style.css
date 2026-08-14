@@ -791,20 +791,6 @@ object-fit:cover;
 }
 
 
-.article-image{
-
-    width:100%;
-
-    height:620px;
-
-    object-fit:cover;
-
-    border-radius:14px;
-
-    margin:25px 0;
-
-}
-
 
 
 .article-summary{
@@ -813,15 +799,6 @@ object-fit:cover;
     margin:25px 0;
 }
 
-.article-content{
-
-    font-size:21px;
-
-    line-height:2;
-
-    color:#ddd;
-
-}
 
 .article-content img{
     width:100%;
@@ -932,16 +909,6 @@ font-weight:700;
 letter-spacing:1px;
 text-transform:uppercase;
 margin:35px;
-
-}
-
-.article-main h1{
-
-font-size:52px;
-line-height:1.15;
-padding:0 35px;
-margin:20px 0;
-font-weight:800;
 
 }
 
@@ -1147,15 +1114,6 @@ display:none;
 
 }
 
-}
-/* All your existing CSS above... */
-
-.footer{
-    ...
-}
-
-.related-grid{
-    ...
 }
 
 /* =========================
