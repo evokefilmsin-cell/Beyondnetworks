@@ -4,10 +4,9 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Article | Beyond Networks</title>
+<title id="pageTitle">Beyond Networks</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -18,112 +17,112 @@
 <header class="topbar">
 
 <div class="logo">
-
 <img src="images/logo.png">
-
 </div>
 
 <nav>
 
 <a href="index.html">Home</a>
-
 <a href="videos.html">Videos</a>
-
 <a href="politics.html">Politics</a>
-
 <a href="business.html">Business</a>
-
 <a href="technology.html">Technology</a>
-
 <a href="sports.html">Sports</a>
-
 <a href="entertainment.html">Entertainment</a>
 
 </nav>
 
 </header>
 
-<section
-id="articleHero"
-class="hero"
-style="height:65vh;">
 
-<div class="hero-content">
 
-<p
-class="tag"
-id="articleCategory">
+<!-- BREAKING TICKER -->
 
-Loading...
+<div class="breaking-news">
 
-</p>
+<div class="breaking-label">
+BREAKING
+</div>
 
-<h1
-id="articleTitle">
+<div id="breakingTicker"></div>
 
-Loading...
+</div>
 
-</h1>
 
-<p
-class="subtitle"
-id="articleSummary">
 
-Loading...
+<!-- ARTICLE PAGE -->
 
-</p>
+<section class="article-page">
+
+<div class="article-container">
+
+<!-- LEFT CONTENT -->
+
+<div class="article-main">
+
+<img
+id="articleImage"
+class="article-image"
+src=""
+>
+
+<p id="articleCategory" class="article-category"></p>
+
+<h1 id="articleTitle"></h1>
+
+<div class="article-meta">
+
+<span id="articleDate"></span>
+
+</div>
+
+<p id="articleSummary" class="article-summary"></p>
+
+<div
+id="articleContent"
+class="article-content">
+
+</div>
+
+</div>
+
+
+
+<!-- RIGHT SIDEBAR -->
+
+<aside class="article-sidebar">
+
+<h2>Trending Now</h2>
+
+<div id="trendingSidebar"></div>
+
+<hr>
+
+<h2>Latest News</h2>
+
+<div id="latestSidebar"></div>
+
+</aside>
 
 </div>
 
 </section>
 
-<main
-class="container"
-style="max-width:900px;margin:auto;padding:60px 20px;">
+
+
+<section class="related-section">
+
+<h2>Related Stories</h2>
 
 <div
-style="display:flex;justify-content:space-between;margin-bottom:30px;">
-
-<div>
-
-<strong id="articleAuthor">
-
-Author
-
-</strong>
+id="relatedStories"
+class="related-grid">
 
 </div>
 
-<div id="articleDate">
+</section>
 
-Date
 
-</div>
-
-</div>
-
-<div
-id="articleContent">
-
-Loading article...
-
-</div>
-
-<hr style="margin:60px 0;">
-
-<h2>
-
-Related Articles
-
-</h2>
-
-<div
-class="news-grid"
-id="relatedArticles">
-
-</div>
-
-</main>
 
 <footer class="footer">
 
@@ -131,13 +130,15 @@ id="relatedArticles">
 
 <p>
 
-© 2026 Beyond Networks
+© 2026 BeyondNetworks
 
 </p>
 
 </div>
 
 </footer>
+
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
