@@ -807,8 +807,10 @@ object-fit:cover;
 
 .article-main h1{
     font-size:38px;
-    line-height:1.2;
-    margin:20px 35px;
+    line-height:1.25;
+    padding:0 35px;
+    margin:20px 0;
+    font-weight:700;
 }
 
 .article-meta{
@@ -1191,5 +1193,65 @@ grid-template-columns:1fr;
 display:none;
 
 }
+
+}
+/* All your existing CSS above... */
+
+.footer{
+    ...
+}
+
+.related-grid{
+    ...
+}
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+.article-main h1{
+    font-size:42px;
+}
+
+/* Tablet */
+@media (max-width:1024px){
+
+    .article-main h1{
+        font-size:36px;
+    }
+
+}
+
+/* Mobile */
+@media (max-width:768px){
+
+    .article-page{
+        grid-template-columns:1fr;
+        padding:20px;
+    }
+
+    .article-left,
+    .article-right{
+        display:none;
+    }
+
+    .article-main{
+        width:100%;
+        padding:25px;
+    }
+
+    .article-main h1{
+        font-size:28px;
+        line-height:1.3;
+    }
+
+    .article-image{
+        height:auto;
+    }
+
+    .share-bar{
+        flex-wrap:wrap;
+        gap:10px;
+    }
 
 }
