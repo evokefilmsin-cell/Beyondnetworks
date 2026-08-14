@@ -55,9 +55,6 @@ async function loadArticle(){
     document.getElementById("articleTitle").textContent =
         data.title;
 
-    document.getElementById("articleSummary").textContent =
-        data.summary;
-
     document.getElementById("articleDate").textContent =
         new Date(data.publish_date).toLocaleDateString();
 
@@ -112,57 +109,46 @@ async function loadBreakingNews(){
 async function loadTrendingSidebar(){
 
     const { data } = await supabaseClient
-
         .from("articles")
-
         .select("*")
-
         .eq("status","Published")
-
         .eq("is_trending",true)
-
+        .order("publish_date",{ascending:false})
         .limit(5);
 
-    const sidebar =
-        document.getElementById("trendingSidebar");
+    const sidebar = document.getElementById("trendingNewsArticle");
 
-    sidebar.innerHTML="";
+    if(!sidebar) return;
+
+    sidebar.innerHTML = "";
 
     data.forEach(article=>{
 
         sidebar.innerHTML += `
 
-<div class="mini-news">
+        <div class="mini-news">
 
-<img src="${article.featured_image}">
+            <img src="${article.featured_image}" alt="${article.title}">
 
-sidebar.innerHTML += `
-<div class="mini-news">
+            <div>
 
-    <img src="${article.featured_image}" alt="${article.title}">
+                <span class="mini-category">
+                    ${article.category}
+                </span>
 
-    <div>
+                <p>
 
-        <span class="mini-category">
-            ${article.category}
-        </span>
+                    <a href="article.html?slug=${article.slug}">
+                        ${article.title}
+                    </a>
 
-        <p>
+                </p>
 
-            <a href="article.html?slug=${article.slug}">
-                ${article.title}
-            </a>
+            </div>
 
-        </p>
+        </div>
 
-    </div>
-
-</div>
-`;
-
-</div>
-
-`;
+        `;
 
     });
 
@@ -174,43 +160,45 @@ sidebar.innerHTML += `
 async function loadLatestSidebar(){
 
     const { data } = await supabaseClient
-
         .from("articles")
-
         .select("*")
-
         .eq("status","Published")
-
         .order("publish_date",{ascending:false})
-
         .limit(5);
 
-    const sidebar =
-        document.getElementById("latestSidebar");
+    const sidebar = document.getElementById("latestNewsArticle");
 
-    sidebar.innerHTML="";
+    if(!sidebar) return;
+
+    sidebar.innerHTML = "";
 
     data.forEach(article=>{
 
         sidebar.innerHTML += `
 
-<div class="mini-news">
+        <div class="mini-news">
 
-<img src="${article.featured_image}">
+            <img src="${article.featured_image}" alt="${article.title}">
 
-<p>
+            <div>
 
-<a href="article.html?slug=${article.slug}">
+                <span class="mini-category">
+                    ${article.category}
+                </span>
 
-${article.title}
+                <p>
 
-</a>
+                    <a href="article.html?slug=${article.slug}">
+                        ${article.title}
+                    </a>
 
-</p>
+                </p>
 
-</div>
+            </div>
 
-`;
+        </div>
+
+        `;
 
     });
 
