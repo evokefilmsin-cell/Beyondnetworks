@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadFeaturedStory();
     loadBreakingNews();
     loadLatestUpdates();
+    loadChannels();
     loadTrendingStories();
 });
 
@@ -215,5 +216,83 @@ async function loadTrendingStories() {
         `;
 
     });
+
+}
+// ======================================
+// LATEST BY CATEGORY
+// ======================================
+
+async function loadChannels() {
+
+    const categories = [
+        "Politics",
+        "Business",
+        "Technology",
+        "Sports",
+        "Entertainment"
+    ];
+
+    const container = document.getElementById("channelsContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    for (const category of categories) {
+
+        const { data, error } = await supabaseClient
+            .from("articles")
+            .select("*")
+            .eq("status", "Published")
+            .eq("category", category)
+            .order("publish_date", { ascending: false })
+            .limit(4);
+
+        if (error) {
+            console.error(error);
+            continue;
+        }
+
+        if (!data.length) continue;
+
+        let html = `
+            <div class="channel-row">
+
+                <h3 class="channel-title">${category}</h3>
+
+                <div class="channel-grid">
+        `;
+
+        data.forEach(article => {
+
+            html += `
+                <a class="channel-card"
+                   href="article.html?slug=${article.slug}">
+
+                    <img src="${article.featured_image}"
+                         alt="${article.title}">
+
+                    <div class="channel-content">
+
+                        <span>${article.category}</span>
+
+                        <h4>${article.title}</h4>
+
+                    </div>
+
+                </a>
+            `;
+
+        });
+
+        html += `
+                </div>
+
+            </div>
+        `;
+
+        container.innerHTML += html;
+
+    }
 
 }
