@@ -281,10 +281,8 @@ async function loadSection(targetId, filters = {}, limit = 4) {
 // LATEST
 // =====================================
 
-function loadLatestPolitics() {
-
-    loadSection("latestPolitics");
-
+unction loadLatestPolitics() {
+    loadSection("latestPolitics", {}, 4);
 }
 
 // =====================================
@@ -292,11 +290,9 @@ function loadLatestPolitics() {
 // =====================================
 
 function loadOpinionPolitics() {
-
     loadSection("opinionPolitics", {
         is_opinion: true
-    });
-
+    }, 4);
 }
 
 // =====================================
@@ -304,31 +300,26 @@ function loadOpinionPolitics() {
 // =====================================
 
 function loadVideosPolitics() {
-
     loadSection("videosPolitics", {
         is_video: true
-    });
-
+    }, 4);
 }
 
 // =====================================
 // MOST READ
 // =====================================
 
-function loadMostReadPolitics() {
-
-    loadSection("mostReadPolitics");
-
+unction loadMostReadPolitics() {
+    loadSection("mostReadPolitics", {
+        is_trending: true
+    }, 4);
 }
 
 // =====================================
 // EDITOR PICKS
 // =====================================
-
 function loadEditorsPicks() {
-
     loadSection("editorPolitics", {
         is_editor_pick: true
-    });
-
+    }, 4);
 }
