@@ -178,10 +178,12 @@ nav a:hover {
   font-size: 14px;
 }
 
-.hero h1 {
-  font-size: 64px;
-  line-height: 1.1;
-  margin-bottom: 22px;
+.hero h1{
+    font-size:52px;
+    line-height:1.08;
+    max-width:760px;
+    font-weight:800;
+    letter-spacing:-1px;
 }
 
 .subtitle {
@@ -582,9 +584,10 @@ channels-section {
     padding: 40px 25px;
   }
 
-  .hero h1 {
-    font-size: 42px;
-  }
+  .hero h1{
+    font-size:36px;
+    line-height:1.15;
+}
 
   .news-grid {
     grid-template-columns: 1fr;
