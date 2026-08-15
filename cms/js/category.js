@@ -13,7 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadFeaturedStory();
 
-    loadTrendingStories();
+    loadTopStories();
+
+    loadLatestPolitics();
+
+    loadOpinionPolitics();
+
+    loadVideosPolitics();
+
+    loadMostReadPolitics();
+
+    loadEditorsPicks();
 
 });
 
@@ -208,6 +218,117 @@ ${article.title}
 
 `;
 
+    });
+
+}
+// =====================================
+// REUSABLE SECTION LOADER
+// =====================================
+
+async function loadSection(targetId, filters = {}, limit = 4) {
+
+    let query = supabaseClient
+        .from("articles")
+        .select("*")
+        .eq("status", "Published")
+        .eq("category", category);
+
+    Object.entries(filters).forEach(([key, value]) => {
+        query = query.eq(key, value);
+    });
+
+    const { data, error } = await query
+        .order("publish_date", { ascending: false })
+        .limit(limit);
+
+    if (error) {
+        console.error(error);
+        return;
+    }
+
+    const container = document.getElementById(targetId);
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    data.forEach(article => {
+
+        container.innerHTML += `
+
+<a href="article.html?slug=${article.slug}" class="category-card">
+
+    <img src="${article.featured_image}" alt="${article.title}">
+
+    <div class="content">
+
+        <span>${article.category}</span>
+
+        <h3>${article.title}</h3>
+
+        <p>${article.summary || ""}</p>
+
+    </div>
+
+</a>
+
+`;
+
+    });
+
+}
+// =====================================
+// LATEST
+// =====================================
+
+function loadLatestPolitics() {
+
+    loadSection("latestPolitics");
+
+}
+
+// =====================================
+// OPINION
+// =====================================
+
+function loadOpinionPolitics() {
+
+    loadSection("opinionPolitics", {
+        is_opinion: true
+    });
+
+}
+
+// =====================================
+// VIDEOS
+// =====================================
+
+function loadVideosPolitics() {
+
+    loadSection("videosPolitics", {
+        is_video: true
+    });
+
+}
+
+// =====================================
+// MOST READ
+// =====================================
+
+function loadMostReadPolitics() {
+
+    loadSection("mostReadPolitics");
+
+}
+
+// =====================================
+// EDITOR PICKS
+// =====================================
+
+function loadEditorsPicks() {
+
+    loadSection("editorPolitics", {
+        is_editor_pick: true
     });
 
 }
