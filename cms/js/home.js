@@ -246,7 +246,7 @@ async function loadChannels() {
             .eq("status", "Published")
             .eq("category", category)
             .order("publish_date", { ascending: false })
-            .limit(4);
+            .limit(15);
 
         if (error) {
             console.error(error);
@@ -256,43 +256,93 @@ async function loadChannels() {
         if (!data.length) continue;
 
         let html = `
-            <div class="channel-row">
 
-                <h3 class="channel-title">${category}</h3>
+<div class="channel-row">
 
-                <div class="channel-grid">
-        `;
+    <div class="channel-header">
+
+        <h3>${category}</h3>
+
+        <a href="${category.toLowerCase()}.html">
+            View All →
+        </a>
+
+    </div>
+
+    <button class="slider-arrow prev">
+        &#10094;
+    </button>
+
+    <div class="headline-slider">
+
+`;
 
         data.forEach(article => {
 
             html += `
-                <a class="channel-card"
-                   href="article.html?slug=${article.slug}">
 
-                    <img src="${article.featured_image}"
-                         alt="${article.title}">
+<a class="headline-card"
+href="article.html?slug=${article.slug}">
 
-                    <div class="channel-content">
+    <span>
+        ${article.category}
+    </span>
 
-                        <span>${article.category}</span>
+    <h4>
+        ${article.title}
+    </h4>
 
-                        <h4>${article.title}</h4>
+    <p>
+        ${new Date(article.publish_date).toLocaleDateString()}
+    </p>
 
-                    </div>
+</a>
 
-                </a>
-            `;
+`;
 
         });
 
         html += `
-                </div>
 
-            </div>
-        `;
+    </div>
+
+    <button class="slider-arrow next">
+        &#10095;
+    </button>
+
+</div>
+
+`;
 
         container.innerHTML += html;
 
     }
+
+    // Arrow functionality
+
+    document.querySelectorAll(".channel-row").forEach(row=>{
+
+        const slider =
+            row.querySelector(".headline-slider");
+
+        row.querySelector(".next").onclick = ()=>{
+
+            slider.scrollBy({
+                left:300,
+                behavior:"smooth"
+            });
+
+        };
+
+        row.querySelector(".prev").onclick = ()=>{
+
+            slider.scrollBy({
+                left:-300,
+                behavior:"smooth"
+            });
+
+        };
+
+    });
 
 }
