@@ -219,17 +219,29 @@ async function loadLatestSidebar(){
 
     if(!sidebar) return;
 
-    sidebar.innerHTML="";
-
-    data.forEach(article=>{
-
-        sidebar.innerHTML += `
-
+   sidebar.innerHTML += `
 <div class="mini-news">
 
-sidebar.innerHTML += `
+    <a href="article.html?slug=${article.slug}">
 
-<div class="mini-news">
+        <img
+            src="${article.featured_image}"
+            alt="${article.title}"
+            class="mini-thumb"
+        >
+
+        <span class="mini-category">
+            ${article.category}
+        </span>
+
+        <h4 class="mini-title">
+            ${article.title}
+        </h4>
+
+    </a>
+
+</div>
+`;
 
     <a href="article.html?slug=${article.slug}">
 
