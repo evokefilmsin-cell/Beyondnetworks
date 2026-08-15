@@ -112,7 +112,7 @@ async function loadBreakingNews(){
         .eq("status","Published")
         .eq("is_breaking",true)
         .order("publish_date",{ascending:false});
-        .limit(8);
+        
 
     if(error){
         console.error(error);
