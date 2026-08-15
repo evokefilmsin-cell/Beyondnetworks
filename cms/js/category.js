@@ -281,7 +281,7 @@ async function loadSection(targetId, filters = {}, limit = 4) {
 // LATEST
 // =====================================
 
-unction loadLatestPolitics() {
+function loadLatestPolitics() {
     loadSection("latestPolitics", {}, 4);
 }
 
