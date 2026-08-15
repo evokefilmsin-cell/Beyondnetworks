@@ -151,7 +151,6 @@ async function loadTrendingSidebar(){
         .eq("status","Published")
         .eq("is_trending",true)
         .order("publish_date",{ascending:false})
-        .limit(5);
 
     if(error){
         console.error(error);
@@ -273,7 +272,6 @@ async function loadRelatedStories(category,id){
         .eq("category",category)
         .neq("id",id)
         .order("publish_date",{ascending:false})
-        .limit(4);
 
     if(error){
         console.error(error);
