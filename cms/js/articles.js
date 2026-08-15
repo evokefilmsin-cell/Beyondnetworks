@@ -111,7 +111,7 @@ ${article.is_opinion
 ${article.is_video
 ? '<span class="badge bg-primary">TRENDING</span>'
 : ''}
-${article.is_article.is_editor_pick
+${article.is_editor_pick
 ? '<span class="badge bg-primary">TRENDING</span>'
 : ''}
 </td>
