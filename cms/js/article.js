@@ -207,7 +207,7 @@ async function loadLatestSidebar() {
         .select("*")
         .eq("status","Published")
         .order("publish_date",{ascending:false})
-        .limit(5);
+        .limit(8);
 
     if (error) {
         console.error(error);
@@ -259,6 +259,7 @@ async function loadRelatedStories(category,id){
         .eq("category",category)
         .neq("id",id)
         .order("publish_date",{ascending:false})
+        .limit(8);
 
     if(error){
         console.error(error);
