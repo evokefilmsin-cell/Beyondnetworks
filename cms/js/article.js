@@ -228,25 +228,31 @@ async function loadLatestSidebar(){
 
 <div class="mini-news">
 
-<img src="${article.featured_image}" alt="${article.title}">
+sidebar.innerHTML += `
 
-<div>
+<div class="mini-news">
 
-<span class="mini-category">
-${article.category}
-</span>
+    <a href="article.html?slug=${article.slug}">
 
-<p>
+        <img
+            src="${article.featured_image}"
+            alt="${article.title}"
+            class="mini-thumb"
+        >
 
-<a href="article.html?slug=${article.slug}">
-${article.title}
-</a>
+        <span class="mini-category">
+            ${article.category}
+        </span>
 
-</p>
+        <h4 class="mini-title">
+            ${article.title}
+        </h4>
+
+    </a>
 
 </div>
 
-</div>
+`;
 
 `;
 
