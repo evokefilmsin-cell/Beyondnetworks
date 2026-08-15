@@ -1590,40 +1590,38 @@ padding:5px 0;
 }
 
 }
-/*=====================================
-POLITICS PAGE
-=====================================*/
+/*==================================================
+POLITICS PAGE V2
+==================================================*/
 
 .politics-top{
 
     width:92%;
     max-width:1700px;
 
-    margin:40px auto 70px;
+    margin:40px auto 80px;
 
     display:grid;
 
-    grid-template-columns:2fr 1fr;
+    grid-template-columns:68% 32%;
 
-    gap:30px;
+    gap:35px;
 
 }
 
-/*=========================
-FEATURED STORY
-=========================*/
+/*===================================
+FEATURED
+===================================*/
 
 .featured-politics{
 
-    background:#111;
+    background:#101010;
 
-    border:1px solid #222;
-
-    border-radius:18px;
+    border-radius:20px;
 
     overflow:hidden;
 
-    min-height:650px;
+    border:1px solid #222;
 
 }
 
@@ -1631,7 +1629,7 @@ FEATURED STORY
 
     width:100%;
 
-    height:420px;
+    height:500px;
 
     object-fit:cover;
 
@@ -1645,25 +1643,31 @@ FEATURED STORY
 
 .featured-content span{
 
-    color:#ff4040;
+    display:inline-block;
 
-    font-size:13px;
+    background:#ff4040;
 
-    text-transform:uppercase;
+    color:white;
+
+    padding:6px 14px;
+
+    border-radius:40px;
+
+    font-size:12px;
 
     font-weight:700;
 
-    letter-spacing:1px;
+    margin-bottom:18px;
 
 }
 
 .featured-content h1{
 
-    font-size:42px;
+    font-size:44px;
 
-    line-height:1.25;
+    line-height:1.2;
 
-    margin:18px 0;
+    margin-bottom:18px;
 
 }
 
@@ -1675,123 +1679,157 @@ FEATURED STORY
 
     font-size:18px;
 
-    margin-bottom:25px;
-
 }
 
 .featured-content a{
 
     display:inline-block;
 
-    padding:14px 28px;
-
-    border-radius:40px;
+    margin-top:25px;
 
     background:#ff4040;
-
-    color:#fff;
-
-    text-decoration:none;
-
-    font-weight:700;
-
-}
-
-/*=========================
-TRENDING
-=========================*/
-
-.politics-trending{
-
-    background:#111;
-
-    border:1px solid #222;
-
-    border-radius:18px;
-
-    padding:25px;
-
-}
-
-.politics-trending h2{
-
-    font-size:28px;
-
-    margin-bottom:25px;
-
-}
-
-.trending-item{
-
-    display:flex;
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-    padding-bottom:20px;
-
-    border-bottom:1px solid #222;
-
-}
-
-.trending-item:last-child{
-
-    border-bottom:none;
-
-}
-
-.trending-item img{
-
-    width:110px;
-
-    height:80px;
-
-    border-radius:8px;
-
-    object-fit:cover;
-
-}
-
-.trending-item span{
-
-    color:#ff4040;
-
-    font-size:11px;
-
-    font-weight:700;
-
-    text-transform:uppercase;
-
-}
-
-.trending-item h4{
-
-    margin-top:8px;
-
-    font-size:18px;
-
-    line-height:1.4;
-
-}
-
-.trending-item a{
 
     color:white;
 
     text-decoration:none;
 
+    padding:14px 28px;
+
+    border-radius:40px;
+
 }
 
-.trending-item a:hover{
+/*===================================
+TOP STORIES
+===================================*/
+
+.top-stories{
+
+    background:#111;
+
+    border:1px solid #222;
+
+    border-radius:20px;
+
+    padding:25px;
+
+}
+
+.top-stories-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.top-stories-header h2{
+
+    font-size:30px;
+
+}
+
+.top-stories-header a{
 
     color:#ff4040;
 
+    text-decoration:none;
+
 }
 
-/*=========================
-CATEGORY SECTIONS
-=========================*/
+/* FIRST TWO */
+
+.top-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+
+    margin-bottom:20px;
+
+}
+
+.top-card{
+
+    text-decoration:none;
+
+}
+
+.top-card img{
+
+    width:100%;
+
+    height:140px;
+
+    border-radius:10px;
+
+    object-fit:cover;
+
+}
+
+.top-card h4{
+
+    margin-top:10px;
+
+    color:white;
+
+    font-size:15px;
+
+    line-height:1.45;
+
+}
+
+/* REST */
+
+.story-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:14px;
+
+}
+
+.story-item{
+
+    padding:12px;
+
+    border:1px solid #222;
+
+    border-radius:10px;
+
+    transition:.25s;
+
+}
+
+.story-item:hover{
+
+    border-color:#ff4040;
+
+}
+
+.story-item a{
+
+    text-decoration:none;
+
+    color:white;
+
+    font-size:15px;
+
+    line-height:1.45;
+
+}
+
+/*===================================
+CATEGORY SECTION
+===================================*/
 
 .category-section{
 
@@ -1799,7 +1837,7 @@ CATEGORY SECTIONS
 
     max-width:1700px;
 
-    margin:0 auto 70px;
+    margin:70px auto;
 
 }
 
@@ -1827,8 +1865,6 @@ CATEGORY SECTIONS
 
     text-decoration:none;
 
-    font-weight:700;
-
 }
 
 .category-grid{
@@ -1838,113 +1874,5 @@ CATEGORY SECTIONS
     grid-template-columns:repeat(4,1fr);
 
     gap:25px;
-
-}
-
-/*=========================
-CARD
-=========================*/
-
-.category-card{
-
-    background:#111;
-
-    border-radius:16px;
-
-    overflow:hidden;
-
-    border:1px solid #222;
-
-    transition:.3s;
-
-}
-
-.category-card:hover{
-
-    transform:translateY(-6px);
-
-    border-color:#ff4040;
-
-}
-
-.category-card img{
-
-    width:100%;
-
-    height:220px;
-
-    object-fit:cover;
-
-}
-
-.category-card .content{
-
-    padding:20px;
-
-}
-
-.category-card span{
-
-    color:#ff4040;
-
-    font-size:12px;
-
-    font-weight:700;
-
-    text-transform:uppercase;
-
-}
-
-.category-card h3{
-
-    margin-top:12px;
-
-    font-size:21px;
-
-    line-height:1.45;
-
-}
-
-.category-card p{
-
-    color:#9b9b9b;
-
-    margin-top:12px;
-
-}
-
-/*=========================
-RESPONSIVE
-=========================*/
-
-@media(max-width:1200px){
-
-.politics-top{
-
-grid-template-columns:1fr;
-
-}
-
-.category-grid{
-
-grid-template-columns:repeat(2,1fr);
-
-}
-
-}
-
-@media(max-width:768px){
-
-.category-grid{
-
-grid-template-columns:1fr;
-
-}
-
-.featured-content h1{
-
-font-size:30px;
-
-}
 
 }
