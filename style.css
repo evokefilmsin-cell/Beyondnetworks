@@ -1253,46 +1253,85 @@ grid-template-columns:1fr;
 }
 
 }
-/*=====================================
-BEYOND CHANNELS
-=====================================*/
+/* =========================================
+   BEYOND CHANNELS
+========================================= */
 
-.channels{
+.beyond-channels{
     width:92%;
     max-width:1700px;
     margin:80px auto;
 }
 
-.channels h2{
+.beyond-channels h2{
     font-size:42px;
+    font-weight:700;
     margin-bottom:40px;
+    color:#fff;
 }
 
 .channel-logos{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:40px;
+    gap:30px;
 }
 
-.channel-logo{
+.channel-card{
     background:#111;
     border:1px solid #222;
     border-radius:18px;
-    padding:40px;
+    min-height:220px;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
+    transition:.3s ease;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.channel-card:hover{
+    border-color:#ff4040;
+    transform:translateY(-8px);
+    box-shadow:0 12px 40px rgba(255,64,64,.18);
+}
+
+.channel-card img{
+    width:220px;
+    max-width:80%;
+    height:auto;
+    object-fit:contain;
     transition:.3s;
 }
 
-.channel-logo:hover{
-    border-color:#ff4040;
-    transform:translateY(-6px);
+.channel-card:hover img{
+    transform:scale(1.05);
 }
 
-.channel-logo img{
-    width:180px;
-    max-width:100%;
+/* Mobile */
+
+@media(max-width:900px){
+
+    .channel-logos{
+
+        grid-template-columns:1fr;
+        gap:20px;
+
+    }
+
+    .channel-card{
+
+        min-height:170px;
+
+    }
+
+    .channel-card img{
+
+        width:180px;
+
+    }
+
 }
 /*=================================================
 LATEST BY CATEGORY
