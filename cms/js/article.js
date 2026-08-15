@@ -152,7 +152,7 @@ async function loadTrendingSidebar(){
         .eq("status","Published")
         .eq("is_trending",true)
         .order("publish_date",{ascending:false})
-        .limit(8);
+        
 
     if(error){
         console.error(error);
