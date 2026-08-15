@@ -1,76 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politics - BeyondNetworks</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Politics | Beyond Networks</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cms/js/supabase.js"></script>
+    <script src="cms/js/category.js" defer></script>
+
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<script src="cms/js/supabase.js"></script>
-
-<script src="cms/js/category.js"></script>
-  
 <body>
 
-  <header class="topbar">
-    <div class="logo">BeyondNetworks</div>
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+        <img src="images/logo.png" alt="Beyond Networks">
+    </div>
 
     <nav>
-      <a href="index.html">Home</a>
-      <a href="videos.html">Videos</a>
-      <a href="politics.html">Politics</a>
-      <a href="business.html">Business</a>
-      <a href="technology.html">Technology</a>
-      <a href="sports.html">Sports</a>
-      <a href="entertainment.html">Entertainment</a>
+
+        <a href="index.html">Home</a>
+        <a href="videos.html">Videos</a>
+        <a href="politics.html">Politics</a>
+        <a href="business.html">Business</a>
+        <a href="technology.html">Technology</a>
+        <a href="sports.html">Sports</a>
+        <a href="entertainment.html">Entertainment</a>
+
     </nav>
-  </header>
 
-  <section class="hero" id="categoryHero" style="height:60vh;">
+</header>
 
-    <div class="hero-content">
+<!-- ========================= -->
+<!-- BREAKING NEWS -->
+<!-- ========================= -->
 
-        <p class="tag" id="categoryName">
-            Politics
-        </p>
+<section class="breaking-bar">
 
-        <h1 id="featuredTitle">
+    <div class="breaking-label">
+        BREAKING
+    </div>
+
+    <marquee
+        id="breakingTicker"
+        behavior="scroll"
+        direction="left"
+        scrollamount="6">
+
+        Loading Breaking News...
+
+    </marquee>
+
+</section>
+
+<!-- ========================= -->
+<!-- FEATURED + TRENDING -->
+<!-- ========================= -->
+
+<section class="politics-top">
+
+    <!-- Featured Story -->
+
+    <div class="featured-politics">
+
+        <div id="featuredPolitics">
+
+            Loading Featured Story...
+
+        </div>
+
+    </div>
+
+    <!-- Trending -->
+
+    <aside class="politics-trending">
+
+        <h2>Trending Politics</h2>
+
+        <div id="politicsTrending">
+
             Loading...
-        </h1>
 
-        <p class="subtitle" id="featuredSummary">
-            Loading latest news...
-        </p>
+        </div>
 
-        <a href="#" id="featuredButton" class="button">
-            Read Story
-        </a>
+    </aside>
+
+</section>
+
+<!-- ========================= -->
+<!-- LATEST -->
+<!-- ========================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Latest</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+    <div
+        class="category-grid"
+        id="latestPolitics">
 
     </div>
 
 </section>
 
-  <section class="section-title">
-    <h2>Top Stories</h2>
-  </section>
+<!-- ========================= -->
+<!-- OPINION -->
+<!-- ========================= -->
 
-  </main><main>
+<section class="category-section">
 
-    <section class="news-grid" id="categoryArticles">
+    <div class="section-heading">
 
-        <!-- Articles will load here -->
+        <h2>Opinion</h2>
 
-    </section>
+        <a href="#">View All →</a>
 
-</main>
-
-  <footer class="footer">
-    <div class="footer-bottom">
-      <p>© 2026 BeyondNetworks. All Rights Reserved.</p>
     </div>
-  </footer>
+
+    <div
+        class="category-grid"
+        id="opinionPolitics">
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- VIDEOS -->
+<!-- ========================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Videos</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+    <div
+        class="category-grid"
+        id="videosPolitics">
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- MOST READ -->
+<!-- ========================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Most Read</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+    <div
+        class="category-grid"
+        id="mostReadPolitics">
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- EDITOR PICKS -->
+<!-- ========================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Editor's Picks</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+    <div
+        class="category-grid"
+        id="editorPolitics">
+
+    </div>
+
+</section>
+
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+<footer class="footer">
+
+    <div class="footer-bottom">
+
+        <p>
+
+            © 2026 Beyond Networks. All Rights Reserved.
+
+        </p>
+
+    </div>
+
+</footer>
 
 </body>
-</html> 
+
+</html>
