@@ -243,28 +243,6 @@ async function loadLatestSidebar(){
 </div>
 `;
 
-    <a href="article.html?slug=${article.slug}">
-
-        <img
-            src="${article.featured_image}"
-            alt="${article.title}"
-            class="mini-thumb"
-        >
-
-        <span class="mini-category">
-            ${article.category}
-        </span>
-
-        <h4 class="mini-title">
-            ${article.title}
-        </h4>
-
-    </a>
-
-</div>
-
-`;
-
     });
 
 }
