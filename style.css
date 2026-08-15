@@ -922,6 +922,7 @@ ARTICLE PAGE
 
 .article-left,
 .article-right{
+  position:sticky;
 
     width:280px;
 
@@ -1027,9 +1028,14 @@ border-bottom:1px solid #222;
 
 .article-content{
 
-padding:45px;
-font-size:21px;
+font-size:22px;
+
 line-height:2;
+
+max-width:850px;
+
+margin:auto;
+
 color:#ececec;
 
 }
