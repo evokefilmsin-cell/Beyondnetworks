@@ -112,6 +112,7 @@ async function loadBreakingNews(){
         .eq("status","Published")
         .eq("is_breaking",true)
         .order("publish_date",{ascending:false});
+        .limit(8);
 
     if(error){
         console.error(error);
@@ -151,6 +152,7 @@ async function loadTrendingSidebar(){
         .eq("status","Published")
         .eq("is_trending",true)
         .order("publish_date",{ascending:false})
+        .limit(8);
 
     if(error){
         console.error(error);
@@ -174,19 +176,17 @@ async function loadTrendingSidebar(){
 
 <div>
 
+<div class="mini-content">
+
 <span class="mini-category">
 ${article.category}
 </span>
 
-<p>
-
+<h4 class="mini-title">
 <a href="article.html?slug=${article.slug}">
 ${article.title}
 </a>
-
-</p>
-
-</div>
+</h4>
 
 </div>
 
