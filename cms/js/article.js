@@ -200,7 +200,7 @@ ${article.title}
 // LATEST SIDEBAR
 // =======================================
 
-async function loadLatestSidebar(){
+async function loadLatestSidebar() {
 
     const { data, error } = await supabaseClient
         .from("articles")
@@ -209,39 +209,38 @@ async function loadLatestSidebar(){
         .order("publish_date",{ascending:false})
         .limit(5);
 
-    if(error){
+    if (error) {
         console.error(error);
         return;
     }
 
-    const sidebar =
-        document.getElementById("latestNewsArticle");
+    const sidebar = document.getElementById("latestNewsArticle");
 
-    if(!sidebar) return;
+    if (!sidebar) return;
 
-   sidebar.innerHTML += `
-<div class="mini-news">
+    sidebar.innerHTML = "";
 
-    <a href="article.html?slug=${article.slug}">
+    data.forEach(article => {
 
-        <img
-            src="${article.featured_image}"
-            alt="${article.title}"
-            class="mini-thumb"
-        >
+        sidebar.innerHTML += `
+        <div class="mini-news">
+            <a href="article.html?slug=${article.slug}">
+                <img
+                    src="${article.featured_image}"
+                    alt="${article.title}"
+                    class="mini-thumb"
+                >
 
-        <span class="mini-category">
-            ${article.category}
-        </span>
+                <span class="mini-category">
+                    ${article.category}
+                </span>
 
-        <h4 class="mini-title">
-            ${article.title}
-        </h4>
-
-    </a>
-
-</div>
-`;
+                <h4 class="mini-title">
+                    ${article.title}
+                </h4>
+            </a>
+        </div>
+        `;
 
     });
 
