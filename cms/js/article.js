@@ -265,8 +265,6 @@ async function loadLatestSidebar(){
 
 `;
 
-`;
-
     });
 
 }
