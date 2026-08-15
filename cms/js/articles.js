@@ -105,7 +105,15 @@ ${article.is_featured
 ${article.is_trending
 ? '<span class="badge bg-primary">TRENDING</span>'
 : ''}
-
+${article.is_opinion
+? '<span class="badge bg-primary">TRENDING</span>'
+: ''}
+${article.is_video
+? '<span class="badge bg-primary">TRENDING</span>'
+: ''}
+${article.is_article.is_editor_pick
+? '<span class="badge bg-primary">TRENDING</span>'
+: ''}
 </td>
 <td>
 
