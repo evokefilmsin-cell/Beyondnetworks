@@ -1253,6 +1253,47 @@ grid-template-columns:1fr;
 }
 
 }
+/*=====================================
+BEYOND CHANNELS
+=====================================*/
+
+.channels{
+    width:92%;
+    max-width:1700px;
+    margin:80px auto;
+}
+
+.channels h2{
+    font-size:42px;
+    margin-bottom:40px;
+}
+
+.channel-logos{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+}
+
+.channel-logo{
+    background:#111;
+    border:1px solid #222;
+    border-radius:18px;
+    padding:40px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transition:.3s;
+}
+
+.channel-logo:hover{
+    border-color:#ff4040;
+    transform:translateY(-6px);
+}
+
+.channel-logo img{
+    width:180px;
+    max-width:100%;
+}
 /*=================================================
 LATEST BY CATEGORY
 =================================================*/
