@@ -1834,7 +1834,7 @@ CATEGORY CARDS
 
 .category-card img{
     width:100%;
-    height:220px;
+    height:150px;
     object-fit:cover;
     display:block;
 }
@@ -1851,9 +1851,9 @@ CATEGORY CARDS
 }
 
 .category-card h3{
-    margin:12px 0;
-    font-size:22px;
-    line-height:1.4;
+    margin:8px 0;
+    font-size:17px;
+    line-height:1.35;
 }
 
 .category-card p{
