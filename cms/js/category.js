@@ -178,7 +178,7 @@ async function loadTrendingStories(){
     }
 
     const container =
-        document.getElementById("politicsTrending");
+       document.getElementById("topStories");
 
     if(!container) return;
 
