@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadFeaturedStory();
 
-    loadTrendingStories();
+    loadTopStories();
 
     loadLatestPolitics();
 
