@@ -309,7 +309,7 @@ function loadVideosPolitics() {
 // MOST READ
 // =====================================
 
-unction loadMostReadPolitics() {
+function loadMostReadPolitics() {
     loadSection("mostReadPolitics", {
         is_trending: true
     }, 4);
