@@ -1748,14 +1748,22 @@ TOP STORIES
 }
 
 .top-story-text{
-    grid-column:span 1;
-    padding:18px 0;
-    border-top:1px solid #222;
-}
 
+    grid-column:1 / -1;
+
+    padding:16px 0;
+
+    border-top:1px solid #222;
+
+}
 .top-story-text h4{
-    font-size:17px;
+
+    margin:0;
+
+    font-size:16px;
+
     line-height:1.5;
+
 }
 
 .top-story-image a,
@@ -1787,24 +1795,37 @@ TOP STORIES
 }
 
 .top-story-text{
+
+    grid-column:1 / -1;
+
     padding:16px 0;
+
     border-top:1px solid #222;
+
 }
 
 .top-story-text h4{
+
+    margin:0;
+
     font-size:16px;
+
     line-height:1.5;
+
 }
 
-.top-story-image a,
 .top-story-text a{
+
     color:#fff;
+
     text-decoration:none;
+
 }
 
-.top-story-image a:hover,
 .top-story-text a:hover{
+
     color:#ff4040;
+
 }
 /*===================================
 POLITICS CATEGORY SECTIONS
