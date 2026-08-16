@@ -151,72 +151,71 @@ Read Story →
 // TRENDING
 // ======================================
 
-async function loadTrendingStories(){
+async function loadTopStories(){
 
     const { data, error } = await supabaseClient
-
         .from("articles")
-
         .select("*")
-
         .eq("status","Published")
-
         .eq("category",category)
-
         .eq("is_trending",true)
-
         .order("publish_date",{ascending:false})
-
-        .limit(5);
+        .limit(6);
 
     if(error){
-
         console.error(error);
-
         return;
-
     }
 
-    const container =
-       document.getElementById("topStories");
+    const container = document.getElementById("topStories");
 
     if(!container) return;
 
-    container.innerHTML="";
+    container.innerHTML = "";
 
-    data.forEach(article=>{
+    data.forEach((article,index)=>{
 
-        container.innerHTML += `
+        // First two stories with image
+        if(index < 2){
 
-<div class="trending-item">
+            container.innerHTML += `
 
-<img
-src="${article.featured_image}"
-alt="${article.title}">
+<div class="top-story-image">
 
-<div>
+    <a href="article.html?slug=${article.slug}">
+        <img src="${article.featured_image}" alt="${article.title}">
+    </a>
 
-<span>
-
-${article.category}
-
-</span>
-
-<h4>
-
-<a href="article.html?slug=${article.slug}">
-
-${article.title}
-
-</a>
-
-</h4>
-
-</div>
+    <h4>
+        <a href="article.html?slug=${article.slug}">
+            ${article.title}
+        </a>
+    </h4>
 
 </div>
 
 `;
+
+        }
+
+        // Remaining stories as text only
+        else{
+
+            container.innerHTML += `
+
+<div class="top-story-text">
+
+    <h4>
+        <a href="article.html?slug=${article.slug}">
+            ${article.title}
+        </a>
+    </h4>
+
+</div>
+
+`;
+
+        }
 
     });
 
