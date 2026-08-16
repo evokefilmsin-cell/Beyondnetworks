@@ -1700,55 +1700,6 @@ FEATURED
 }
 
 
-/*===================================
-CATEGORY SECTION
-===================================*/
-
-.category-section{
-
-    width:92%;
-
-    max-width:1700px;
-
-    margin:70px auto;
-
-}
-
-.section-heading{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:25px;
-
-}
-
-.section-heading h2{
-
-    font-size:34px;
-
-}
-
-.section-heading a{
-
-    color:#ff4040;
-
-    text-decoration:none;
-
-}
-
-.category-grid{
-
-    display:grid;
-
-    grid-template-columns:repeat(4,1fr);
-
-    gap:25px;
-
-}
 /*=========================
 TOP STORIES
 =========================*/
@@ -1855,14 +1806,25 @@ TOP STORIES
 .top-story-text a:hover{
     color:#ff4040;
 }
+/*===================================
+CATEGORY CARDS
+===================================*/
+
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
 .category-card{
+    display:block;
     background:#111;
     border:1px solid #222;
     border-radius:16px;
     overflow:hidden;
-    transition:.3s;
     text-decoration:none;
     color:#fff;
+    transition:.3s;
 }
 
 .category-card:hover{
@@ -1889,12 +1851,13 @@ TOP STORIES
 }
 
 .category-card h3{
-    margin:10px 0;
+    margin:12px 0;
     font-size:22px;
-    line-height:1.45;
+    line-height:1.4;
 }
 
 .category-card p{
-    color:#999;
+    color:#9b9b9b;
+    font-size:15px;
     line-height:1.6;
 }
