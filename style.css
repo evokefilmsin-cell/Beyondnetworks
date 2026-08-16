@@ -1699,133 +1699,6 @@ FEATURED
 
 }
 
-/*===================================
-TOP STORIES
-===================================*/
-
-.top-stories{
-
-    background:#111;
-
-    border:1px solid #222;
-
-    border-radius:20px;
-
-    padding:25px;
-
-}
-
-.top-stories-header{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:25px;
-
-}
-
-.top-stories-header h2{
-
-    font-size:30px;
-
-}
-
-.top-stories-header a{
-
-    color:#ff4040;
-
-    text-decoration:none;
-
-}
-
-/* FIRST TWO */
-
-.top-grid{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:15px;
-
-    margin-bottom:20px;
-
-}
-
-.top-card{
-
-    text-decoration:none;
-
-}
-
-.top-card img{
-
-    width:100%;
-
-    height:140px;
-
-    border-radius:10px;
-
-    object-fit:cover;
-
-}
-
-.top-card h4{
-
-    margin-top:10px;
-
-    color:white;
-
-    font-size:15px;
-
-    line-height:1.45;
-
-}
-
-/* REST */
-
-.story-grid{
-
-    display:grid;
-
-    grid-template-columns:1fr 1fr;
-
-    gap:14px;
-
-}
-
-.story-item{
-
-    padding:12px;
-
-    border:1px solid #222;
-
-    border-radius:10px;
-
-    transition:.25s;
-
-}
-
-.story-item:hover{
-
-    border-color:#ff4040;
-
-}
-
-.story-item a{
-
-    text-decoration:none;
-
-    color:white;
-
-    font-size:15px;
-
-    line-height:1.45;
-
-}
 
 /*===================================
 CATEGORY SECTION
@@ -1931,6 +1804,44 @@ TOP STORIES
 
 .top-story-text h4{
     font-size:17px;
+    line-height:1.5;
+}
+
+.top-story-image a,
+.top-story-text a{
+    color:#fff;
+    text-decoration:none;
+}
+
+.top-story-image a:hover,
+.top-story-text a:hover{
+    color:#ff4040;
+}
+.top-story-image{
+    display:flex;
+    flex-direction:column;
+}
+
+.top-story-image img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+.top-story-image h4{
+    margin-top:10px;
+    font-size:16px;
+    line-height:1.4;
+}
+
+.top-story-text{
+    padding:16px 0;
+    border-top:1px solid #222;
+}
+
+.top-story-text h4{
+    font-size:16px;
     line-height:1.5;
 }
 
