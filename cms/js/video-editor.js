@@ -3,14 +3,7 @@
 // video-editor.js
 // ======================================
 
-console.log("CMS video-editor.js loaded");
-
-
-// ======================================
-// VARIABLES
-// ======================================
-
-let editor;
+console.log("video-editor.js loaded");
 
 
 // ======================================
@@ -28,35 +21,26 @@ const videoId =
 // ELEMENTS
 // ======================================
 
-const brand =
-    document.getElementById("brand");
-
 const title =
     document.getElementById("title");
-
-const slug =
-    document.getElementById("slug");
 
 const summary =
     document.getElementById("summary");
 
-const category =
-    document.getElementById("category");
-
-const author =
-    document.getElementById("author");
-
-const tags =
-    document.getElementById("tags");
-
 const videoUrl =
     document.getElementById("videoUrl");
 
-const seoTitle =
-    document.getElementById("seoTitle");
+const videoFile =
+    document.getElementById("videoFile");
 
-const metaDescription =
-    document.getElementById("metaDescription");
+const videoPreview =
+    document.getElementById("videoPreview");
+
+const youtubePreview =
+    document.getElementById("youtubePreview");
+
+const videoUploadStatus =
+    document.getElementById("videoUploadStatus");
 
 const featuredImage =
     document.getElementById("featuredImage");
@@ -64,17 +48,26 @@ const featuredImage =
 const imagePreview =
     document.getElementById("imagePreview");
 
-const publishBtn =
-    document.getElementById("publishBtn");
+const author =
+    document.getElementById("author");
 
-const draftBtn =
-    document.getElementById("draftBtn");
+const tags =
+    document.getElementById("tags");
 
-const scheduleBtn =
-    document.getElementById("scheduleBtn");
+const slug =
+    document.getElementById("slug");
 
-const previewBtn =
-    document.getElementById("previewBtn");
+const seoTitle =
+    document.getElementById("seoTitle");
+
+const metaDescription =
+    document.getElementById("metaDescription");
+
+const category =
+    document.getElementById("category");
+
+const brand =
+    document.getElementById("brand");
 
 const publishDate =
     document.getElementById("publishDate");
@@ -97,150 +90,249 @@ const editorPick =
 const statusInfo =
     document.getElementById("statusInfo");
 
+const pageTitle =
+    document.getElementById("pageTitle");
 
-// ======================================
-// CKEDITOR
-// ======================================
+const draftBtn =
+    document.getElementById("draftBtn");
 
-ClassicEditor
-.create(
-    document.querySelector("#editor"),
-    {
+const scheduleBtn =
+    document.getElementById("scheduleBtn");
 
-        toolbar: [
-
-            "heading",
-
-            "|",
-
-            "bold",
-            "italic",
-            "underline",
-
-            "|",
-
-            "bulletedList",
-            "numberedList",
-
-            "|",
-
-            "link",
-            "insertTable",
-            "blockQuote",
-
-            "|",
-
-            "undo",
-            "redo"
-
-        ]
-
-    }
-)
-
-.then(async newEditor => {
-
-    editor = newEditor;
-
-
-    // If editing an existing video
-    if (videoId) {
-
-        await loadVideo(videoId);
-
-    }
-
-})
-
-.catch(error => {
-
-    console.error(
-        "CKEditor Error:",
-        error
-    );
-
-});
+const publishBtn =
+    document.getElementById("publishBtn");
 
 
 // ======================================
-// IMAGE PREVIEW
+// PAGE LOAD
 // ======================================
 
-if (featuredImage) {
+document.addEventListener(
+    "DOMContentLoaded",
+    async () => {
 
-    featuredImage.addEventListener(
-        "change",
-        () => {
+        if (videoId) {
 
-            const file =
-                featuredImage.files[0];
-
-            if (!file) return;
-
-
-            imagePreview.src =
-                URL.createObjectURL(file);
-
-
-            imagePreview.style.display =
-                "block";
+            await loadVideo(videoId);
 
         }
-    );
 
-}
+    }
+);
 
 
 // ======================================
-// SLUG GENERATOR
+// SLUG
 // ======================================
 
 function createSlug(text) {
 
     return text
-
         .toLowerCase()
-
         .trim()
-
-        .replace(
-            /[^\w\s-]/g,
-            ""
-        )
-
-        .replace(
-            /\s+/g,
-            "-"
-        )
-
-        .replace(
-            /--+/g,
-            "-"
-        );
+        .replace(/[^\w\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/--+/g, "-");
 
 }
 
 
-if (title) {
+title.addEventListener(
+    "keyup",
+    () => {
 
-    title.addEventListener(
-        "keyup",
-        () => {
+        if (!videoId) {
 
-            // Only generate automatically
-            // when creating a new video
-
-            if (!videoId) {
-
-                slug.value =
-                    createSlug(
-                        title.value
-                    );
-
-            }
+            slug.value =
+                createSlug(title.value);
 
         }
-    );
+
+    }
+);
+
+
+// ======================================
+// THUMBNAIL PREVIEW
+// ======================================
+
+featuredImage.addEventListener(
+    "change",
+    () => {
+
+        const file =
+            featuredImage.files[0];
+
+        if (!file) return;
+
+
+        imagePreview.src =
+            URL.createObjectURL(file);
+
+        imagePreview.style.display =
+            "block";
+
+    }
+);
+
+
+// ======================================
+// VIDEO FILE PREVIEW
+// ======================================
+
+videoFile.addEventListener(
+    "change",
+    () => {
+
+        const file =
+            videoFile.files[0];
+
+        if (!file) return;
+
+
+        const url =
+            URL.createObjectURL(file);
+
+
+        videoPreview.src =
+            url;
+
+        videoPreview.style.display =
+            "block";
+
+        youtubePreview.style.display =
+            "none";
+
+    }
+);
+
+
+// ======================================
+// URL PREVIEW
+// ======================================
+
+videoUrl.addEventListener(
+    "input",
+    () => {
+
+        updateVideoPreview(
+            videoUrl.value.trim()
+        );
+
+    }
+);
+
+
+// ======================================
+// VIDEO PREVIEW FUNCTION
+// ======================================
+
+function updateVideoPreview(url) {
+
+    if (!url) {
+
+        videoPreview.style.display =
+            "none";
+
+        youtubePreview.style.display =
+            "none";
+
+        return;
+
+    }
+
+
+    const youtubeId =
+        getYoutubeId(url);
+
+
+    // ------------------------------
+    // YOUTUBE
+    // ------------------------------
+
+    if (youtubeId) {
+
+        videoPreview.pause();
+
+        videoPreview.style.display =
+            "none";
+
+
+        youtubePreview.innerHTML = `
+
+            <div
+                style="
+                    position:relative;
+                    width:100%;
+                    padding-bottom:56.25%;
+                    height:0;
+                    overflow:hidden;
+                    border-radius:10px;
+                "
+            >
+
+                <iframe
+
+                    src="https://www.youtube.com/embed/${youtubeId}"
+
+                    style="
+                        position:absolute;
+                        top:0;
+                        left:0;
+                        width:100%;
+                        height:100%;
+                        border:0;
+                    "
+
+                    allowfullscreen
+
+                ></iframe>
+
+            </div>
+
+        `;
+
+
+        youtubePreview.style.display =
+            "block";
+
+        return;
+
+    }
+
+
+    // ------------------------------
+    // DIRECT VIDEO
+    // ------------------------------
+
+    youtubePreview.style.display =
+        "none";
+
+
+    videoPreview.src =
+        url;
+
+    videoPreview.style.display =
+        "block";
+
+}
+
+
+// ======================================
+// YOUTUBE ID
+// ======================================
+
+function getYoutubeId(url) {
+
+    const match =
+        url.match(
+            /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?/]+)/
+        );
+
+
+    return match
+        ? match[1]
+        : null;
 
 }
 
@@ -250,6 +342,12 @@ if (title) {
 // ======================================
 
 async function loadVideo(id) {
+
+    console.log(
+        "Loading video:",
+        id
+    );
+
 
     const { data, error } =
         await supabaseClient
@@ -267,10 +365,7 @@ async function loadVideo(id) {
 
     if (error) {
 
-        console.error(
-            "Load Video Error:",
-            error
-        );
+        console.error(error);
 
         alert(
             "Unable to load video."
@@ -281,36 +376,39 @@ async function loadVideo(id) {
     }
 
 
-    // ================================
-    // BASIC DATA
-    // ================================
+    if (!data) return;
+
+
+    // ==================================
+    // PAGE
+    // ==================================
+
+    pageTitle.textContent =
+        "Edit Video";
+
+
+    // ==================================
+    // BASIC
+    // ==================================
 
     title.value =
         data.title || "";
-
-
-    slug.value =
-        data.slug || "";
 
 
     summary.value =
         data.summary || "";
 
 
-    category.value =
-        data.category || "News";
+    slug.value =
+        data.slug || "";
 
 
     author.value =
         data.author || "";
 
 
-    tags.value =
-        data.tags || "";
-
-
-    videoUrl.value =
-        data.video_url || "";
+    category.value =
+        data.category || "News";
 
 
     brand.value =
@@ -325,9 +423,41 @@ async function loadVideo(id) {
         data.meta_description || "";
 
 
-    // ================================
-    // CHECKBOXES
-    // ================================
+    // ==================================
+    // VIDEO
+    // ==================================
+
+    videoUrl.value =
+        data.video_url || "";
+
+
+    if (data.video_url) {
+
+        updateVideoPreview(
+            data.video_url
+        );
+
+    }
+
+
+    // ==================================
+    // THUMBNAIL
+    // ==================================
+
+    if (data.featured_image) {
+
+        imagePreview.src =
+            data.featured_image;
+
+        imagePreview.style.display =
+            "block";
+
+    }
+
+
+    // ==================================
+    // OPTIONS
+    // ==================================
 
     breakingNews.checked =
         !!data.is_breaking;
@@ -349,57 +479,35 @@ async function loadVideo(id) {
         !!data.is_editor_pick;
 
 
-    // ================================
-    // CONTENT
-    // ================================
-
-    editor.setData(
-        data.content || ""
-    );
-
-
-    // ================================
+    // ==================================
     // DATE
-    // ================================
+    // ==================================
 
     if (data.publish_date) {
 
-        publishDate.value =
-
+        const date =
             new Date(
                 data.publish_date
-            )
-
-            .toISOString()
-            .slice(0, 16);
-
-    }
+            );
 
 
-    // ================================
-    // IMAGE
-    // ================================
-
-    if (data.featured_image) {
-
-        imagePreview.src =
-            data.featured_image;
-
-        imagePreview.style.display =
-            "block";
+        publishDate.value =
+            date
+                .toISOString()
+                .slice(0, 16);
 
     }
 
 
-    // ================================
+    // ==================================
     // STATUS
-    // ================================
+    // ==================================
 
     statusInfo.innerHTML = `
 
         <strong>Status:</strong>
 
-        ${data.status || "Draft"}
+        ${escapeHtml(data.status)}
 
     `;
 
@@ -410,56 +518,34 @@ async function loadVideo(id) {
 // BUTTONS
 // ======================================
 
-if (draftBtn) {
+draftBtn.addEventListener(
+    "click",
+    () => {
 
-    draftBtn.addEventListener(
-        "click",
-        () => {
+        saveVideo("Draft");
 
-            saveVideo("Draft");
-
-        }
-    );
-
-}
+    }
+);
 
 
-if (scheduleBtn) {
+scheduleBtn.addEventListener(
+    "click",
+    () => {
 
-    scheduleBtn.addEventListener(
-        "click",
-        () => {
+        saveVideo("Scheduled");
 
-            saveVideo("Scheduled");
-
-        }
-    );
-
-}
+    }
+);
 
 
-if (publishBtn) {
+publishBtn.addEventListener(
+    "click",
+    () => {
 
-    publishBtn.addEventListener(
-        "click",
-        () => {
+        saveVideo("Published");
 
-            saveVideo("Published");
-
-        }
-    );
-
-}
-
-
-if (previewBtn) {
-
-    previewBtn.addEventListener(
-        "click",
-        previewVideo
-    );
-
-}
+    }
+);
 
 
 // ======================================
@@ -474,9 +560,9 @@ async function saveVideo(status) {
     );
 
 
-    // ================================
+    // ==================================
     // VALIDATION
-    // ================================
+    // ==================================
 
     if (!title.value.trim()) {
 
@@ -489,382 +575,501 @@ async function saveVideo(status) {
     }
 
 
-    if (!category.value) {
-
-        alert(
-            "Please select a category."
-        );
-
-        return;
-
-    }
-
-
-    if (!videoUrl.value.trim()) {
-
-        alert(
-            "Please enter the video URL."
-        );
-
-        return;
-
-    }
-
-
-    // ================================
-    // CONTENT
-    // ================================
-
-    const content =
-        editor
-            ? editor.getData()
-            : "";
-
-
-    // ================================
-    // IMAGE
-    // ================================
-
-    let imageUrl =
-        videoId
-            ? imagePreview.src
-            : "";
-
-
-    // ================================
-    // PUBLISH DATE
-    // ================================
-
-    let publishTime = null;
-
-
-    if (status === "Published") {
-
-        publishTime =
-            new Date().toISOString();
-
-    }
-
-
-    if (status === "Scheduled") {
-
-        if (!publishDate.value) {
-
-            alert(
-                "Please choose a publish date."
-            );
-
-            return;
-
-        }
-
-
-        publishTime =
-            new Date(
-                publishDate.value
-            ).toISOString();
-
-    }
-
-
-    // ================================
-    // UPLOAD THUMBNAIL
-    // ================================
-
     if (
-        featuredImage &&
-        featuredImage.files.length > 0
+        !videoUrl.value.trim() &&
+        !videoFile.files.length &&
+        !videoId
     ) {
 
-        const file =
-            featuredImage.files[0];
+        alert(
+            "Please add a video URL or upload a video."
+        );
+
+        return;
+
+    }
 
 
-        const fileName =
-            Date.now() +
-            "-" +
-            file.name;
+    // ==================================
+    // BUTTON STATE
+    // ==================================
+
+    const clickedButton =
+        status === "Draft"
+            ? draftBtn
+            : status === "Scheduled"
+                ? scheduleBtn
+                : publishBtn;
 
 
-        const {
-            error: uploadError
-        } = await supabaseClient
-
-            .storage
-
-            .from("news-images")
-
-            .upload(
-                fileName,
-                file
-            );
+    clickedButton.disabled =
+        true;
 
 
-        if (uploadError) {
+    clickedButton.innerHTML =
+        "Saving...";
 
-            console.error(
-                uploadError
-            );
 
-            alert(
-                uploadError.message
-            );
+    try {
 
-            return;
+
+        // ==================================
+        // VIDEO URL
+        // ==================================
+
+        let finalVideoUrl =
+            videoUrl.value.trim();
+
+
+        // ==================================
+        // EXISTING VIDEO
+        // ==================================
+
+        if (
+            !finalVideoUrl &&
+            videoId
+        ) {
+
+            const { data } =
+                await supabaseClient
+
+                    .from("articles")
+
+                    .select("video_url")
+
+                    .eq("id", videoId)
+
+                    .single();
+
+
+            if (data) {
+
+                finalVideoUrl =
+                    data.video_url || "";
+
+            }
 
         }
 
 
-        const { data } =
-            supabaseClient
+        // ==================================
+        // UPLOAD VIDEO
+        // ==================================
 
-                .storage
+        if (videoFile.files.length > 0) {
 
-                .from("news-images")
+            const file =
+                videoFile.files[0];
 
-                .getPublicUrl(
-                    fileName
+
+            videoUploadStatus.innerHTML = `
+
+                <div class="text-warning">
+
+                    Uploading video...
+
+                </div>
+
+            `;
+
+
+            const fileName =
+                Date.now() +
+                "-" +
+                file.name
+                    .replace(/\s+/g, "-");
+
+
+            const {
+                error: uploadError
+            } = await supabaseClient.storage
+
+                .from("news-videos")
+
+                .upload(
+                    fileName,
+                    file,
+                    {
+                        cacheControl: "3600",
+                        upsert: false
+                    }
                 );
 
 
-        imageUrl =
-            data.publicUrl;
+            if (uploadError) {
 
-    }
+                throw uploadError;
 
-
-    // ================================
-    // ARTICLE OBJECT
-    // ================================
-
-    const video = {
-
-        title:
-            title.value.trim(),
-
-        slug:
-            slug.value.trim(),
-
-        summary:
-            summary.value,
-
-        content:
-            content,
-
-        brand:
-            brand.value,
-
-        category:
-            category.value,
-
-        author:
-            author.value,
-
-        tags:
-            tags.value,
-
-        video_url:
-            videoUrl.value.trim(),
-
-        status:
-            status,
-
-        featured_image:
-            imageUrl,
-
-        seo_title:
-            seoTitle.value,
-
-        meta_description:
-            metaDescription.value,
-
-        is_video:
-            true,
-
-        is_breaking:
-            breakingNews.checked,
-
-        is_featured:
-            featuredStory.checked,
-
-        is_trending:
-            trendingStory.checked,
-
-        is_opinion:
-            opinionStory.checked,
-
-        is_editor_pick:
-            editorPick.checked,
-
-        publish_date:
-            publishTime,
-
-        updated_at:
-            new Date()
-
-    };
+            }
 
 
-    console.log(
-        "Video object:",
-        video
-    );
+            const {
+                data: publicData
+            } =
+                supabaseClient.storage
+
+                    .from("news-videos")
+
+                    .getPublicUrl(
+                        fileName
+                    );
 
 
-    // ================================
-    // INSERT / UPDATE
-    // ================================
-
-    let response;
+            finalVideoUrl =
+                publicData.publicUrl;
 
 
-    if (videoId) {
+            videoUploadStatus.innerHTML = `
 
-        response =
-            await supabaseClient
+                <div class="text-success">
 
-                .from("articles")
+                    Video uploaded successfully.
 
-                .update(video)
+                </div>
 
-                .eq("id", videoId)
+            `;
 
-                .select();
-
-    }
-
-    else {
-
-        response =
-            await supabaseClient
-
-                .from("articles")
-
-                .insert([video])
-
-                .select();
-
-    }
+        }
 
 
-    const {
-        data,
-        error
-    } = response;
+        // ==================================
+        // PUBLISH DATE
+        // ==================================
+
+        let finalPublishDate =
+            null;
 
 
-    console.log(
-        "Saved:",
-        data
-    );
+        if (status === "Published") {
+
+            finalPublishDate =
+                new Date().toISOString();
+
+        }
 
 
-    console.log(
-        "Error:",
-        error
-    );
+        if (status === "Scheduled") {
+
+            if (!publishDate.value) {
+
+                alert(
+                    "Please select a publish date."
+                );
+
+                return;
+
+            }
 
 
-    if (error) {
+            finalPublishDate =
+                new Date(
+                    publishDate.value
+                ).toISOString();
+
+        }
+
+
+        // ==================================
+        // IMAGE
+        // ==================================
+
+        let imageUrl =
+            imagePreview.src || "";
+
+
+        if (
+            imageUrl.startsWith(
+                "blob:"
+            )
+        ) {
+
+            imageUrl = "";
+
+        }
+
+
+        if (
+            featuredImage.files.length > 0
+        ) {
+
+            const file =
+                featuredImage.files[0];
+
+
+            const fileName =
+                Date.now() +
+                "-" +
+                file.name
+                    .replace(/\s+/g, "-");
+
+
+            const {
+                error: uploadError
+            } =
+                await supabaseClient.storage
+
+                    .from("news-images")
+
+                    .upload(
+                        fileName,
+                        file,
+                        {
+                            cacheControl: "3600",
+                            upsert: false
+                        }
+                    );
+
+
+            if (uploadError) {
+
+                throw uploadError;
+
+            }
+
+
+            const {
+                data: publicData
+            } =
+                supabaseClient.storage
+
+                    .from("news-images")
+
+                    .getPublicUrl(
+                        fileName
+                    );
+
+
+            imageUrl =
+                publicData.publicUrl;
+
+        }
+
+
+        // ==================================
+        // ARTICLE DATA
+        // ==================================
+
+        const article = {
+
+            title:
+                title.value.trim(),
+
+            slug:
+                slug.value.trim() ||
+                createSlug(title.value),
+
+            summary:
+                summary.value.trim(),
+
+            content:
+                summary.value.trim(),
+
+            featured_image:
+                imageUrl,
+
+            video_url:
+                finalVideoUrl,
+
+            category:
+                category.value,
+
+            author:
+                author.value.trim(),
+
+            brand:
+                brand.value,
+
+            status:
+                status,
+
+            is_video:
+                true,
+
+            is_breaking:
+                breakingNews.checked,
+
+            is_featured:
+                featuredStory.checked,
+
+            is_trending:
+                trendingStory.checked,
+
+            is_opinion:
+                opinionStory.checked,
+
+            is_editor_pick:
+                editorPick.checked,
+
+            publish_date:
+                finalPublishDate,
+
+            seo_title:
+                seoTitle.value.trim(),
+
+            meta_description:
+                metaDescription.value.trim(),
+
+            updated_at:
+                new Date().toISOString()
+
+        };
+
+
+        console.log(
+            "Saving article:",
+            article
+        );
+
+
+        // ==================================
+        // UPDATE / INSERT
+        // ==================================
+
+        let response;
+
+
+        if (videoId) {
+
+            response =
+                await supabaseClient
+
+                    .from("articles")
+
+                    .update(article)
+
+                    .eq("id", videoId)
+
+                    .select();
+
+        } else {
+
+            response =
+                await supabaseClient
+
+                    .from("articles")
+
+                    .insert([
+                        article
+                    ])
+
+                    .select();
+
+        }
+
+
+        // ==================================
+        // ERROR
+        // ==================================
+
+        if (response.error) {
+
+            throw response.error;
+
+        }
+
+
+        // ==================================
+        // SUCCESS
+        // ==================================
+
+        if (status === "Draft") {
+
+            alert(
+                "Video draft saved successfully."
+            );
+
+        }
+
+
+        if (status === "Scheduled") {
+
+            alert(
+                "Video scheduled successfully."
+            );
+
+        }
+
+
+        if (status === "Published") {
+
+            alert(
+                "Video published successfully."
+            );
+
+        }
+
+
+        window.location.href =
+            "videos.html";
+
+
+    } catch (error) {
+
+        console.error(
+            "Video save error:",
+            error
+        );
+
 
         alert(
+            "Failed to save video:\n\n" +
             error.message
         );
 
-        return;
+
+    } finally {
+
+        clickedButton.disabled =
+            false;
+
+
+        clickedButton.innerHTML =
+
+            status === "Draft"
+                ? '<i class="bi bi-file-earmark"></i> Save Draft'
+                : status === "Scheduled"
+                    ? '<i class="bi bi-clock"></i> Schedule Video'
+                    : '<i class="bi bi-send"></i> Publish Video';
 
     }
-
-
-    // ================================
-    // SUCCESS
-    // ================================
-
-    if (status === "Draft") {
-
-        alert(
-            "Video draft saved successfully."
-        );
-
-    }
-
-
-    if (status === "Scheduled") {
-
-        alert(
-            "Video scheduled successfully."
-        );
-
-    }
-
-
-    if (status === "Published") {
-
-        alert(
-            "Video published successfully."
-        );
-
-    }
-
-
-    window.location =
-        "videos.html";
 
 }
 
 
 // ======================================
-// PREVIEW
+// ESCAPE HTML
 // ======================================
 
-function previewVideo() {
+function escapeHtml(value) {
 
-    const video = {
-
-        title:
-            title.value,
-
-        summary:
-            summary.value,
-
-        content:
-            editor
-                ? editor.getData()
-                : "",
-
-        category:
-            category.value,
-
-        author:
-            author.value,
-
-        videoUrl:
-            videoUrl.value,
-
-        image:
-            imagePreview.src,
-
-        publishDate:
-            publishDate.value
-
-    };
+    if (!value) return "";
 
 
-    localStorage.setItem(
+    return String(value)
 
-        "previewVideo",
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        JSON.stringify(video)
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-    );
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-    window.open(
-
-        "video-preview.html",
-
-        "_blank"
-
-    );
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
