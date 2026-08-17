@@ -1,96 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Videos - BeyondNetworks</title>
-  <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Videos | Beyond Networks</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase connection -->
+    <script src="cms/js/supabase.js"></script>
+
+    <!-- Video loader -->
+    <script src="cms/js/videos.js" defer></script>
+
 </head>
+
 <body>
 
-  <header class="topbar">
-    <div class="logo">BeyondNetworks</div>
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+
+        <img
+            src="images/logo.png"
+            alt="Beyond Networks">
+
+    </div>
+
 
     <nav>
-      <a href="index.html">Home</a>
-      <a href="videos.html">Videos</a>
-      <a href="politics.html">Politics</a>
-      <a href="business.html">Business</a>
-      <a href="technology.html">Technology</a>
-      <a href="sports.html">Sports</a>
-      <a href="entertainment.html">Entertainment</a>
+
+        <a href="index.html">Home</a>
+
+        <a href="videos.html">Videos</a>
+
+        <a href="politics.html">Politics</a>
+
+        <a href="business.html">Business</a>
+
+        <a href="technology.html">Technology</a>
+
+        <a href="sports.html">Sports</a>
+
+        <a href="entertainment.html">Entertainment</a>
+
     </nav>
-  </header>
 
-  <section class="hero" style="height: 60vh;">
-    <div class="hero-content">
-      <p class="tag">Videos</p>
-      <h1>Latest Video Stories</h1>
-      <p class="subtitle">
-        Watch interviews, breaking news, documentaries and special reports from BeyondNetworks.
-      </p>
+</header>
+
+
+
+<!-- ========================================= -->
+<!-- VIDEOS TOP -->
+<!-- ========================================= -->
+
+<section class="videos-top">
+
+
+    <!-- ========================= -->
+    <!-- FEATURED VIDEO -->
+    <!-- ========================= -->
+
+    <div class="featured-video">
+
+        <div id="featuredVideo">
+
+            Loading...
+
+        </div>
+
     </div>
-  </section>
 
-  <section class="section-title">
-    <h2>Featured Video</h2>
-  </section>
 
-  <section class="video-section">
-    <div class="video-card">
-      <div class="video-thumbnail">
-        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=1400&q=80" alt="Featured Video">
-        <div class="play-button">▶</div>
-      </div>
 
-      <div class="video-content">
-        <span>Exclusive Interview</span>
-        <h3>Inside the future of digital journalism and independent media</h3>
-        <p>
-          Watch our latest report on how media companies are adapting to AI, technology and changing audiences.
-        </p>
-        <a href="#" class="button">Watch Now</a>
-      </div>
+    <!-- ========================= -->
+    <!-- LATEST VIDEOS -->
+    <!-- ========================= -->
+
+    <aside class="top-stories">
+
+        <div class="top-stories-header">
+
+            <h2>Latest Videos</h2>
+
+            <a href="#">View All →</a>
+
+        </div>
+
+
+        <div
+            id="latestVideos"
+            class="top-stories-grid">
+
+            Loading...
+
+        </div>
+
+    </aside>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- LATEST VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Latest Videos</h2>
+
+        <a href="#">View All →</a>
+
     </div>
-  </section>
 
-  <section class="section-title">
-    <h2>More Videos</h2>
-  </section>
 
-  <main class="trending-grid">
+    <div
+        class="category-grid"
+        id="videosLatest">
 
-    <article class="trend-card">
-      <img src="https://images.unsplash.com/photo-1504711331083-9c895941bf81?auto=format&fit=crop&w=900&q=80" alt="Video">
-      <div class="content">
-        <span>Breaking News</span>
-        <h3>Global leaders discuss the future of world economy</h3>
-      </div>
-    </article>
+    </div>
 
-    <article class="trend-card">
-      <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=900&q=80" alt="Video">
-      <div class="content">
-        <span>Technology</span>
-        <h3>How AI is transforming news and media companies</h3>
-      </div>
-    </article>
+</section>
 
-    <article class="trend-card">
-      <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=80" alt="Video">
-      <div class="content">
-        <span>Sports</span>
-        <h3>Inside the biggest sporting event of the year</h3>
-      </div>
-    </article>
 
-  </main>
 
-  <footer class="footer">
+<!-- ========================================= -->
+<!-- POLITICS VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Politics</h2>
+
+        <a href="politics.html">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="videosPolitics">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- BUSINESS VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Business</h2>
+
+        <a href="business.html">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="videosBusiness">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- TECHNOLOGY VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Technology</h2>
+
+        <a href="technology.html">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="videosTechnology">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- SPORTS VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Sports</h2>
+
+        <a href="sports.html">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="videosSports">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- ENTERTAINMENT VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Entertainment</h2>
+
+        <a href="entertainment.html">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="videosEntertainment">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+<footer class="footer">
+
     <div class="footer-bottom">
-      <p>© 2026 BeyondNetworks. All Rights Reserved.</p>
+
+        <p>
+
+            © 2026 Beyond Networks. All Rights Reserved.
+
+        </p>
+
     </div>
-  </footer>
+
+</footer>
+
 
 </body>
+
 </html>
