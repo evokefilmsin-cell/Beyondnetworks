@@ -151,73 +151,139 @@ Read Story →
 // TRENDING
 // ======================================
 
-async function loadTopStories(){
+async function loadTopStories() {
 
     const { data, error } = await supabaseClient
         .from("articles")
         .select("*")
-        .eq("status","Published")
-        .eq("category",category)
-        .eq("is_trending",true)
-        .order("publish_date",{ascending:false})
+        .eq("status", "Published")
+        .eq("category", category)
+        .eq("is_trending", true)
+        .order("publish_date", { ascending: false })
         .limit(6);
 
-    if(error){
-        console.error(error);
+    if (error) {
+        console.error("Top Stories Error:", error);
         return;
     }
 
     const container = document.getElementById("topStories");
 
-    if(!container) return;
+    if (!container) return;
 
     container.innerHTML = "";
 
-    data.forEach((article,index)=>{
+    if (!data || data.length === 0) {
+        container.innerHTML = `
+            <p class="no-top-stories">
+                No trending stories available.
+            </p>
+        `;
+        return;
+    }
 
-        // First two stories with image
-        if(index < 2){
+    /*
+    ==========================================
+    TOP STORIES STRUCTURE
 
-            container.innerHTML += `
+    Story 1 + Story 2
+    → Images
 
-<div class="top-story-image">
+    Story 3 + Story 4
+    → Text only
 
-    <a href="article.html?slug=${article.slug}">
-        <img src="${article.featured_image}" alt="${article.title}">
-    </a>
+    Story 5 + Story 6
+    → Text only
+    ==========================================
+    */
 
-    <h4>
-        <a href="article.html?slug=${article.slug}">
-            ${article.title}
-        </a>
-    </h4>
+    const imageStories = data.slice(0, 2);
+    const textStories = data.slice(2, 6);
 
-</div>
+    /* ================================
+       FIRST TWO STORIES WITH IMAGES
+       ================================ */
 
-`;
+    let imagesHTML = `
+        <div class="top-stories-images">
+    `;
 
-        }
+    imageStories.forEach(article => {
 
-        // Remaining stories as text only
-        else{
+        imagesHTML += `
 
-            container.innerHTML += `
+            <div class="top-story-image">
 
-<div class="top-story-text">
+                <a href="article.html?slug=${article.slug}">
 
-    <h4>
-        <a href="article.html?slug=${article.slug}">
-            ${article.title}
-        </a>
-    </h4>
+                    <img
+                        src="${article.featured_image}"
+                        alt="${article.title}"
+                    >
 
-</div>
+                </a>
 
-`;
+                <h4>
 
-        }
+                    <a href="article.html?slug=${article.slug}">
+
+                        ${article.title}
+
+                    </a>
+
+                </h4>
+
+            </div>
+
+        `;
 
     });
+
+    imagesHTML += `
+        </div>
+    `;
+
+
+    /* ================================
+       REMAINING FOUR TEXT STORIES
+       ================================ */
+
+    let textHTML = `
+        <div class="top-stories-text-grid">
+    `;
+
+    textStories.forEach(article => {
+
+        textHTML += `
+
+            <div class="top-story-text">
+
+                <h4>
+
+                    <a href="article.html?slug=${article.slug}">
+
+                        ${article.title}
+
+                    </a>
+
+                </h4>
+
+            </div>
+
+        `;
+
+    });
+
+    textHTML += `
+        </div>
+    `;
+
+
+    /* ================================
+       INSERT EVERYTHING
+       ================================ */
+
+    container.innerHTML = imagesHTML + textHTML;
 
 }
 // =====================================
