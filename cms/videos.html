@@ -4,76 +4,99 @@
 <head>
 
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Videos | Beyond Networks CMS</title>
 
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
     <link
         rel="stylesheet"
-        href="css/dashboard.css">
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
 
 </head>
 
 <body>
 
-<!-- =====================================
-     SIDEBAR
-===================================== -->
 
-<aside class="sidebar">
+<!-- ====================================== -->
+<!-- SIDEBAR -->
+<!-- ====================================== -->
 
-    <div class="sidebar-logo">
-        Beyond Networks
+<div class="sidebar">
+
+    <div class="logo">
+
+        <img
+            src="../images/logo.png"
+            alt="Beyond Networks"
+        >
+
     </div>
 
-    <nav>
 
-        <a href="dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="articles.html">
-            Articles
-        </a>
-
-        <a href="article-editor.html">
-            New Article
-        </a>
-
-        <a href="videos.html"
-           class="active">
-            Videos
-        </a>
-
-        <a href="media.html">
-            Media Library
-        </a>
-
-        <a href="categories.html">
-            Categories
-        </a>
-
-        <a href="settings.html">
-            Settings
-        </a>
-
-    </nav>
-
-</aside>
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
 
 
-<!-- =====================================
-     MAIN
-===================================== -->
-
-<main class="main-content">
+    <a href="articles.html">
+        📰 Articles
+    </a>
 
 
-    <!-- HEADER -->
+    <a href="article-editor.html">
+        ✍ New Article
+    </a>
 
-    <div class="page-header">
+
+    <a
+        href="videos.html"
+        class="active"
+    >
+        🎥 Videos
+    </a>
+
+
+    <a href="media.html">
+        🖼 Media Library
+    </a>
+
+
+    <a href="categories.html">
+        📂 Categories
+    </a>
+
+
+    <a href="settings.html">
+        ⚙ Settings
+    </a>
+
+</div>
+
+
+
+<!-- ====================================== -->
+<!-- MAIN -->
+<!-- ====================================== -->
+
+<div class="main">
+
+
+    <!-- ================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ================================== -->
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
         <div>
 
@@ -81,8 +104,8 @@
                 Videos
             </h1>
 
-            <p>
-                Manage and publish video stories.
+            <p class="text-muted mb-0">
+                Manage all video content published on Beyond Networks.
             </p>
 
         </div>
@@ -90,156 +113,312 @@
 
         <a
             href="video-editor.html"
-            class="btn-primary">
+            class="btn btn-danger"
+        >
 
-            + New Video
+            <i class="bi bi-plus-lg"></i>
+
+            New Video
 
         </a>
 
     </div>
 
 
-    <!-- =====================================
-         FILTERS
-    ===================================== -->
 
-    <div class="content-toolbar">
+    <!-- ================================== -->
+    <!-- STATS -->
+    <!-- ================================== -->
 
-        <input
-            type="text"
-            id="videoSearch"
-            placeholder="Search videos...">
+    <div class="row g-3 mb-4">
 
 
-        <select id="videoCategory">
+        <div class="col-md-4">
 
-            <option value="">
-                All Categories
-            </option>
+            <div class="card p-4">
 
-            <option value="Politics">
-                Politics
-            </option>
+                <div class="d-flex justify-content-between">
 
-            <option value="Business">
-                Business
-            </option>
+                    <div>
 
-            <option value="Technology">
-                Technology
-            </option>
+                        <p class="text-muted mb-1">
+                            Total Videos
+                        </p>
 
-            <option value="Sports">
-                Sports
-            </option>
+                        <h2
+                            id="totalVideos"
+                            class="mb-0"
+                        >
+                            0
+                        </h2>
 
-            <option value="Entertainment">
-                Entertainment
-            </option>
-
-        </select>
+                    </div>
 
 
-        <select id="videoStatus">
+                    <div class="fs-1">
+                        🎥
+                    </div>
 
-            <option value="">
-                All Status
-            </option>
+                </div>
 
-            <option value="Published">
-                Published
-            </option>
+            </div>
 
-            <option value="Draft">
-                Draft
-            </option>
+        </div>
 
-        </select>
+
+
+        <div class="col-md-4">
+
+            <div class="card p-4">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted mb-1">
+                            Published
+                        </p>
+
+                        <h2
+                            id="publishedVideos"
+                            class="mb-0"
+                        >
+                            0
+                        </h2>
+
+                    </div>
+
+
+                    <div class="fs-1">
+                        ✅
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="card p-4">
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+
+                        <p class="text-muted mb-1">
+                            Drafts
+                        </p>
+
+                        <h2
+                            id="draftVideos"
+                            class="mb-0"
+                        >
+                            0
+                        </h2>
+
+                    </div>
+
+
+                    <div class="fs-1">
+                        📝
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================== -->
+    <!-- VIDEO TABLE -->
+    <!-- ================================== -->
+
+    <div class="card p-4">
+
+
+        <!-- SEARCH -->
+
+        <div class="row mb-4">
+
+            <div class="col-md-6">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="searchVideos"
+                        class="form-control"
+                        placeholder="Search videos..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <select
+                    id="statusFilter"
+                    class="form-select"
+                >
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Published">
+                        Published
+                    </option>
+
+                    <option value="Draft">
+                        Draft
+                    </option>
+
+                    <option value="Scheduled">
+                        Scheduled
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <select
+                    id="categoryFilter"
+                    class="form-select"
+                >
+
+                    <option value="all">
+                        All Categories
+                    </option>
+
+                    <option value="News">
+                        News
+                    </option>
+
+                    <option value="Politics">
+                        Politics
+                    </option>
+
+                    <option value="Business">
+                        Business
+                    </option>
+
+                    <option value="Technology">
+                        Technology
+                    </option>
+
+                    <option value="Sports">
+                        Sports
+                    </option>
+
+                    <option value="Entertainment">
+                        Entertainment
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================================== -->
+        <!-- TABLE -->
+        <!-- ================================== -->
+
+        <div class="table-responsive">
+
+            <table class="table table-dark table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Video
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Published
+                        </th>
+
+                        <th>
+                            Featured
+                        </th>
+
+                        <th class="text-end">
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="videosTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="text-center py-5"
+                        >
+
+                            Loading videos...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
 
     </div>
 
 
-    <!-- =====================================
-         VIDEO TABLE
-    ===================================== -->
-
-    <div class="content-card">
-
-        <table class="data-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Thumbnail
-                    </th>
-
-                    <th>
-                        Title
-                    </th>
-
-                    <th>
-                        Category
-                    </th>
-
-                    <th>
-                        Status
-                    </th>
-
-                    <th>
-                        Featured
-                    </th>
-
-                    <th>
-                        Trending
-                    </th>
-
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Actions
-                    </th>
-
-                </tr>
-
-            </thead>
+</div>
 
 
-            <tbody id="videosTable">
 
-                <tr>
-
-                    <td
-                        colspan="8"
-                        style="text-align:center;">
-
-                        Loading videos...
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</main>
-
-
-<!-- =====================================
-     SUPABASE
-===================================== -->
+<!-- ====================================== -->
+<!-- SUPABASE -->
+<!-- ====================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="js/supabase.js"></script>
 
 <script src="js/videos.js"></script>
+
 
 </body>
 
