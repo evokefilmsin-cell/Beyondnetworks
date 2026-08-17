@@ -1,17 +1,55 @@
-console.log("CMS videos.js loaded");
+// ======================================
+// Beyond Networks CMS
+// videos.js
+// ======================================
+
+console.log("videos.js loaded");
+
+
+// ======================================
+// GLOBAL
+// ======================================
 
 let allVideos = [];
 
 
 // ======================================
-// INITIAL LOAD
+// PAGE LOAD
 // ======================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
     loadVideos();
 
-    setupFilters();
+    const search =
+        document.getElementById("searchVideos");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
+
+
+    if (search) {
+
+        search.addEventListener("input", filterVideos);
+
+    }
+
+
+    if (statusFilter) {
+
+        statusFilter.addEventListener("change", filterVideos);
+
+    }
+
+
+    if (categoryFilter) {
+
+        categoryFilter.addEventListener("change", filterVideos);
+
+    }
 
 });
 
@@ -26,11 +64,27 @@ async function loadVideos() {
 
         .from("articles")
 
-        .select("*")
+        .select(`
+            id,
+            title,
+            slug,
+            summary,
+            featured_image,
+            video_url,
+            category,
+            author,
+            status,
+            is_featured,
+            is_trending,
+            is_breaking,
+            is_video,
+            publish_date,
+            created_at
+        `)
 
         .eq("is_video", true)
 
-        .order("publish_date", {
+        .order("created_at", {
             ascending: false
         });
 
@@ -38,9 +92,31 @@ async function loadVideos() {
     if (error) {
 
         console.error(
-            "Videos Load Error:",
+            "Videos loading error:",
             error
         );
+
+        const tbody =
+            document.getElementById(
+                "videosTableBody"
+            );
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    class="text-center text-danger py-5"
+                >
+
+                    Failed to load videos.
+
+                </td>
+
+            </tr>
+
+        `;
 
         return;
 
@@ -49,7 +125,78 @@ async function loadVideos() {
 
     allVideos = data || [];
 
+
+    updateStats(allVideos);
+
     renderVideos(allVideos);
+
+}
+
+
+// ======================================
+// STATS
+// ======================================
+
+function updateStats(videos) {
+
+    const total =
+        videos.length;
+
+
+    const published =
+        videos.filter(
+            video =>
+                video.status === "Published"
+        ).length;
+
+
+    const drafts =
+        videos.filter(
+            video =>
+                video.status === "Draft"
+        ).length;
+
+
+    const totalElement =
+        document.getElementById(
+            "totalVideos"
+        );
+
+
+    const publishedElement =
+        document.getElementById(
+            "publishedVideos"
+        );
+
+
+    const draftElement =
+        document.getElementById(
+            "draftVideos"
+        );
+
+
+    if (totalElement) {
+
+        totalElement.textContent =
+            total;
+
+    }
+
+
+    if (publishedElement) {
+
+        publishedElement.textContent =
+            published;
+
+    }
+
+
+    if (draftElement) {
+
+        draftElement.textContent =
+            drafts;
+
+    }
 
 }
 
@@ -60,25 +207,28 @@ async function loadVideos() {
 
 function renderVideos(videos) {
 
-    const table =
-        document.getElementById("videosTable");
+    const tbody =
+        document.getElementById(
+            "videosTableBody"
+        );
 
 
-    if (!table) return;
+    if (!tbody) return;
 
 
-    table.innerHTML = "";
+    tbody.innerHTML = "";
 
 
-    if (!videos || videos.length === 0) {
+    if (!videos.length) {
 
-        table.innerHTML = `
+        tbody.innerHTML = `
 
             <tr>
 
                 <td
-                    colspan="8"
-                    style="text-align:center;">
+                    colspan="6"
+                    class="text-center py-5 text-muted"
+                >
 
                     No videos found.
 
@@ -95,147 +245,207 @@ function renderVideos(videos) {
 
     videos.forEach(video => {
 
-        const date =
-            video.publish_date
-                ? new Date(video.publish_date)
-                    .toLocaleDateString()
-                : "-";
+        const row =
+            document.createElement("tr");
 
 
-        table.innerHTML += `
+        // ==================================
+        // IMAGE
+        // ==================================
 
-            <tr>
+        const image =
+            video.featured_image
+                ? video.featured_image
+                : "https://via.placeholder.com/120x70?text=Video";
 
-                <!-- THUMBNAIL -->
 
-                <td>
+        // ==================================
+        // STATUS
+        // ==================================
 
-                    ${
-                        video.featured_image
+        let statusClass =
+            "secondary";
 
-                        ?
 
-                        `
-                        <img
-                            src="${video.featured_image}"
-                            alt="${video.title}"
-                            style="
-                                width:90px;
-                                height:55px;
-                                object-fit:cover;
-                                border-radius:6px;
-                            "
+        if (video.status === "Published") {
+
+            statusClass = "success";
+
+        }
+
+        if (video.status === "Draft") {
+
+            statusClass = "secondary";
+
+        }
+
+        if (video.status === "Scheduled") {
+
+            statusClass = "warning";
+
+        }
+
+
+        // ==================================
+        // DATE
+        // ==================================
+
+        let publishDate =
+            "—";
+
+
+        if (video.publish_date) {
+
+            publishDate =
+                new Date(
+                    video.publish_date
+                ).toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+
+        }
+
+
+        row.innerHTML = `
+
+            <td>
+
+                <div
+                    class="d-flex align-items-center"
+                    style="min-width:280px;"
+                >
+
+                    <img
+                        src="${image}"
+                        alt="${escapeHtml(video.title)}"
+                        style="
+                            width:110px;
+                            height:65px;
+                            object-fit:cover;
+                            border-radius:8px;
+                            margin-right:15px;
+                        "
+                    >
+
+
+                    <div>
+
+                        <div
+                            class="fw-semibold"
+                            style="max-width:250px;"
                         >
-                        `
 
-                        :
+                            ${escapeHtml(video.title)}
 
-                        `
-                        <div>
-                            No Image
                         </div>
-                        `
-                    }
-
-                </td>
 
 
-                <!-- TITLE -->
+                        <small class="text-muted">
 
-                <td>
+                            ${escapeHtml(video.author || "No author")}
 
-                    <strong>
+                        </small>
 
-                        ${video.title}
+                    </div>
 
-                    </strong>
+                </div>
 
-                </td>
-
-
-                <!-- CATEGORY -->
-
-                <td>
-
-                    ${video.category || "-"}
-
-                </td>
+            </td>
 
 
-                <!-- STATUS -->
+            <td>
 
-                <td>
+                <span class="badge bg-dark">
 
-                    <span class="status-badge">
+                    ${escapeHtml(video.category || "News")}
 
-                        ${video.status || "-"}
+                </span>
 
-                    </span>
-
-                </td>
+            </td>
 
 
-                <!-- FEATURED -->
+            <td>
 
-                <td>
+                <span
+                    class="badge bg-${statusClass}"
+                >
 
-                    ${
-                        video.is_featured
-                        ? "✓"
+                    ${escapeHtml(video.status)}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                ${publishDate}
+
+            </td>
+
+
+            <td>
+
+                ${
+                    video.is_featured
+                        ? "⭐"
                         : "—"
-                    }
+                }
 
-                </td>
-
-
-                <!-- TRENDING -->
-
-                <td>
-
-                    ${
-                        video.is_trending
-                        ? "✓"
-                        : "—"
-                    }
-
-                </td>
+            </td>
 
 
-                <!-- DATE -->
+            <td class="text-end">
 
-                <td>
-
-                    ${date}
-
-                </td>
-
-
-                <!-- ACTIONS -->
-
-                <td>
-
-                    <a
-                        href="video-editor.html?id=${video.id}"
-                        class="btn-small">
-
-                        Edit
-
-                    </a>
+                <div class="btn-group">
 
 
                     <button
-                        class="btn-danger-small"
-                        onclick="deleteVideo('${video.id}')">
+                        class="btn btn-sm btn-outline-light"
+                        onclick="viewVideo('${video.id}')"
+                        title="View"
+                    >
 
-                        Delete
+                        <i class="bi bi-eye"></i>
 
                     </button>
 
-                </td>
 
-            </tr>
+                    <button
+                        class="btn btn-sm btn-outline-light"
+                        onclick="editVideo('${video.id}')"
+                        title="Edit"
+                    >
+
+                        <i class="bi bi-pencil"></i>
+
+                    </button>
+
+
+                    <button
+                        class="btn btn-sm btn-outline-danger"
+                        onclick="deleteVideo('${video.id}')"
+                        title="Delete"
+                    >
+
+                        <i class="bi bi-trash"></i>
+
+                    </button>
+
+
+                </div>
+
+            </td>
 
         `;
+
+
+        tbody.appendChild(row);
 
     });
 
@@ -243,107 +453,133 @@ function renderVideos(videos) {
 
 
 // ======================================
-// FILTERS
+// FILTER
 // ======================================
 
-function setupFilters() {
+function filterVideos() {
 
     const search =
-        document.getElementById("videoSearch");
+        document.getElementById(
+            "searchVideos"
+        ).value
+        .toLowerCase()
+        .trim();
 
-    const category =
-        document.getElementById("videoCategory");
 
     const status =
-        document.getElementById("videoStatus");
+        document.getElementById(
+            "statusFilter"
+        ).value;
 
 
-    function applyFilters() {
-
-        const searchValue =
-            search.value
-                .toLowerCase()
-                .trim();
+    const category =
+        document.getElementById(
+            "categoryFilter"
+        ).value;
 
 
-        const categoryValue =
-            category.value;
+    const filtered =
+        allVideos.filter(video => {
 
 
-        const statusValue =
-            status.value;
+            const matchesSearch =
+                !search ||
 
-
-        const filtered =
-            allVideos.filter(video => {
-
-                const matchesSearch =
-                    !searchValue ||
-
-                    (
-                        video.title || ""
-                    )
+                (video.title || "")
                     .toLowerCase()
-                    .includes(searchValue);
+                    .includes(search);
 
 
-                const matchesCategory =
-                    !categoryValue ||
+            const matchesStatus =
+                status === "all" ||
 
-                    video.category ===
-                    categoryValue;
-
-
-                const matchesStatus =
-                    !statusValue ||
-
-                    video.status ===
-                    statusValue;
+                video.status === status;
 
 
-                return (
-                    matchesSearch &&
-                    matchesCategory &&
-                    matchesStatus
-                );
+            const matchesCategory =
+                category === "all" ||
 
-            });
+                video.category === category;
 
 
-        renderVideos(filtered);
+            return (
+                matchesSearch &&
+                matchesStatus &&
+                matchesCategory
+            );
+
+        });
+
+
+    renderVideos(filtered);
+
+}
+
+
+// ======================================
+// EDIT
+// ======================================
+
+function editVideo(id) {
+
+    window.location.href =
+        `video-editor.html?id=${id}`;
+
+}
+
+
+// ======================================
+// VIEW
+// ======================================
+
+function viewVideo(id) {
+
+    const video =
+        allVideos.find(
+            item => item.id === id
+        );
+
+
+    if (!video) return;
+
+
+    if (video.video_url) {
+
+        window.open(
+            video.video_url,
+            "_blank"
+        );
+
+        return;
 
     }
 
 
-    search.addEventListener(
-        "input",
-        applyFilters
-    );
-
-
-    category.addEventListener(
-        "change",
-        applyFilters
-    );
-
-
-    status.addEventListener(
-        "change",
-        applyFilters
+    alert(
+        "No video URL available."
     );
 
 }
 
 
 // ======================================
-// DELETE VIDEO
+// DELETE
 // ======================================
 
 async function deleteVideo(id) {
 
+    const video =
+        allVideos.find(
+            item => item.id === id
+        );
+
+
+    if (!video) return;
+
+
     const confirmed =
         confirm(
-            "Are you sure you want to delete this video?"
+            `Delete "${video.title}"?`
         );
 
 
@@ -362,13 +598,11 @@ async function deleteVideo(id) {
 
     if (error) {
 
-        console.error(
-            "Delete Video Error:",
-            error
-        );
+        console.error(error);
 
         alert(
-            "Unable to delete video."
+            "Failed to delete video: " +
+            error.message
         );
 
         return;
@@ -382,5 +616,29 @@ async function deleteVideo(id) {
 
 
     loadVideos();
+
+}
+
+
+// ======================================
+// ESCAPE HTML
+// ======================================
+
+function escapeHtml(value) {
+
+    if (!value) return "";
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
 
 }
