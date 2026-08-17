@@ -1,71 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Technology - BeyondNetworks</title>
-  <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Technology | Beyond Networks</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- Supabase connection -->
+    <script src="cms/js/supabase.js"></script>
+
+    <!-- Category loader -->
+    <script src="cms/js/category.js" defer></script>
+
 </head>
+
 <body>
 
-  <header class="topbar">
-    <div class="logo">BeyondNetworks</div>
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<header class="topbar">
+
+    <div class="logo">
+
+        <img
+            src="images/logo.png"
+            alt="Beyond Networks">
+
+    </div>
+
 
     <nav>
-      <a href="index.html">Home</a>
-      <a href="videos.html">Videos</a>
-      <a href="politics.html">Politics</a>
-      <a href="business.html">Business</a>
-      <a href="technology.html">Technology</a>
-      <a href="sports.html">Sports</a>
-      <a href="entertainment.html">Entertainment</a>
+
+        <a href="index.html">Home</a>
+
+        <a href="videos.html">Videos</a>
+
+        <a href="politics.html">Politics</a>
+
+        <a href="business.html">Business</a>
+
+        <a href="technology.html">Technology</a>
+
+        <a href="sports.html">Sports</a>
+
+        <a href="entertainment.html">Entertainment</a>
+
     </nav>
-  </header>
 
-  <section class="hero" style="height: 60vh;">
-    <div class="hero-content">
-      <p class="tag">Category</p>
-      <h1>Technology News</h1>
-      <p class="subtitle">Latest updates and analysis from the world of Technology.</p>
+</header>
+
+
+
+<!-- ========================================= -->
+<!-- TECHNOLOGY TOP -->
+<!-- ========================================= -->
+
+<section class="politics-top">
+
+
+    <!-- ========================= -->
+    <!-- FEATURED STORY -->
+    <!-- ========================= -->
+
+    <div class="featured-politics">
+
+        <div id="featuredPolitics">
+
+            <!-- Loaded from category.js -->
+
+        </div>
+
     </div>
-  </section>
 
-  <section class="section-title">
-    <h2>Top Stories</h2>
-  </section>
 
-  <main class="news-grid">
-    <article class="card featured">
-      <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80" alt="Technology">
-      <div class="content">
-        <span>Technology</span>
-        <h2>World leaders gather for an international summit</h2>
-        <p>Governments from around the world are meeting to discuss global trade and security.</p>
-      </div>
-    </article>
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=800&q=80" alt="Technology News">
-      <div class="content">
-        <span>Technology</span>
-        <h3>Election campaigns intensify ahead of the upcoming vote</h3>
-      </div>
-    </article>
+    <!-- ========================= -->
+    <!-- TOP STORIES -->
+    <!-- ========================= -->
 
-    <article class="card">
-      <img src="https://images.unsplash.com/photo-1555848962-6e79363ec58f?auto=format&fit=crop&w=800&q=80" alt="Technology News">
-      <div class="content">
-        <span>Technology</span>
-        <h3>New economic policies announced during global summit</h3>
-      </div>
-    </article>
-  </main>
+    <aside class="top-stories">
 
-  <footer class="footer">
+        <div class="top-stories-header">
+
+            <h2>Top Stories</h2>
+
+            <a href="#">View All →</a>
+
+        </div>
+
+
+        <div
+            id="topStories"
+            class="top-stories-grid">
+
+            Loading...
+
+        </div>
+
+    </aside>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- LATEST -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Latest</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="latestPolitics">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- OPINION -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Opinion</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="opinionPolitics">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- VIDEOS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Videos</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="videosPolitics">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- MOST READ -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Most Read</h2>
+
+    </div>
+
+
+    <div
+        class="most-read-grid"
+        id="mostReadPolitics">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================================= -->
+<!-- EDITOR'S PICKS -->
+<!-- ========================================= -->
+
+<section class="category-section">
+
+    <div class="section-heading">
+
+        <h2>Editor's Picks</h2>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+
+    <div
+        class="category-grid"
+        id="editorPolitics">
+
+    </div>
+
+</section>
+
+
+
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
+
+<footer class="footer">
+
     <div class="footer-bottom">
-      <p>© 2026 BeyondNetworks. All Rights Reserved.</p>
+
+        <p>
+
+            © 2026 Beyond Networks. All Rights Reserved.
+
+        </p>
+
     </div>
-  </footer>
+
+</footer>
+
 
 </body>
-</html> 
+
+</html>
