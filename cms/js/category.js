@@ -7,6 +7,13 @@ console.log("category.js loaded");
 const category =
     document.title.split("|")[0].trim();
 
+console.log("Current Category:", category);
+
+
+// ======================================
+// PAGE INITIALIZATION
+// ======================================
+
 document.addEventListener("DOMContentLoaded", () => {
 
     loadBreakingNews();
@@ -15,17 +22,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadTopStories();
 
-    loadLatestPolitics();
+    loadLatest();
 
-    loadOpinionPolitics();
+    loadOpinion();
 
-    loadVideosPolitics();
+    loadVideos();
 
-    loadMostReadPolitics();
+    loadMostRead();
 
     loadEditorsPicks();
 
 });
+
 
 // ======================================
 // BREAKING NEWS
@@ -47,36 +55,42 @@ async function loadBreakingNews(){
 
         .limit(10);
 
+
     if(error){
 
-        console.error(error);
+        console.error("Breaking News Error:", error);
 
         return;
 
     }
 
+
     const ticker =
         document.getElementById("breakingTicker");
 
+
     if(!ticker) return;
+
 
     ticker.innerHTML = "";
 
-    data.forEach(article=>{
+
+    data.forEach(article => {
 
         ticker.innerHTML += `
 
-<a href="article.html?slug=${article.slug}">
+            <a href="article.html?slug=${article.slug}">
 
-🔴 ${article.title}
+                🔴 ${article.title}
 
-</a>
+            </a>
 
-`;
+        `;
 
     });
 
 }
+
 
 // ======================================
 // FEATURED STORY
@@ -102,111 +116,149 @@ async function loadFeaturedStory(){
 
         .single();
 
+
     if(error){
 
-        console.error(error);
+        console.error("Featured Story Error:", error);
 
         return;
 
     }
 
-    const container =
-        document.getElementById("featuredPolitics");
 
-    if(!container) return;
+    // Automatically find correct container
+    // Politics → featuredPolitics
+    // Business → featuredBusiness
+    // Technology → featuredTechnology
+    // Sports → featuredSports
+    // Entertainment → featuredEntertainment
+
+    const container =
+        document.getElementById(
+            "featured" + category
+        );
+
+
+    if(!container){
+
+        console.error(
+            "Featured container not found:",
+            "featured" + category
+        );
+
+        return;
+
+    }
+
 
     container.innerHTML = `
 
-<img src="${data.featured_image}">
+        <img
+            src="${data.featured_image}"
+            alt="${data.title}"
+        >
 
-<div class="featured-content">
+        <div class="featured-content">
 
-<span>${data.category}</span>
+            <span>
+                ${data.category}
+            </span>
 
-<h1>
+            <h1>
+                ${data.title}
+            </h1>
 
-${data.title}
+            <p>
+                ${data.summary || ""}
+            </p>
 
-</h1>
+            <a href="article.html?slug=${data.slug}">
+                Read Story →
+            </a>
 
-<p>
+        </div>
 
-${data.summary || ""}
-
-</p>
-
-<a href="article.html?slug=${data.slug}">
-
-Read Story →
-
-</a>
-
-</div>
-
-`;
+    `;
 
 }
 
+
 // ======================================
-// TRENDING
+// TOP STORIES
 // ======================================
 
-async function loadTopStories() {
+async function loadTopStories(){
 
     const { data, error } = await supabaseClient
+
         .from("articles")
+
         .select("*")
-        .eq("status", "Published")
-        .eq("category", category)
-        .eq("is_trending", true)
-        .order("publish_date", { ascending: false })
+
+        .eq("status","Published")
+
+        .eq("category",category)
+
+        .eq("is_trending",true)
+
+        .order("publish_date",{ascending:false})
+
         .limit(6);
 
-    if (error) {
-        console.error("Top Stories Error:", error);
+
+    if(error){
+
+        console.error(
+            "Top Stories Error:",
+            error
+        );
+
         return;
+
     }
 
-    const container = document.getElementById("topStories");
 
-    if (!container) return;
+    const container =
+        document.getElementById("topStories");
+
+
+    if(!container) return;
+
 
     container.innerHTML = "";
 
-    if (!data || data.length === 0) {
+
+    if(!data || data.length === 0){
+
         container.innerHTML = `
+
             <p class="no-top-stories">
+
                 No trending stories available.
+
             </p>
+
         `;
+
         return;
+
     }
 
-    /*
-    ==========================================
-    TOP STORIES STRUCTURE
 
-    Story 1 + Story 2
-    → Images
+    // ==================================
+    // FIRST TWO — IMAGES
+    // ==================================
 
-    Story 3 + Story 4
-    → Text only
+    const imageStories =
+        data.slice(0,2);
 
-    Story 5 + Story 6
-    → Text only
-    ==========================================
-    */
-
-    const imageStories = data.slice(0, 2);
-    const textStories = data.slice(2, 6);
-
-    /* ================================
-       FIRST TWO STORIES WITH IMAGES
-       ================================ */
 
     let imagesHTML = `
+
         <div class="top-stories-images">
+
     `;
+
 
     imageStories.forEach(article => {
 
@@ -239,18 +291,28 @@ async function loadTopStories() {
 
     });
 
+
     imagesHTML += `
+
         </div>
+
     `;
 
 
-    /* ================================
-       REMAINING FOUR TEXT STORIES
-       ================================ */
+    // ==================================
+    // REMAINING FOUR — TEXT ONLY
+    // ==================================
+
+    const textStories =
+        data.slice(2,6);
+
 
     let textHTML = `
+
         <div class="top-stories-text-grid">
+
     `;
+
 
     textStories.forEach(article => {
 
@@ -274,117 +336,245 @@ async function loadTopStories() {
 
     });
 
+
     textHTML += `
+
         </div>
+
     `;
 
 
-    /* ================================
-       INSERT EVERYTHING
-       ================================ */
+    // ==================================
+    // INSERT
+    // ==================================
 
-    container.innerHTML = imagesHTML + textHTML;
+    container.innerHTML =
+        imagesHTML + textHTML;
 
 }
-// =====================================
-// REUSABLE SECTION LOADER
-// =====================================
 
-async function loadSection(targetId, filters = {}, limit = 4) {
+
+// ======================================
+// REUSABLE SECTION LOADER
+// ======================================
+
+async function loadSection(
+    targetId,
+    filters = {},
+    limit = 4
+){
 
     let query = supabaseClient
+
         .from("articles")
+
         .select("*")
-        .eq("status", "Published")
-        .eq("category", category);
 
-    Object.entries(filters).forEach(([key, value]) => {
-        query = query.eq(key, value);
-    });
+        .eq("status","Published")
 
-    const { data, error } = await query
-        .order("publish_date", { ascending: false })
-        .limit(limit);
+        .eq("category",category);
 
-    if (error) {
-        console.error(error);
+
+    // Apply additional filters
+
+    Object.entries(filters).forEach(
+        ([key,value]) => {
+
+            query =
+                query.eq(key,value);
+
+        }
+    );
+
+
+    const { data, error } =
+        await query
+
+            .order(
+                "publish_date",
+                {
+                    ascending:false
+                }
+            )
+
+            .limit(limit);
+
+
+    if(error){
+
+        console.error(
+            `${targetId} Error:`,
+            error
+        );
+
         return;
+
     }
 
-    const container = document.getElementById(targetId);
 
-    if (!container) return;
+    const container =
+        document.getElementById(targetId);
+
+
+    if(!container){
+
+        console.warn(
+            "Container not found:",
+            targetId
+        );
+
+        return;
+
+    }
+
 
     container.innerHTML = "";
+
+
+    if(!data || data.length === 0){
+
+        return;
+
+    }
+
 
     data.forEach(article => {
 
         container.innerHTML += `
 
-<a href="article.html?slug=${article.slug}" class="category-card">
+            <a
+                href="article.html?slug=${article.slug}"
+                class="category-card"
+            >
 
-    <img src="${article.featured_image}" alt="${article.title}">
+                <img
+                    src="${article.featured_image}"
+                    alt="${article.title}"
+                >
 
-    <div class="content">
+                <div class="content">
 
-        <span>${article.category}</span>
+                    <span>
+                        ${article.category}
+                    </span>
 
-        <h3>${article.title}</h3>
+                    <h3>
+                        ${article.title}
+                    </h3>
 
-        <p>${article.summary || ""}</p>
+                    <p>
+                        ${article.summary || ""}
+                    </p>
 
-    </div>
+                </div>
 
-</a>
+            </a>
 
-`;
+        `;
 
     });
 
 }
-// =====================================
+
+
+// ======================================
 // LATEST
-// =====================================
+// ======================================
 
-function loadLatestPolitics() {
-    loadSection("latestPolitics", {}, 4);
+function loadLatest(){
+
+    loadSection(
+
+        "latest" + category,
+
+        {},
+
+        4
+
+    );
+
 }
 
-// =====================================
+
+// ======================================
 // OPINION
-// =====================================
+// ======================================
 
-function loadOpinionPolitics() {
-    loadSection("opinionPolitics", {
-        is_opinion: true
-    }, 4);
+function loadOpinion(){
+
+    loadSection(
+
+        "opinion" + category,
+
+        {
+            is_opinion:true
+        },
+
+        4
+
+    );
+
 }
 
-// =====================================
+
+// ======================================
 // VIDEOS
-// =====================================
+// ======================================
 
-function loadVideosPolitics() {
-    loadSection("videosPolitics", {
-        is_video: true
-    }, 4);
+function loadVideos(){
+
+    loadSection(
+
+        "videos" + category,
+
+        {
+            is_video:true
+        },
+
+        4
+
+    );
+
 }
 
-// =====================================
+
+// ======================================
 // MOST READ
-// =====================================
+// ======================================
 
-function loadMostReadPolitics() {
-    loadSection("mostReadPolitics", {
-        is_trending: true
-    }, 4);
+function loadMostRead(){
+
+    loadSection(
+
+        "mostRead" + category,
+
+        {
+            is_trending:true
+        },
+
+        4
+
+    );
+
 }
 
-// =====================================
-// EDITOR PICKS
-// =====================================
-function loadEditorsPicks() {
-    loadSection("editorPolitics", {
-        is_editor_pick: true
-    }, 4);
+
+// ======================================
+// EDITOR'S PICKS
+// ======================================
+
+function loadEditorsPicks(){
+
+    loadSection(
+
+        "editor" + category,
+
+        {
+            is_editor_pick:true
+        },
+
+        4
+
+    );
+
 }
