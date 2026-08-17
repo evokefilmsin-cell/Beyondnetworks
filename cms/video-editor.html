@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>New Video | Beyond Networks CMS</title>
+
+<!-- Bootstrap -->
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+<!-- Dashboard CSS -->
+<link
+rel="stylesheet"
+href="css/dashboard.css">
+
+<!-- Editor CSS -->
+<link
+rel="stylesheet"
+href="css/editor.css">
+
+</head>
+
+<body>
+
+
+<!-- =====================================
+     SIDEBAR
+===================================== -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        <img
+        src="../images/logo.png">
+
+    </div>
+
+
+    <a href="dashboard.html">
+        🏠 Dashboard
+    </a>
+
+
+    <a href="articles.html">
+        📰 Articles
+    </a>
+
+
+    <a href="article-editor.html">
+        ✍ New Article
+    </a>
+
+
+    <a href="videos.html"
+       class="active">
+
+        🎥 Videos
+
+    </a>
+
+
+    <a href="media.html">
+        🖼 Media Library
+    </a>
+
+
+    <a href="categories.html">
+        📂 Categories
+    </a>
+
+
+    <a href="settings.html">
+        ⚙ Settings
+    </a>
+
+</div>
+
+
+
+<!-- =====================================
+     MAIN
+===================================== -->
+
+<div class="main">
+
+
+<form id="videoForm">
+
+
+<!-- =====================================
+     TOP
+===================================== -->
+
+<div class="editor-top">
+
+    <div>
+
+        <h1>
+            Create New Video
+        </h1>
+
+        <p>
+            Upload and publish a video story.
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<div class="editor-layout">
+
+
+<!-- =====================================
+     LEFT
+===================================== -->
+
+<div class="editor-left">
+
+
+    <!-- ================================
+         VIDEO INFORMATION
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Video Title
+
+            </label>
+
+
+            <input
+            id="title"
+            type="text"
+            class="form-control"
+            placeholder="Enter video title">
+
+        </div>
+
+
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Short Description
+
+            </label>
+
+
+            <textarea
+            id="summary"
+            rows="3"
+            class="form-control"
+            placeholder="Write a short description..."></textarea>
+
+        </div>
+
+
+
+        <div>
+
+            <label class="form-label">
+
+                Video Description
+
+            </label>
+
+
+            <textarea
+            id="editor"></textarea>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         VIDEO URL
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Video Source
+
+        </h5>
+
+
+        <label class="form-label mt-3">
+
+            YouTube / Video URL
+
+        </label>
+
+
+        <input
+        id="videoUrl"
+        type="url"
+        class="form-control"
+        placeholder="https://www.youtube.com/watch?v=...">
+
+
+        <small class="text-muted">
+
+            Paste the YouTube video URL or supported video URL.
+
+        </small>
+
+    </div>
+
+
+
+    <!-- ================================
+         FEATURED IMAGE
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Video Thumbnail
+
+        </h5>
+
+
+        <input
+        id="featuredImage"
+        type="file"
+        class="form-control mt-3">
+
+
+        <div class="mt-3">
+
+            <img
+            id="imagePreview"
+            src=""
+            style="
+                width:100%;
+                max-height:300px;
+                object-fit:cover;
+                border-radius:10px;
+                display:none;
+            ">
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         AUTHOR
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Author
+
+        </h5>
+
+
+        <input
+        id="author"
+        class="form-control mt-3"
+        placeholder="Author Name">
+
+    </div>
+
+
+
+    <!-- ================================
+         TAGS
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Tags
+
+        </h5>
+
+
+        <input
+        id="tags"
+        class="form-control mt-3"
+        placeholder="Politics, Interview, Hyderabad">
+
+    </div>
+
+
+
+    <!-- ================================
+         URL
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Video URL Slug
+
+        </h5>
+
+
+        <input
+        id="slug"
+        class="form-control mt-3"
+        placeholder="video-title">
+
+    </div>
+
+
+
+    <!-- ================================
+         SEO
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            SEO
+
+        </h5>
+
+
+        <input
+        id="seoTitle"
+        class="form-control mt-3 mb-3"
+        placeholder="SEO Title">
+
+
+        <textarea
+        id="metaDescription"
+        rows="4"
+        class="form-control"
+        placeholder="Meta Description"></textarea>
+
+    </div>
+
+
+</div>
+
+
+
+<!-- =====================================
+     RIGHT
+===================================== -->
+
+<div class="editor-right">
+
+
+    <!-- ================================
+         PUBLISHING
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Publishing
+
+        </h5>
+
+
+        <div
+        id="statusInfo"
+        class="alert alert-secondary mt-3">
+
+            <strong>Status:</strong>
+            New Video
+
+        </div>
+
+
+        <label class="form-label mt-3">
+
+            Publish Date & Time
+
+        </label>
+
+
+        <input
+        type="datetime-local"
+        id="publishDate"
+        class="form-control">
+
+
+        <hr>
+
+
+        <h6 class="mb-3">
+
+            Video Options
+
+        </h6>
+
+
+        <!-- BREAKING -->
+
+        <div class="form-check mb-2">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="breakingNews">
+
+
+            <label
+            class="form-check-label"
+            for="breakingNews">
+
+                🚨 Breaking News
+
+            </label>
+
+        </div>
+
+
+
+        <!-- FEATURED -->
+
+        <div class="form-check mb-2">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="featuredStory">
+
+
+            <label
+            class="form-check-label"
+            for="featuredStory">
+
+                ⭐ Featured Video
+
+            </label>
+
+        </div>
+
+
+
+        <!-- TRENDING -->
+
+        <div class="form-check mb-2">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="trendingStory">
+
+
+            <label
+            class="form-check-label"
+            for="trendingStory">
+
+                🔥 Trending Video
+
+            </label>
+
+        </div>
+
+
+
+        <!-- OPINION -->
+
+        <div class="form-check mb-2">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="opinionStory">
+
+
+            <label
+            class="form-check-label"
+            for="opinionStory">
+
+                💬 Opinion
+
+            </label>
+
+        </div>
+
+
+
+        <!-- EDITOR PICK -->
+
+        <div class="form-check mb-2">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="editorPick">
+
+
+            <label
+            class="form-check-label"
+            for="editorPick">
+
+                ⭐ Editor's Pick
+
+            </label>
+
+        </div>
+
+
+
+        <!-- IS VIDEO -->
+
+        <div class="form-check mb-3">
+
+            <input
+            class="form-check-input"
+            type="checkbox"
+            id="isVideo"
+            checked
+            disabled>
+
+
+            <label
+            class="form-check-label"
+            for="isVideo">
+
+                🎥 Video
+
+            </label>
+
+        </div>
+
+
+
+        <!-- BUTTONS -->
+
+        <div class="d-grid gap-2 mt-4">
+
+
+            <button
+            id="draftBtn"
+            type="button"
+            class="btn btn-secondary">
+
+                <i class="bi bi-file-earmark"></i>
+
+                Save Draft
+
+            </button>
+
+
+
+            <button
+            id="previewBtn"
+            type="button"
+            class="btn btn-outline-light">
+
+                <i class="bi bi-eye"></i>
+
+                Preview
+
+            </button>
+
+
+
+            <button
+            id="scheduleBtn"
+            type="button"
+            class="btn btn-warning">
+
+                <i class="bi bi-clock-history"></i>
+
+                Schedule Video
+
+            </button>
+
+
+
+            <button
+            id="publishBtn"
+            type="button"
+            class="btn btn-danger">
+
+                <i class="bi bi-send"></i>
+
+                Publish Video
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================
+         BRAND
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Brand
+
+        </h5>
+
+
+        <select
+        id="brand"
+        class="form-select mt-3">
+
+            <option selected>
+                Beyond News
+            </option>
+
+            <option>
+                Beyond Politics
+            </option>
+
+            <option>
+                Beyond Entertainment
+            </option>
+
+            <option>
+                Beyond Sports
+            </option>
+
+            <option>
+                Beyond Business
+            </option>
+
+            <option>
+                Beyond Knowledge
+            </option>
+
+        </select>
+
+    </div>
+
+
+
+    <!-- ================================
+         CATEGORY
+    ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+
+            Category
+
+        </h5>
+
+
+        <select
+        id="category"
+        class="form-select mt-3">
+
+            <option>
+                News
+            </option>
+
+            <option>
+                Politics
+            </option>
+
+            <option>
+                Business
+            </option>
+
+            <option>
+                Technology
+            </option>
+
+            <option>
+                Sports
+            </option>
+
+            <option>
+                Entertainment
+            </option>
+
+        </select>
+
+    </div>
+
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+
+
+<!-- =====================================
+     SCRIPTS
+===================================== -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
+
+<script src="js/supabase.js"></script>
+
+
+<!-- CKEditor -->
+
+<script
+src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js">
+</script>
+
+
+<!-- Video Editor JS -->
+
+<script src="js/video-editor.js"></script>
+
+
+</body>
+
+</html>
