@@ -2292,3 +2292,78 @@ CATEGORY RESPONSIVE
     }
 
 }
+/* ======================================
+   SINGLE VIDEO PAGE
+====================================== */
+
+.single-video-page {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 30px;
+}
+
+
+/* ======================================
+   YOUTUBE PLAYER
+====================================== */
+
+.youtube-player {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+
+.youtube-player iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+
+/* ======================================
+   VIDEO DETAILS
+====================================== */
+
+.single-video-content {
+    padding: 30px 0;
+}
+
+
+.single-video-content > span {
+    color: #ff3b3b;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.single-video-content h1 {
+    font-size: 42px;
+    line-height: 1.15;
+    margin: 12px 0 20px;
+}
+
+
+.single-video-content p {
+    color: #aaa;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 900px;
+}
+
+
+@media (max-width: 700px) {
+
+    .single-video-page {
+        margin: 30px auto;
+        padding: 0 15px;
+    }
+
+    .single-video-content h1 {
+        font-size: 28px;
+    }
+
+}
