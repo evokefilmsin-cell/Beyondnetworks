@@ -1,4 +1,7 @@
-console.log("videos.js loaded");
+console.log("CMS videos.js loaded");
+
+let allVideos = [];
+
 
 // ======================================
 // INITIAL LOAD
@@ -6,200 +9,36 @@ console.log("videos.js loaded");
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    loadFeaturedVideo();
+    loadVideos();
 
-    loadLatestVideos();
-
-    loadCategoryVideos("videosPolitics", "Politics");
-    loadCategoryVideos("videosBusiness", "Business");
-    loadCategoryVideos("videosTechnology", "Technology");
-    loadCategoryVideos("videosSports", "Sports");
-    loadCategoryVideos("videosEntertainment", "Entertainment");
+    setupFilters();
 
 });
 
 
 // ======================================
-// FEATURED VIDEO
+// LOAD VIDEOS
 // ======================================
 
-async function loadFeaturedVideo() {
+async function loadVideos() {
 
     const { data, error } = await supabaseClient
+
         .from("articles")
+
         .select("*")
-        .eq("status", "Published")
+
         .eq("is_video", true)
-        .eq("is_featured", true)
-        .order("publish_date", { ascending: false })
-        .limit(1)
-        .maybeSingle();
 
-    if (error) {
+        .order("publish_date", {
+            ascending: false
+        });
 
-        console.error("Featured Video Error:", error);
-
-        return;
-
-    }
-
-    const container =
-        document.getElementById("featuredVideo");
-
-    if (!container) return;
-
-    if (!data) {
-
-        container.innerHTML = `
-            <p>No featured video available.</p>
-        `;
-
-        return;
-
-    }
-
-    container.innerHTML = `
-
-        <article class="featured-video-card">
-
-            <a href="article.html?slug=${data.slug}">
-
-                <img
-                    src="${data.featured_image || ""}"
-                    alt="${data.title}"
-                >
-
-            </a>
-
-            <div class="featured-video-content">
-
-                <span>${data.category}</span>
-
-                <h1>
-
-                    <a href="article.html?slug=${data.slug}">
-
-                        ${data.title}
-
-                    </a>
-
-                </h1>
-
-                <p>
-
-                    ${data.summary || ""}
-
-                </p>
-
-                <a
-                    href="article.html?slug=${data.slug}"
-                    class="read-story">
-
-                    Watch Video →
-
-                </a>
-
-            </div>
-
-        </article>
-
-    `;
-
-}
-
-
-// ======================================
-// LATEST VIDEOS
-// ======================================
-
-async function loadLatestVideos() {
-
-    const { data, error } = await supabaseClient
-        .from("articles")
-        .select("*")
-        .eq("status", "Published")
-        .eq("is_video", true)
-        .order("publish_date", { ascending: false })
-        .limit(4);
-
-    if (error) {
-
-        console.error("Latest Videos Error:", error);
-
-        return;
-
-    }
-
-    const container =
-        document.getElementById("latestVideos");
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    if (!data || data.length === 0) {
-
-        container.innerHTML = `
-            <p>No videos available.</p>
-        `;
-
-        return;
-
-    }
-
-    data.forEach(article => {
-
-        container.innerHTML += `
-
-            <div class="top-story-image">
-
-                <a href="article.html?slug=${article.slug}">
-
-                    <img
-                        src="${article.featured_image || ""}"
-                        alt="${article.title}"
-                    >
-
-                </a>
-
-                <h4>
-
-                    <a href="article.html?slug=${article.slug}">
-
-                        ${article.title}
-
-                    </a>
-
-                </h4>
-
-            </div>
-
-        `;
-
-    });
-
-}
-
-
-// ======================================
-// CATEGORY VIDEOS
-// ======================================
-
-async function loadCategoryVideos(targetId, categoryName) {
-
-    const { data, error } = await supabaseClient
-        .from("articles")
-        .select("*")
-        .eq("status", "Published")
-        .eq("is_video", true)
-        .eq("category", categoryName)
-        .order("publish_date", { ascending: false })
-        .limit(4);
 
     if (error) {
 
         console.error(
-            `${categoryName} Videos Error:`,
+            "Videos Load Error:",
             error
         );
 
@@ -207,60 +46,341 @@ async function loadCategoryVideos(targetId, categoryName) {
 
     }
 
-    const container =
-        document.getElementById(targetId);
 
-    if (!container) return;
+    allVideos = data || [];
 
-    container.innerHTML = "";
+    renderVideos(allVideos);
 
-    if (!data || data.length === 0) {
+}
 
-        container.innerHTML = `
-            <p class="no-videos">
-                No ${categoryName} videos available.
-            </p>
+
+// ======================================
+// RENDER
+// ======================================
+
+function renderVideos(videos) {
+
+    const table =
+        document.getElementById("videosTable");
+
+
+    if (!table) return;
+
+
+    table.innerHTML = "";
+
+
+    if (!videos || videos.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="text-align:center;">
+
+                    No videos found.
+
+                </td>
+
+            </tr>
+
         `;
 
         return;
 
     }
 
-    data.forEach(article => {
 
-        container.innerHTML += `
+    videos.forEach(video => {
 
-            <a
-                href="article.html?slug=${article.slug}"
-                class="category-card">
+        const date =
+            video.publish_date
+                ? new Date(video.publish_date)
+                    .toLocaleDateString()
+                : "-";
 
-                <img
-                    src="${article.featured_image || ""}"
-                    alt="${article.title}"
-                >
 
-                <div class="content">
+        table.innerHTML += `
 
-                    <span>${article.category}</span>
+            <tr>
 
-                    <h3>
+                <!-- THUMBNAIL -->
 
-                        ${article.title}
+                <td>
 
-                    </h3>
+                    ${
+                        video.featured_image
 
-                    <p>
+                        ?
 
-                        ${article.summary || ""}
+                        `
+                        <img
+                            src="${video.featured_image}"
+                            alt="${video.title}"
+                            style="
+                                width:90px;
+                                height:55px;
+                                object-fit:cover;
+                                border-radius:6px;
+                            "
+                        >
+                        `
 
-                    </p>
+                        :
 
-                </div>
+                        `
+                        <div>
+                            No Image
+                        </div>
+                        `
+                    }
 
-            </a>
+                </td>
+
+
+                <!-- TITLE -->
+
+                <td>
+
+                    <strong>
+
+                        ${video.title}
+
+                    </strong>
+
+                </td>
+
+
+                <!-- CATEGORY -->
+
+                <td>
+
+                    ${video.category || "-"}
+
+                </td>
+
+
+                <!-- STATUS -->
+
+                <td>
+
+                    <span class="status-badge">
+
+                        ${video.status || "-"}
+
+                    </span>
+
+                </td>
+
+
+                <!-- FEATURED -->
+
+                <td>
+
+                    ${
+                        video.is_featured
+                        ? "✓"
+                        : "—"
+                    }
+
+                </td>
+
+
+                <!-- TRENDING -->
+
+                <td>
+
+                    ${
+                        video.is_trending
+                        ? "✓"
+                        : "—"
+                    }
+
+                </td>
+
+
+                <!-- DATE -->
+
+                <td>
+
+                    ${date}
+
+                </td>
+
+
+                <!-- ACTIONS -->
+
+                <td>
+
+                    <a
+                        href="video-editor.html?id=${video.id}"
+                        class="btn-small">
+
+                        Edit
+
+                    </a>
+
+
+                    <button
+                        class="btn-danger-small"
+                        onclick="deleteVideo('${video.id}')">
+
+                        Delete
+
+                    </button>
+
+                </td>
+
+            </tr>
 
         `;
 
     });
+
+}
+
+
+// ======================================
+// FILTERS
+// ======================================
+
+function setupFilters() {
+
+    const search =
+        document.getElementById("videoSearch");
+
+    const category =
+        document.getElementById("videoCategory");
+
+    const status =
+        document.getElementById("videoStatus");
+
+
+    function applyFilters() {
+
+        const searchValue =
+            search.value
+                .toLowerCase()
+                .trim();
+
+
+        const categoryValue =
+            category.value;
+
+
+        const statusValue =
+            status.value;
+
+
+        const filtered =
+            allVideos.filter(video => {
+
+                const matchesSearch =
+                    !searchValue ||
+
+                    (
+                        video.title || ""
+                    )
+                    .toLowerCase()
+                    .includes(searchValue);
+
+
+                const matchesCategory =
+                    !categoryValue ||
+
+                    video.category ===
+                    categoryValue;
+
+
+                const matchesStatus =
+                    !statusValue ||
+
+                    video.status ===
+                    statusValue;
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory &&
+                    matchesStatus
+                );
+
+            });
+
+
+        renderVideos(filtered);
+
+    }
+
+
+    search.addEventListener(
+        "input",
+        applyFilters
+    );
+
+
+    category.addEventListener(
+        "change",
+        applyFilters
+    );
+
+
+    status.addEventListener(
+        "change",
+        applyFilters
+    );
+
+}
+
+
+// ======================================
+// DELETE VIDEO
+// ======================================
+
+async function deleteVideo(id) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this video?"
+        );
+
+
+    if (!confirmed) return;
+
+
+    const { error } =
+        await supabaseClient
+
+            .from("articles")
+
+            .delete()
+
+            .eq("id", id);
+
+
+    if (error) {
+
+        console.error(
+            "Delete Video Error:",
+            error
+        );
+
+        alert(
+            "Unable to delete video."
+        );
+
+        return;
+
+    }
+
+
+    alert(
+        "Video deleted successfully."
+    );
+
+
+    loadVideos();
 
 }
