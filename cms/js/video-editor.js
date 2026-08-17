@@ -51,9 +51,6 @@ const imagePreview =
 const author =
     document.getElementById("author");
 
-const tags =
-    document.getElementById("tags");
-
 const slug =
     document.getElementById("slug");
 
