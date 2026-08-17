@@ -1700,135 +1700,217 @@ FEATURED
 }
 
 
-/*=========================
-TOP STORIES
-=========================*/
+/* =========================================
+   TOP STORIES
+========================================= */
 
-.top-stories{
-    background:#111;
-    border:1px solid #222;
-    border-radius:18px;
-    padding:25px;
+.top-stories {
+
+    background: #111;
+
+    border: 1px solid #222;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    overflow: hidden;
 }
 
-.top-stories-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
+
+/* =========================================
+   TOP STORIES HEADER
+========================================= */
+
+.top-stories-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
 }
 
-.top-stories-header h2{
-    font-size:24px;
+
+.top-stories-header h2 {
+
+    margin: 0;
+
+    font-size: 24px;
+
+    color: #fff;
 }
 
-.top-stories-header a{
-    color:#ff4040;
-    text-decoration:none;
-    font-weight:600;
+
+.top-stories-header a {
+
+    color: #ff4040;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
 }
 
-.top-stories-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
+
+/* =========================================
+   FIRST TWO STORIES
+   IMAGE GRID
+========================================= */
+
+.top-stories-images {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    margin-bottom: 18px;
 }
 
-.top-story-image img{
-    width:100%;
-    height:130px;
-    object-fit:cover;
-    border-radius:10px;
+
+/* =========================================
+   IMAGE STORY
+========================================= */
+
+.top-story-image {
+
+    min-width: 0;
 }
 
-.top-story-image h4{
-    margin-top:10px;
-    font-size:17px;
-    line-height:1.4;
+
+.top-story-image img {
+
+    display: block;
+
+    width: 100%;
+
+    height: 110px;
+
+    object-fit: cover;
+
+    border-radius: 9px;
+
+    margin-bottom: 9px;
 }
 
-.top-story-text{
 
-    grid-column:1 / -1;
+.top-story-image h4 {
 
-    padding:16px 0;
+    margin: 0;
 
-    border-top:1px solid #222;
+    font-size: 15px;
 
-}
-.top-story-text h4{
+    line-height: 1.4;
 
-    margin:0;
-
-    font-size:16px;
-
-    line-height:1.5;
-
+    font-weight: 600;
 }
 
-.top-story-image a,
-.top-story-text a{
-    color:#fff;
-    text-decoration:none;
+
+.top-story-image a {
+
+    color: #fff;
+
+    text-decoration: none;
 }
 
-.top-story-image a:hover,
-.top-story-text a:hover{
-    color:#ff4040;
-}
-.top-story-image{
-    display:flex;
-    flex-direction:column;
+
+.top-story-image a:hover {
+
+    color: #ff4040;
 }
 
-.top-story-image img{
-    width:100%;
-    height:140px;
-    object-fit:cover;
-    border-radius:10px;
+
+/* =========================================
+   TEXT-ONLY STORIES
+========================================= */
+
+.top-stories-text-grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0 14px;
 }
 
-.top-story-image h4{
-    margin-top:10px;
-    font-size:16px;
-    line-height:1.4;
+
+/* =========================================
+   INDIVIDUAL TEXT STORY
+========================================= */
+
+.top-story-text {
+
+    min-width: 0;
+
+    padding: 13px 0;
+
+    border-top: 1px solid #292929;
 }
 
-.top-story-text{
-    padding:14px;
-    border-top:1px solid #222;
-    min-width:0;
+
+.top-story-text h4 {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 1.45;
+
+    font-weight: 600;
 }
 
-.top-story-text h4{
-    margin:0;
-    font-size:15px;
-    line-height:1.45;
-    font-weight:600;
+
+.top-story-text a {
+
+    color: #fff;
+
+    text-decoration: none;
 }
 
-.top-story-text a{
-    color:#fff;
-    text-decoration:none;
+
+.top-story-text a:hover {
+
+    color: #ff4040;
 }
 
-.top-story-text a:hover{
-    color:#ff4040;
-}
-.top-story-text:nth-child(3){
-    grid-column:1;
+
+/* =========================================
+   NO STORIES
+========================================= */
+
+.no-top-stories {
+
+    margin: 10px 0;
+
+    color: #888;
+
+    font-size: 14px;
 }
 
-.top-story-text:nth-child(4){
-    grid-column:2;
-}
 
-.top-story-text:nth-child(5){
-    grid-column:1;
-}
+/* =========================================
+   MOBILE
+========================================= */
 
-.top-story-text:nth-child(6){
-    grid-column:2;
+@media (max-width: 768px) {
+
+    .top-stories-images {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .top-stories-text-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
 }
 /*===================================
 POLITICS CATEGORY SECTIONS
