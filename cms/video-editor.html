@@ -3,46 +3,46 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>New Video | Beyond Networks CMS</title>
+    <title>New Video | Beyond Networks CMS</title>
 
-<!-- Bootstrap -->
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-<!-- Bootstrap Icons -->
-<link
-rel="stylesheet"
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
 
-<!-- Dashboard CSS -->
-<link
-rel="stylesheet"
-href="css/dashboard.css">
+    <!-- CKEditor -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
-<!-- Editor CSS -->
-<link
-rel="stylesheet"
-href="css/editor.css">
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Editor CSS -->
+    <link rel="stylesheet" href="css/editor.css">
 
 </head>
 
 <body>
 
 
-<!-- =====================================
-     SIDEBAR
-===================================== -->
+<!-- ====================================== -->
+<!-- SIDEBAR -->
+<!-- ====================================== -->
 
 <div class="sidebar">
 
     <div class="logo">
 
-        <img
-        src="../images/logo.png">
+        <img src="../images/logo.png">
 
     </div>
 
@@ -62,11 +62,11 @@ href="css/editor.css">
     </a>
 
 
-    <a href="videos.html"
-       class="active">
-
+    <a
+        href="videos.html"
+        class="active"
+    >
         🎥 Videos
-
     </a>
 
 
@@ -88,9 +88,9 @@ href="css/editor.css">
 
 
 
-<!-- =====================================
-     MAIN
-===================================== -->
+<!-- ====================================== -->
+<!-- MAIN -->
+<!-- ====================================== -->
 
 <div class="main">
 
@@ -98,9 +98,9 @@ href="css/editor.css">
 <form id="videoForm">
 
 
-<!-- =====================================
-     TOP
-===================================== -->
+<!-- ====================================== -->
+<!-- TOP -->
+<!-- ====================================== -->
 
 <div class="editor-top">
 
@@ -111,7 +111,7 @@ href="css/editor.css">
         </h1>
 
         <p>
-            Upload and publish a video story.
+            Upload and publish video content for Beyond Networks.
         </p>
 
     </div>
@@ -123,241 +123,91 @@ href="css/editor.css">
 <div class="editor-layout">
 
 
-<!-- =====================================
-     LEFT
-===================================== -->
+<!-- ====================================== -->
+<!-- LEFT COLUMN -->
+<!-- ====================================== -->
 
 <div class="editor-left">
 
 
-    <!-- ================================
-         VIDEO INFORMATION
-    ================================= -->
+    <!-- ================================ -->
+    <!-- VIDEO INFORMATION -->
+    <!-- ================================ -->
 
     <div class="card p-4 mb-4">
 
+        <h5 class="mb-4">
+            Video Information
+        </h5>
+
 
         <div class="mb-4">
 
             <label class="form-label">
-
                 Video Title
-
             </label>
-
 
             <input
-            id="title"
-            type="text"
-            class="form-control"
-            placeholder="Enter video title">
+                id="title"
+                type="text"
+                class="form-control"
+                placeholder="Enter video title"
+            >
 
         </div>
-
 
 
         <div class="mb-4">
 
             <label class="form-label">
-
                 Short Description
-
             </label>
 
-
             <textarea
-            id="summary"
-            rows="3"
-            class="form-control"
-            placeholder="Write a short description..."></textarea>
+                id="summary"
+                rows="3"
+                class="form-control"
+                placeholder="Write a short description..."
+            ></textarea>
 
         </div>
 
 
+        <!-- VIDEO URL -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Video URL
+            </label>
+
+            <input
+                id="videoUrl"
+                type="url"
+                class="form-control"
+                placeholder="https://www.youtube.com/watch?v=..."
+            >
+
+            <small class="text-muted">
+                Paste the YouTube or video URL.
+            </small>
+
+        </div>
+
+
+        <!-- VIDEO CONTENT -->
 
         <div>
 
             <label class="form-label">
-
-                Video Description
-
+                Video Description / Content
             </label>
 
-
             <textarea
-            id="editor"></textarea>
+                id="editor"
+            ></textarea>
 
         </div>
-
-    </div>
-
-
-
-    <!-- ================================
-         VIDEO URL
-    ================================= -->
-
-    <div class="card p-4 mb-4">
-
-        <h5>
-
-            Video Source
-
-        </h5>
-
-
-        <label class="form-label mt-3">
-
-            YouTube / Video URL
-
-        </label>
-
-
-        <input
-        id="videoUrl"
-        type="url"
-        class="form-control"
-        placeholder="https://www.youtube.com/watch?v=...">
-
-
-        <small class="text-muted">
-
-            Paste the YouTube video URL or supported video URL.
-
-        </small>
-
-    </div>
-
-
-
-    <!-- ================================
-         FEATURED IMAGE
-    ================================= -->
-
-    <div class="card p-4 mb-4">
-
-        <h5>
-
-            Video Thumbnail
-
-        </h5>
-
-
-        <input
-        id="featuredImage"
-        type="file"
-        class="form-control mt-3">
-
-
-        <div class="mt-3">
-
-            <img
-            id="imagePreview"
-            src=""
-            style="
-                width:100%;
-                max-height:300px;
-                object-fit:cover;
-                border-radius:10px;
-                display:none;
-            ">
-
-        </div>
-
-    </div>
-
-
-
-    <!-- ================================
-         AUTHOR
-    ================================= -->
-
-    <div class="card p-4 mb-4">
-
-        <h5>
-
-            Author
-
-        </h5>
-
-
-        <input
-        id="author"
-        class="form-control mt-3"
-        placeholder="Author Name">
-
-    </div>
-
-
-
-    <!-- ================================
-         TAGS
-    ================================= -->
-
-    <div class="card p-4 mb-4">
-
-        <h5>
-
-            Tags
-
-        </h5>
-
-
-        <input
-        id="tags"
-        class="form-control mt-3"
-        placeholder="Politics, Interview, Hyderabad">
-
-    </div>
-
-
-
-    <!-- ================================
-         URL
-    ================================= -->
-
-    <div class="card p-4 mb-4">
-
-        <h5>
-
-            Video URL Slug
-
-        </h5>
-
-
-        <input
-        id="slug"
-        class="form-control mt-3"
-        placeholder="video-title">
-
-    </div>
-
-
-
-    <!-- ================================
-         SEO
-    ================================= -->
-
-    <div class="card p-4 mb-4">
-
-        <h5>
-
-            SEO
-
-        </h5>
-
-
-        <input
-        id="seoTitle"
-        class="form-control mt-3 mb-3"
-        placeholder="SEO Title">
-
-
-        <textarea
-        id="metaDescription"
-        rows="4"
-        class="form-control"
-        placeholder="Meta Description"></textarea>
 
     </div>
 
@@ -366,29 +216,28 @@ href="css/editor.css">
 
 
 
-<!-- =====================================
-     RIGHT
-===================================== -->
+<!-- ====================================== -->
+<!-- RIGHT COLUMN -->
+<!-- ====================================== -->
 
 <div class="editor-right">
 
 
-    <!-- ================================
-         PUBLISHING
-    ================================= -->
+    <!-- ================================= -->
+    <!-- PUBLISHING -->
+    <!-- ================================= -->
 
     <div class="card p-4 mb-4">
 
         <h5>
-
             Publishing
-
         </h5>
 
 
         <div
-        id="statusInfo"
-        class="alert alert-secondary mt-3">
+            id="statusInfo"
+            class="alert alert-secondary mt-3"
+        >
 
             <strong>Status:</strong>
             New Video
@@ -397,25 +246,22 @@ href="css/editor.css">
 
 
         <label class="form-label mt-3">
-
             Publish Date & Time
-
         </label>
 
 
         <input
-        type="datetime-local"
-        id="publishDate"
-        class="form-control">
+            type="datetime-local"
+            id="publishDate"
+            class="form-control"
+        >
 
 
         <hr>
 
 
         <h6 class="mb-3">
-
-            Video Options
-
+            Homepage Options
         </h6>
 
 
@@ -424,21 +270,19 @@ href="css/editor.css">
         <div class="form-check mb-2">
 
             <input
-            class="form-check-input"
-            type="checkbox"
-            id="breakingNews">
-
+                class="form-check-input"
+                type="checkbox"
+                id="breakingNews"
+            >
 
             <label
-            class="form-check-label"
-            for="breakingNews">
-
+                class="form-check-label"
+                for="breakingNews"
+            >
                 🚨 Breaking News
-
             </label>
 
         </div>
-
 
 
         <!-- FEATURED -->
@@ -446,21 +290,19 @@ href="css/editor.css">
         <div class="form-check mb-2">
 
             <input
-            class="form-check-input"
-            type="checkbox"
-            id="featuredStory">
-
+                class="form-check-input"
+                type="checkbox"
+                id="featuredStory"
+            >
 
             <label
-            class="form-check-label"
-            for="featuredStory">
-
-                ⭐ Featured Video
-
+                class="form-check-label"
+                for="featuredStory"
+            >
+                ⭐ Featured Story
             </label>
 
         </div>
-
 
 
         <!-- TRENDING -->
@@ -468,21 +310,19 @@ href="css/editor.css">
         <div class="form-check mb-2">
 
             <input
-            class="form-check-input"
-            type="checkbox"
-            id="trendingStory">
-
+                class="form-check-input"
+                type="checkbox"
+                id="trendingStory"
+            >
 
             <label
-            class="form-check-label"
-            for="trendingStory">
-
-                🔥 Trending Video
-
+                class="form-check-label"
+                for="trendingStory"
+            >
+                🔥 Trending Story
             </label>
 
         </div>
-
 
 
         <!-- OPINION -->
@@ -490,67 +330,39 @@ href="css/editor.css">
         <div class="form-check mb-2">
 
             <input
-            class="form-check-input"
-            type="checkbox"
-            id="opinionStory">
-
+                class="form-check-input"
+                type="checkbox"
+                id="opinionStory"
+            >
 
             <label
-            class="form-check-label"
-            for="opinionStory">
-
+                class="form-check-label"
+                for="opinionStory"
+            >
                 💬 Opinion
-
             </label>
 
         </div>
-
 
 
         <!-- EDITOR PICK -->
 
-        <div class="form-check mb-2">
-
-            <input
-            class="form-check-input"
-            type="checkbox"
-            id="editorPick">
-
-
-            <label
-            class="form-check-label"
-            for="editorPick">
-
-                ⭐ Editor's Pick
-
-            </label>
-
-        </div>
-
-
-
-        <!-- IS VIDEO -->
-
         <div class="form-check mb-3">
 
             <input
-            class="form-check-input"
-            type="checkbox"
-            id="isVideo"
-            checked
-            disabled>
-
+                class="form-check-input"
+                type="checkbox"
+                id="editorPick"
+            >
 
             <label
-            class="form-check-label"
-            for="isVideo">
-
-                🎥 Video
-
+                class="form-check-label"
+                for="editorPick"
+            >
+                ✨ Editor's Pick
             </label>
 
         </div>
-
 
 
         <!-- BUTTONS -->
@@ -559,9 +371,10 @@ href="css/editor.css">
 
 
             <button
-            id="draftBtn"
-            type="button"
-            class="btn btn-secondary">
+                id="draftBtn"
+                type="button"
+                class="btn btn-secondary"
+            >
 
                 <i class="bi bi-file-earmark"></i>
 
@@ -570,11 +383,11 @@ href="css/editor.css">
             </button>
 
 
-
             <button
-            id="previewBtn"
-            type="button"
-            class="btn btn-outline-light">
+                id="previewBtn"
+                type="button"
+                class="btn btn-outline-light"
+            >
 
                 <i class="bi bi-eye"></i>
 
@@ -583,11 +396,11 @@ href="css/editor.css">
             </button>
 
 
-
             <button
-            id="scheduleBtn"
-            type="button"
-            class="btn btn-warning">
+                id="scheduleBtn"
+                type="button"
+                class="btn btn-warning"
+            >
 
                 <i class="bi bi-clock-history"></i>
 
@@ -596,17 +409,18 @@ href="css/editor.css">
             </button>
 
 
-
             <button
-            id="publishBtn"
-            type="button"
-            class="btn btn-danger">
+                id="publishBtn"
+                type="button"
+                class="btn btn-danger"
+            >
 
                 <i class="bi bi-send"></i>
 
-                Publish Video
+                Publish Now
 
             </button>
+
 
         </div>
 
@@ -614,22 +428,21 @@ href="css/editor.css">
 
 
 
-    <!-- ================================
-         BRAND
-    ================================= -->
+    <!-- ================================= -->
+    <!-- BRAND -->
+    <!-- ================================= -->
 
     <div class="card p-4 mb-4">
 
         <h5>
-
             Brand
-
         </h5>
 
 
         <select
-        id="brand"
-        class="form-select mt-3">
+            id="brand"
+            class="form-select mt-3"
+        >
 
             <option selected>
                 Beyond News
@@ -661,22 +474,21 @@ href="css/editor.css">
 
 
 
-    <!-- ================================
-         CATEGORY
-    ================================= -->
+    <!-- ================================= -->
+    <!-- CATEGORY -->
+    <!-- ================================= -->
 
     <div class="card p-4 mb-4">
 
         <h5>
-
             Category
-
         </h5>
 
 
         <select
-        id="category"
-        class="form-select mt-3">
+            id="category"
+            class="form-select mt-3"
+        >
 
             <option>
                 News
@@ -707,7 +519,140 @@ href="css/editor.css">
     </div>
 
 
+
+    <!-- ================================= -->
+    <!-- THUMBNAIL -->
+    <!-- ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+            Video Thumbnail
+        </h5>
+
+
+        <input
+            id="featuredImage"
+            type="file"
+            class="form-control mt-3"
+            accept="image/*"
+        >
+
+
+        <div class="mt-3">
+
+            <img
+                id="imagePreview"
+                src=""
+                alt="Thumbnail Preview"
+                style="
+                    width:100%;
+                    max-height:220px;
+                    object-fit:cover;
+                    border-radius:10px;
+                    display:none;
+                "
+            >
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- AUTHOR -->
+    <!-- ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+            Author
+        </h5>
+
+
+        <input
+            id="author"
+            class="form-control mt-3"
+            placeholder="Author Name"
+        >
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- TAGS -->
+    <!-- ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+            Tags
+        </h5>
+
+
+        <input
+            id="tags"
+            class="form-control mt-3"
+            placeholder="News, Politics, India"
+        >
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- VIDEO URL / SLUG -->
+    <!-- ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+            Video URL / Slug
+        </h5>
+
+
+        <input
+            id="slug"
+            class="form-control mt-3"
+            placeholder="video-url"
+        >
+
+    </div>
+
+
+
+    <!-- ================================= -->
+    <!-- SEO -->
+    <!-- ================================= -->
+
+    <div class="card p-4 mb-4">
+
+        <h5>
+            SEO
+        </h5>
+
+
+        <input
+            id="seoTitle"
+            class="form-control mt-3 mb-3"
+            placeholder="SEO Title"
+        >
+
+
+        <textarea
+            id="metaDescription"
+            rows="4"
+            class="form-control"
+            placeholder="Meta Description"
+        ></textarea>
+
+    </div>
+
+
 </div>
+
 
 </div>
 
@@ -717,26 +662,13 @@ href="css/editor.css">
 
 
 
-<!-- =====================================
-     SCRIPTS
-===================================== -->
+<!-- ====================================== -->
+<!-- SUPABASE -->
+<!-- ====================================== -->
 
-<script
-src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
-</script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="js/supabase.js"></script>
-
-
-<!-- CKEditor -->
-
-<script
-src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js">
-</script>
-
-
-<!-- Video Editor JS -->
 
 <script src="js/video-editor.js"></script>
 
