@@ -1795,37 +1795,40 @@ TOP STORIES
 }
 
 .top-story-text{
-
-    grid-column:1 / -1;
-
-    padding:16px 0;
-
+    padding:14px;
     border-top:1px solid #222;
-
+    min-width:0;
 }
 
 .top-story-text h4{
-
     margin:0;
-
-    font-size:16px;
-
-    line-height:1.5;
-
+    font-size:15px;
+    line-height:1.45;
+    font-weight:600;
 }
 
 .top-story-text a{
-
     color:#fff;
-
     text-decoration:none;
-
 }
 
 .top-story-text a:hover{
-
     color:#ff4040;
+}
+.top-story-text:nth-child(3){
+    grid-column:1;
+}
 
+.top-story-text:nth-child(4){
+    grid-column:2;
+}
+
+.top-story-text:nth-child(5){
+    grid-column:1;
+}
+
+.top-story-text:nth-child(6){
+    grid-column:2;
 }
 /*===================================
 POLITICS CATEGORY SECTIONS
