@@ -15,9 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-
 // ======================================
-// FEATURED STORY
+// FEATURED HERO + TOP STORIES
 // ======================================
 
 async function loadFeaturedStory() {
@@ -26,86 +25,317 @@ async function loadFeaturedStory() {
         .from("articles")
         .select("*")
         .eq("status", "Published")
-        .eq("is_featured", true)
         .order("publish_date", { ascending: false })
-        .limit(1);
+        .limit(12);
+
 
     if (error) {
-        console.error("Featured Story Error:", error);
+
+        console.error(
+            "Hero Stories Error:",
+            error
+        );
+
         return;
+
     }
+
 
     if (!data || data.length === 0) {
-        console.log("No featured story found");
+
+        console.log(
+            "No published stories found"
+        );
+
         return;
+
     }
 
-    const article = data[0];
 
-    console.log("Featured:", article);
+    // ==================================
+    // MAIN HERO
+    // ==================================
 
-    const category =
-        document.getElementById("heroCategory");
+    const featured =
+        data.find(article =>
+            article.is_featured === true
+        ) || data[0];
 
-    const titleElement =
-        document.getElementById("heroTitle");
 
-    const summaryElement =
-        document.getElementById("heroSummary");
+    const heroCategory =
+        document.getElementById(
+            "heroCategory"
+        );
 
-    const button =
-        document.getElementById("heroButton");
+    const heroTitle =
+        document.getElementById(
+            "heroTitle"
+        );
+
+    const heroSummary =
+        document.getElementById(
+            "heroSummary"
+        );
+
+    const heroButton =
+        document.getElementById(
+            "heroButton"
+        );
 
     const hero =
-        document.getElementById("featuredHero");
+        document.getElementById(
+            "featuredHero"
+        );
 
 
-    if (category) {
+    if (heroCategory) {
 
-        category.textContent =
-            article.category || "Breaking News";
-
-    }
-
-
-    if (titleElement) {
-
-        const title =
-            article.title && article.title.length > 70
-                ? article.title.substring(0, 70) + "..."
-                : article.title;
-
-        titleElement.textContent = title;
+        heroCategory.textContent =
+            featured.category || "News";
 
     }
 
 
-    if (summaryElement) {
+    if (heroTitle) {
 
-        summaryElement.textContent =
-            article.summary || "";
-
-    }
-
-
-    if (button) {
-
-        button.href =
-            "article.html?slug=" + article.slug;
+        heroTitle.textContent =
+            featured.title || "";
 
     }
 
 
-    if (hero && article.featured_image) {
+    if (heroSummary) {
+
+        heroSummary.textContent =
+            featured.summary || "";
+
+    }
+
+
+    if (heroButton) {
+
+        heroButton.href =
+            "article.html?slug=" +
+            featured.slug;
+
+    }
+
+
+    if (
+        hero &&
+        featured.featured_image
+    ) {
 
         hero.style.backgroundImage =
             `linear-gradient(
-                rgba(0,0,0,.55),
-                rgba(0,0,0,.75)
+                rgba(0,0,0,.50),
+                rgba(0,0,0,.78)
             ),
-            url('${article.featured_image}')`;
+            url('${featured.featured_image}')`;
 
     }
+
+
+    // ==================================
+    // REMOVE HERO FROM OTHER STORIES
+    // ==================================
+
+    const otherStories =
+        data.filter(article =>
+            article.id !== featured.id
+        );
+
+
+    // ==================================
+    // SIDE STORY 1
+    // IMAGE + HEADLINE
+    // ==================================
+
+    const side1 =
+        document.getElementById(
+            "heroSideStory1"
+        );
+
+
+    if (
+        side1 &&
+        otherStories[0]
+    ) {
+
+        const article =
+            otherStories[0];
+
+
+        side1.href =
+            "article.html?slug=" +
+            article.slug;
+
+
+        side1.innerHTML = `
+
+            <img
+                src="${article.featured_image || 'images/logo.png'}"
+                alt="${article.title || ''}"
+            >
+
+            <div class="hero-side-content">
+
+                <span>
+                    ${article.category || "News"}
+                </span>
+
+                <h3>
+                    ${article.title || ""}
+                </h3>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==================================
+    // SIDE STORY 2
+    // HEADLINE ONLY
+    // ==================================
+
+    const side2 =
+        document.getElementById(
+            "heroSideStory2"
+        );
+
+
+    if (
+        side2 &&
+        otherStories[1]
+    ) {
+
+        const article =
+            otherStories[1];
+
+
+        side2.href =
+            "article.html?slug=" +
+            article.slug;
+
+
+        side2.innerHTML = `
+
+            <div class="hero-side-content">
+
+                <span>
+                    ${article.category || "News"}
+                </span>
+
+                <h3>
+                    ${article.title || ""}
+                </h3>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==================================
+    // SIDE STORY 3
+    // HEADLINE ONLY
+    // ==================================
+
+    const side3 =
+        document.getElementById(
+            "heroSideStory3"
+        );
+
+
+    if (
+        side3 &&
+        otherStories[2]
+    ) {
+
+        const article =
+            otherStories[2];
+
+
+        side3.href =
+            "article.html?slug=" +
+            article.slug;
+
+
+        side3.innerHTML = `
+
+            <div class="hero-side-content">
+
+                <span>
+                    ${article.category || "News"}
+                </span>
+
+                <h3>
+                    ${article.title || ""}
+                </h3>
+
+            </div>
+
+        `;
+
+    }
+
+
+    // ==================================
+    // MORE TOP STORIES
+    // ==================================
+
+    const moreStories =
+        document.getElementById(
+            "moreTopStories"
+        );
+
+
+    if (!moreStories) return;
+
+
+    moreStories.innerHTML = "";
+
+
+    // Stories 4, 5, 6 and 7
+    // after the hero + 3 side stories
+
+    const topStories =
+        otherStories.slice(3, 7);
+
+
+    topStories.forEach(article => {
+
+        moreStories.innerHTML += `
+
+            <a
+                href="article.html?slug=${article.slug}"
+                class="more-top-story-card">
+
+                <img
+                    src="${article.featured_image || 'images/logo.png'}"
+                    alt="${article.title || ''}"
+                >
+
+                <div class="story-content">
+
+                    <span>
+                        ${article.category || "News"}
+                    </span>
+
+                    <h3>
+                        ${article.title || ""}
+                    </h3>
+
+                </div>
+
+            </a>
+
+        `;
+
+    });
 
 }
 
