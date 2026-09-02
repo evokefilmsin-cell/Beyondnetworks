@@ -4037,3 +4037,17 @@ body.light-mode .featured-content span {
     z-index: 2;
     background: inherit;
 }
+/* Trending Now */
+.trending {
+    height: 650px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Keep Trending Now heading visible */
+.trending h2 {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: inherit;
+}
