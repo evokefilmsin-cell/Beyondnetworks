@@ -3322,3 +3322,246 @@ body.light-mode .side-news h3 {
     color: #111111 !important;
     padding: 0 !important;
 }
+/* ==========================================
+   CATEGORY PAGES - LIGHT MODE
+   Politics / Business / Technology /
+   Sports / Entertainment
+========================================== */
+
+
+/* ==========================================
+   CATEGORY PAGE MAIN
+========================================== */
+
+body.light-mode .politics-top {
+    background: #ffffff;
+}
+
+
+/* ==========================================
+   FEATURED STORY
+========================================== */
+
+body.light-mode .featured-politics {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+/* Featured image stays normal */
+body.light-mode .featured-politics img {
+    display: block;
+}
+
+
+/* Featured content */
+body.light-mode .featured-content {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* Category label */
+body.light-mode .featured-content span {
+    background: #ff4040 !important;
+    color: #ffffff !important;
+}
+
+
+/* Featured title */
+body.light-mode .featured-content h1 {
+    color: #111111 !important;
+}
+
+
+/* Featured summary */
+body.light-mode .featured-content p {
+    color: #555555 !important;
+}
+
+
+/* Read Story button */
+body.light-mode .featured-content a {
+    background: #ff4040 !important;
+    color: #ffffff !important;
+}
+
+
+/* ==========================================
+   TOP STORIES
+========================================== */
+
+body.light-mode .top-stories {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+/* Top Stories heading */
+body.light-mode .top-stories-header h2 {
+    color: #111111 !important;
+}
+
+
+/* View All */
+body.light-mode .top-stories-header a {
+    color: #ff4040 !important;
+}
+
+
+/* Image story titles */
+body.light-mode .top-story-image h4 a {
+    color: #111111 !important;
+}
+
+
+/* Image story hover */
+body.light-mode .top-story-image h4 a:hover {
+    color: #ff4040 !important;
+}
+
+
+/* Text stories */
+body.light-mode .top-story-text {
+    border-top-color: #dddddd !important;
+}
+
+
+body.light-mode .top-story-text h4 a {
+    color: #111111 !important;
+}
+
+
+body.light-mode .top-story-text h4 a:hover {
+    color: #ff4040 !important;
+}
+
+
+/* No stories */
+body.light-mode .no-top-stories {
+    color: #666666 !important;
+}
+
+
+/* ==========================================
+   CATEGORY SECTIONS
+========================================== */
+
+body.light-mode .category-section {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* Section headings */
+body.light-mode .section-heading h2 {
+    color: #111111 !important;
+}
+
+
+/* View All */
+body.light-mode .section-heading a {
+    color: #ff4040 !important;
+}
+
+
+/* ==========================================
+   CATEGORY CARDS
+========================================== */
+
+body.light-mode .category-card {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+/* Card category */
+body.light-mode .category-card span {
+    color: #ff4040 !important;
+}
+
+
+/* Card title */
+body.light-mode .category-card h3 {
+    color: #111111 !important;
+}
+
+
+/* Card summary */
+body.light-mode .category-card p {
+    color: #666666 !important;
+}
+
+
+/* Card hover */
+body.light-mode .category-card:hover {
+    border-color: #ff4040 !important;
+}
+
+
+/* ==========================================
+   VIDEO CARDS ON CATEGORY PAGES
+========================================== */
+
+body.light-mode .video-card {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+body.light-mode .video-card-content {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+body.light-mode .video-card-content h3 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .video-card-content p {
+    color: #666666 !important;
+}
+
+
+body.light-mode .video-card-content > span {
+    color: #ff4040 !important;
+}
+
+
+/* ==========================================
+   CATEGORY PAGE LINKS
+========================================== */
+
+body.light-mode .featured-politics a {
+    text-decoration: none;
+}
+
+
+body.light-mode .category-section a {
+    text-decoration: none;
+}
+
+
+/* ==========================================
+   SMOOTH TRANSITION
+========================================== */
+
+.featured-politics,
+.featured-content,
+.top-stories,
+.category-section,
+.category-card,
+.category-card .content,
+.video-card,
+.video-card-content {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
