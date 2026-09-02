@@ -3686,3 +3686,197 @@ body.light-mode .category-section .video-card-content p {
 body.light-mode .category-section .video-card-content span {
     color: #ff3030 !important;
 }
+/* ==========================================
+   CATEGORY PAGES - LIGHT MODE
+========================================== */
+
+body.light-mode {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* ==========================================
+   FEATURED STORY
+========================================== */
+
+body.light-mode .featured-politics,
+body.light-mode .featured-business,
+body.light-mode .featured-technology,
+body.light-mode .featured-sports,
+body.light-mode .featured-entertainment {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+/* Featured content area */
+
+body.light-mode .featured-content {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* Featured category */
+
+body.light-mode .featured-content span {
+    color: #ff3030 !important;
+}
+
+
+/* Featured title */
+
+body.light-mode .featured-content h1 {
+    color: #111111 !important;
+}
+
+
+/* Featured summary */
+
+body.light-mode .featured-content p {
+    color: #555555 !important;
+}
+
+
+/* ==========================================
+   TOP STORIES
+========================================== */
+
+body.light-mode .top-stories {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+body.light-mode .top-stories h2 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .top-stories a {
+    color: #111111 !important;
+}
+
+
+body.light-mode .top-story-image h4 a,
+body.light-mode .top-story-text h4 a {
+    color: #111111 !important;
+}
+
+
+/* ==========================================
+   CATEGORY SECTIONS
+========================================== */
+
+body.light-mode .category-section {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* Section headings */
+
+body.light-mode .section-heading h2 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .section-heading a {
+    color: #111111 !important;
+}
+
+
+/* ==========================================
+   ARTICLE CARDS
+========================================== */
+
+body.light-mode .category-card {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #dddddd !important;
+}
+
+
+/* Card content */
+
+body.light-mode .category-card .content {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* Card category */
+
+body.light-mode .category-card .content span {
+    color: #ff3030 !important;
+}
+
+
+/* Card title */
+
+body.light-mode .category-card .content h3 {
+    color: #111111 !important;
+}
+
+
+/* Card summary */
+
+body.light-mode .category-card .content p {
+    color: #555555 !important;
+}
+
+
+/* ==========================================
+   EDITOR / MOST READ / OPINION / VIDEOS
+========================================== */
+
+body.light-mode #latestPolitics,
+body.light-mode #opinionPolitics,
+body.light-mode #videosPolitics,
+body.light-mode #mostReadPolitics,
+body.light-mode #editorPolitics,
+
+body.light-mode #latestBusiness,
+body.light-mode #opinionBusiness,
+body.light-mode #videosBusiness,
+body.light-mode #mostReadBusiness,
+body.light-mode #editorBusiness,
+
+body.light-mode #latestTechnology,
+body.light-mode #opinionTechnology,
+body.light-mode #videosTechnology,
+body.light-mode #mostReadTechnology,
+body.light-mode #editorTechnology,
+
+body.light-mode #latestSports,
+body.light-mode #opinionSports,
+body.light-mode #videosSports,
+body.light-mode #mostReadSports,
+body.light-mode #editorSports,
+
+body.light-mode #latestEntertainment,
+body.light-mode #opinionEntertainment,
+body.light-mode #videosEntertainment,
+body.light-mode #mostReadEntertainment,
+body.light-mode #editorEntertainment {
+    color: #111111 !important;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body.light-mode .footer {
+    background: #f5f5f5 !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+body.light-mode .footer p {
+    color: #111111 !important;
+}
