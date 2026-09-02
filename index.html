@@ -63,136 +63,170 @@
      CENTER CONTENT
 ============================== -->
 
+<!-- =========================================
+     CENTER CONTENT
+========================================= -->
+
 <div class="center-column">
 
-  <!-- MAIN HERO + SIDE STORIES -->
- <section class="hero">
+    <!-- =====================================
+         HERO + SIDE STORIES
+    ====================================== -->
 
-    <!-- =========================================
-         MAIN HERO + SIDE STORIES
-    ========================================== -->
+    <div class="hero-feature-area">
 
-    <div class="hero-main-layout">
+        <!-- ================================
+             LARGE DYNAMIC HERO
+        ================================= -->
 
-        <!-- LARGE HERO -->
-        <div class="slider-hero">
+        <section class="hero">
 
-            <div
-                class="hero-slide active"
-                id="featuredHero">
+            <div class="slider-hero">
 
-                <div class="hero-content">
+                <!-- DYNAMIC HERO SLIDES -->
+                <div
+                    class="hero-slides"
+                    id="heroSlides">
 
-                    <p
-                        class="tag"
-                        id="heroCategory">
-                        Breaking News
-                    </p>
+                    <div class="hero-slide active">
 
-                    <h1 id="heroTitle">
-                        Loading latest story...
-                    </h1>
+                        <div class="hero-content">
 
-                    <p
-                        class="subtitle"
-                        id="heroSummary">
-                    </p>
+                            <p class="tag">
+                                Loading...
+                            </p>
 
-                    <a
-                        href="#"
-                        class="button"
-                        id="heroButton">
-                        Read Story
-                    </a>
+                            <h1>
+                                Loading latest story...
+                            </h1>
+
+                            <p class="subtitle">
+                            </p>
+
+                            <a
+                                href="#"
+                                class="button">
+                                Read Story
+                            </a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-            </div>
 
-
-            <!-- ARROWS -->
-
-            <div class="hero-controls">
+                <!-- HERO ARROWS -->
 
                 <button
-                    class="hero-arrow prev">
+                    class="hero-arrow hero-prev"
+                    id="heroPrev">
                     ‹
                 </button>
 
                 <button
-                    class="hero-arrow next">
+                    class="hero-arrow hero-next"
+                    id="heroNext">
                     ›
                 </button>
 
+
+                <!-- HERO DOTS -->
+
+                <div
+                    class="hero-dots"
+                    id="heroDots">
+                </div>
+
             </div>
 
-        </div>
+        </section>
 
 
-        <!-- =====================================
+        <!-- =================================
              SIDE STORIES
-        ====================================== -->
+             SEPARATE CARDS
+        ================================== -->
 
         <div class="hero-side-stories">
 
-            <!-- SIDE STORY 1 — IMAGE -->
+            <!-- SIDE STORY 1
+                 IMAGE + HEADLINE -->
 
             <a
                 href="#"
-                class="hero-side-story side-story-image"
+                class="hero-side-card side-story-image"
                 id="heroSideStory1">
 
                 <img
+                    id="heroSideImage1"
                     src="images/logo.png"
                     alt="">
 
                 <div class="hero-side-content">
 
-                    <span>News</span>
+                    <span id="heroSideCategory1">
+                        NEWS
+                    </span>
 
-                    <h3>
+                    <h3 id="heroSideTitle1">
                         Loading story...
                     </h3>
+
+                    <small id="heroSideTime1">
+                    </small>
 
                 </div>
 
             </a>
 
 
-            <!-- SIDE STORY 2 — HEADLINE ONLY -->
+            <!-- SIDE STORY 2
+                 HEADLINE ONLY -->
 
             <a
                 href="#"
-                class="hero-side-story"
+                class="hero-side-card"
                 id="heroSideStory2">
 
                 <div class="hero-side-content">
 
-                    <span>News</span>
+                    <span id="heroSideCategory2">
+                        NEWS
+                    </span>
 
-                    <h3>
+                    <h3 id="heroSideTitle2">
                         Loading story...
                     </h3>
+
+                    <small id="heroSideTime2">
+                    </small>
 
                 </div>
 
             </a>
 
 
-            <!-- SIDE STORY 3 — HEADLINE ONLY -->
+            <!-- SIDE STORY 3
+                 HEADLINE ONLY -->
 
             <a
                 href="#"
-                class="hero-side-story"
+                class="hero-side-card"
                 id="heroSideStory3">
 
                 <div class="hero-side-content">
 
-                    <span>News</span>
+                    <span id="heroSideCategory3">
+                        NEWS
+                    </span>
 
-                    <h3>
+                    <h3 id="heroSideTitle3">
                         Loading story...
                     </h3>
+
+                    <small id="heroSideTime3">
+                    </small>
 
                 </div>
 
@@ -201,6 +235,35 @@
         </div>
 
     </div>
+
+
+    <!-- =====================================
+         MORE TOP STORIES
+    ====================================== -->
+
+    <section class="more-top-stories">
+
+        <div class="section-title">
+
+            <h2>
+                More Top Stories
+            </h2>
+
+        </div>
+
+        <div
+            class="more-top-stories-grid"
+            id="moreTopStories">
+
+            <p>
+                Loading...
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
 
 
     <!-- =========================================
