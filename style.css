@@ -5396,3 +5396,44 @@ body.light-mode
     }
 
 }
+/* =========================================================
+   HOMEPAGE — OUTER COLUMN SIZES
+========================================================= */
+
+@media (min-width: 901px) {
+
+    .hero-layout {
+        display: grid !important;
+
+        grid-template-columns:
+            240px
+            minmax(0, 1fr)
+            240px !important;
+
+        gap: 20px !important;
+
+        align-items: start !important;
+    }
+
+    .left-news {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .trending {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        grid-column: 3 !important;
+        grid-row: 1 !important;
+    }
+
+    .center-column {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+    }
+
+}
