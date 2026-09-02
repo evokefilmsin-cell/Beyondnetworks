@@ -174,7 +174,7 @@ async function loadLatestUpdates() {
         .select("title, category, slug")
         .eq("status", "Published")
         .order("publish_date", { ascending: false })
-        .limit(3);
+        .limit(10);
 
     if (error) {
 
@@ -246,7 +246,7 @@ async function loadTrendingStories() {
         .eq("status", "Published")
         .eq("is_trending", true)
         .order("publish_date", { ascending: false })
-        .limit(3);
+        .limit(10);
 
     if (error) {
 
