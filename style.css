@@ -4104,3 +4104,626 @@ body.light-mode .featured-content span {
     width: 0;
     height: 0;
 }
+/* =========================================================
+   NEW HOMEPAGE HERO LAYOUT
+   Large Hero + 3 Side Stories + More Top Stories
+========================================================= */
+
+.center-column {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CENTER HERO CONTAINER
+========================================================= */
+
+.center-column .hero {
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+}
+
+
+/* =========================================================
+   HERO + SIDE STORIES
+========================================================= */
+
+.hero-main-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+    gap: 0;
+
+    width: 100%;
+    height: 560px;
+
+    background: #111;
+    border: 1px solid #252525;
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   LARGE HERO
+========================================================= */
+
+.hero-main-layout .slider-hero {
+    position: relative;
+
+    width: 100%;
+    height: 560px;
+
+    border-radius: 0;
+
+    overflow: hidden;
+}
+
+
+/* Hero slide */
+
+.hero-main-layout .hero-slide {
+    padding: 0 45px;
+
+    background-size: cover;
+    background-position: center;
+
+    align-items: flex-end;
+}
+
+
+/* Hero content */
+
+.hero-main-layout .hero-content {
+    position: relative;
+    z-index: 4;
+
+    max-width: 680px;
+
+    padding-bottom: 80px;
+}
+
+
+/* Category */
+
+.hero-main-layout .hero-content .tag {
+    color: #ff4040;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 14px;
+}
+
+
+/* Hero title */
+
+.hero-main-layout .hero-content h1 {
+    color: #fff;
+
+    font-size: 42px;
+    line-height: 1.12;
+
+    max-width: 650px;
+
+    margin-bottom: 16px;
+}
+
+
+/* Hero summary */
+
+.hero-main-layout .hero-content .subtitle {
+    color: #ddd;
+
+    font-size: 17px;
+    line-height: 1.5;
+
+    max-width: 600px;
+
+    margin-bottom: 24px;
+}
+
+
+/* Hero button */
+
+.hero-main-layout .hero-content .button {
+    background: #ff4040;
+    color: #fff;
+
+    padding: 13px 25px;
+
+    border-radius: 30px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   HERO ARROWS
+========================================================= */
+
+.hero-main-layout .hero-controls {
+    position: absolute;
+
+    right: 25px;
+    bottom: 25px;
+
+    display: flex;
+
+    gap: 10px;
+
+    z-index: 10;
+}
+
+.hero-main-layout .hero-arrow {
+    width: 46px;
+    height: 46px;
+
+    background: rgba(255,255,255,0.16);
+
+    color: #fff;
+
+    border: none;
+    border-radius: 50%;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+}
+
+.hero-main-layout .hero-arrow:hover {
+    background: #ff4040;
+}
+
+
+/* =========================================================
+   HERO DOTS
+========================================================= */
+
+.hero-dots {
+    position: absolute;
+
+    bottom: 20px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 8px;
+
+    z-index: 10;
+}
+
+.hero-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #aaa;
+
+    border-radius: 50%;
+}
+
+.hero-dot.active {
+    background: #ff4040;
+}
+
+
+/* =========================================================
+   SIDE STORIES
+========================================================= */
+
+.hero-side-stories {
+    height: 560px;
+
+    background: #111;
+
+    padding: 20px;
+}
+
+
+/* Individual side story */
+
+.hero-side-story {
+    display: block;
+
+    text-decoration: none;
+
+    color: #fff;
+
+    padding: 20px 0;
+
+    border-bottom: 1px solid #292929;
+
+    transition: 0.25s ease;
+}
+
+.hero-side-story:first-child {
+    padding-top: 5px;
+}
+
+.hero-side-story:last-child {
+    border-bottom: none;
+}
+
+
+/* Hover */
+
+.hero-side-story:hover h3 {
+    color: #ff4040;
+}
+
+
+/* =========================================================
+   SIDE STORY 1
+   IMAGE + HEADLINE
+========================================================= */
+
+.hero-side-story.side-story-image {
+    display: grid;
+
+    grid-template-columns: 105px minmax(0, 1fr);
+
+    gap: 14px;
+
+    padding-bottom: 20px;
+}
+
+.hero-side-story.side-story-image img {
+    width: 105px;
+    height: 105px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   SIDE STORY CONTENT
+========================================================= */
+
+.hero-side-content {
+    min-width: 0;
+}
+
+.hero-side-content span {
+    display: block;
+
+    color: #ff4040;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+.hero-side-content h3 {
+    color: #fff;
+
+    font-size: 16px;
+
+    line-height: 1.4;
+
+    margin: 0;
+
+    transition: color 0.25s ease;
+}
+
+.hero-side-content small {
+    display: block;
+
+    color: #888;
+
+    font-size: 12px;
+
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   SIDE STORIES 2 & 3
+   HEADLINE ONLY
+========================================================= */
+
+.hero-side-story:not(.side-story-image) {
+    min-height: 135px;
+}
+
+.hero-side-story:not(.side-story-image) .hero-side-content h3 {
+    font-size: 17px;
+    line-height: 1.45;
+}
+
+
+/* =========================================================
+   MORE TOP STORIES
+========================================================= */
+
+.more-top-stories {
+    margin-top: 18px;
+
+    width: 100%;
+
+    background: transparent;
+}
+
+
+/* Heading */
+
+.more-top-stories .section-title {
+    padding: 0 0 12px;
+}
+
+.more-top-stories .section-title h2 {
+    font-size: 24px;
+
+    color: #fff;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   MORE TOP STORIES — ONE LINE
+========================================================= */
+
+.more-top-stories-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   TOP STORY CARD
+========================================================= */
+
+.more-top-story-card {
+    display: flex;
+
+    min-width: 0;
+
+    min-height: 105px;
+
+    background: #111;
+
+    border: 1px solid #252525;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    text-decoration: none;
+
+    color: #fff;
+
+    transition: 0.25s ease;
+}
+
+.more-top-story-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #ff4040;
+}
+
+
+/* Image */
+
+.more-top-story-card img {
+    width: 105px;
+    min-width: 105px;
+
+    height: 105px;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* Content */
+
+.more-top-story-card .story-content {
+    padding: 12px;
+
+    min-width: 0;
+}
+
+.more-top-story-card .story-content span {
+    display: block;
+
+    color: #ff4040;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.8px;
+
+    margin-bottom: 6px;
+}
+
+.more-top-story-card .story-content h3 {
+    color: #fff;
+
+    font-size: 14px;
+
+    line-height: 1.35;
+
+    margin: 0;
+
+    display: -webkit-box;
+
+    -webkit-line-clamp: 3;
+
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+}
+
+.more-top-story-card .story-content small {
+    display: block;
+
+    color: #777;
+
+    font-size: 11px;
+
+    margin-top: 7px;
+}
+
+
+/* =========================================================
+   LIGHT MODE
+========================================================= */
+
+body.light-mode .hero-main-layout {
+    background: #fff;
+    border-color: #ddd;
+}
+
+body.light-mode .hero-side-stories {
+    background: #fff;
+}
+
+body.light-mode .hero-side-story {
+    border-bottom-color: #ddd;
+}
+
+body.light-mode .hero-side-content h3 {
+    color: #111;
+}
+
+body.light-mode .hero-side-content small {
+    color: #777;
+}
+
+body.light-mode .more-top-story-card {
+    background: #fff;
+    border-color: #ddd;
+}
+
+body.light-mode .more-top-story-card .story-content h3 {
+    color: #111;
+}
+
+body.light-mode .more-top-story-card .story-content small {
+    color: #777;
+}
+
+body.light-mode .more-top-stories .section-title h2 {
+    color: #111;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .hero-main-layout {
+        grid-template-columns: minmax(0, 1.8fr) minmax(220px, 1fr);
+
+        height: 520px;
+    }
+
+    .hero-main-layout .slider-hero {
+        height: 520px;
+    }
+
+    .hero-side-stories {
+        height: 520px;
+        padding: 16px;
+    }
+
+    .hero-main-layout .hero-content h1 {
+        font-size: 36px;
+    }
+
+    .hero-side-story.side-story-image {
+        grid-template-columns: 85px minmax(0, 1fr);
+    }
+
+    .hero-side-story.side-story-image img {
+        width: 85px;
+        height: 85px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .hero-main-layout {
+        grid-template-columns: 1fr;
+
+        height: auto;
+    }
+
+    .hero-main-layout .slider-hero {
+        height: 500px;
+    }
+
+    .hero-side-stories {
+        height: auto;
+    }
+
+    .more-top-stories-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .hero-main-layout .slider-hero {
+        height: 420px;
+    }
+
+    .hero-main-layout .hero-slide {
+        padding: 0 25px;
+    }
+
+    .hero-main-layout .hero-content {
+        padding-bottom: 70px;
+    }
+
+    .hero-main-layout .hero-content h1 {
+        font-size: 30px;
+    }
+
+    .hero-main-layout .hero-content .subtitle {
+        font-size: 15px;
+    }
+
+    .more-top-stories-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
