@@ -4727,3 +4727,36 @@ body.light-mode .more-top-stories .section-title h2 {
     }
 
 }
+/* =========================================================
+   FIX HOMEPAGE 3-COLUMN HERO LAYOUT
+========================================================= */
+
+@media (min-width: 901px) {
+
+    .hero-layout {
+        display: grid !important;
+        grid-template-columns: minmax(220px, 1fr) minmax(0, 3fr) minmax(220px, 1fr) !important;
+        gap: 24px !important;
+        align-items: start !important;
+    }
+
+    .center-column {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+
+    .center-column .hero {
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .trending {
+        min-width: 0 !important;
+        width: 100% !important;
+        grid-column: auto !important;
+        grid-row: 1 !important;
+    }
+
+}
