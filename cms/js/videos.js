@@ -168,9 +168,8 @@ async function loadFeaturedVideo() {
 
 }
 
-
 // ======================================
-// LATEST VIDEOS
+// LATEST VIDEOS SIDEBAR
 // ======================================
 
 async function loadLatestVideos() {
@@ -200,7 +199,7 @@ async function loadLatestVideos() {
             ascending: false
         })
 
-        .limit(6);
+        .limit(4);
 
     if (error) {
 
@@ -214,10 +213,9 @@ async function loadLatestVideos() {
 
     }
 
-    renderVideos(container, data);
+    renderLatestSidebar(container, data);
 
 }
-
 
 // ======================================
 // CATEGORY VIDEOS
@@ -274,7 +272,71 @@ async function loadCategoryVideos(
 
 }
 
+// ======================================
+// LATEST VIDEO SIDEBAR RENDER
+// ======================================
 
+function renderLatestSidebar(container, videos) {
+
+    if (!videos || videos.length === 0) {
+
+        container.innerHTML = `
+            <p class="no-videos">
+                No videos available.
+            </p>
+        `;
+
+        return;
+
+    }
+
+    container.innerHTML = "";
+
+    videos.forEach(video => {
+
+        const thumbnail =
+            video.featured_image ||
+            getYouTubeThumbnail(video.video_url);
+
+        container.innerHTML += `
+
+            <a
+                href="video.html?slug=${encodeURIComponent(video.slug)}"
+                class="latest-video-item"
+            >
+
+                <div class="latest-video-thumb">
+
+                    <img
+                        src="${thumbnail}"
+                        alt="${video.title}"
+                    >
+
+                    <span class="latest-play">
+                        ▶
+                    </span>
+
+                </div>
+
+                <div class="latest-video-info">
+
+                    <h3>
+                        ${video.title}
+                    </h3>
+
+                    <span>
+                        ${video.category}
+                    </span>
+
+                </div>
+
+            </a>
+
+        `;
+
+    });
+
+}
 // ======================================
 // RENDER VIDEO CARDS
 // ======================================
