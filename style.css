@@ -4023,3 +4023,17 @@ body.light-mode .featured-content span {
     color: #ffffff !important;
     border: none !important;
 }
+/* Latest Updates */
+.left-news {
+    height: 650px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+/* Keep the heading visible while scrolling */
+.left-news h3 {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: inherit;
+}
