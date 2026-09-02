@@ -5610,3 +5610,75 @@ body.light-mode
     }
 
 }
+/* =========================================================
+   FIX MORE TOP STORIES POSITION
+========================================================= */
+
+@media (min-width: 901px) {
+
+    /* Remove any old spacing from center column */
+    .center-column {
+        display: block !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* Hero + side stories should define the height */
+    .hero-feature-area {
+        height: 500px !important;
+        min-height: 500px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+
+    /* Put More Top Stories immediately underneath */
+    .center-column > .more-top-stories {
+        display: block !important;
+
+        position: static !important;
+
+        float: none !important;
+
+        clear: both !important;
+
+        height: auto !important;
+        min-height: 0 !important;
+
+        margin-top: 18px !important;
+        margin-bottom: 0 !important;
+
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+
+
+    /* Remove accidental gaps */
+    .center-column {
+        gap: 0 !important;
+    }
+
+
+    .hero-feature-area {
+        gap: 12px !important;
+    }
+
+
+    /* More Top Stories row */
+    .more-top-stories-grid {
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr)) !important;
+
+        gap: 10px !important;
+
+        margin-top: 0 !important;
+
+        padding-top: 0 !important;
+    }
+
+}
