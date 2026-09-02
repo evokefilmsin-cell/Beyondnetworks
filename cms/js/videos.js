@@ -10,14 +10,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadLatestVideos();
 
-  loadCategoryVideos("Politics", "videosPolitics");
-loadCategoryVideos("Business", "videosBusiness");
-loadCategoryVideos("Technology", "videosTechnology");
-loadCategoryVideos("Sports", "videosSports");
-loadCategoryVideos("Entertainment", "videosEntertainment");
+    loadLatestVideosGrid();
+
+    loadCategoryVideos("Politics", "videosPolitics");
+    loadCategoryVideos("Business", "videosBusiness");
+    loadCategoryVideos("Technology", "videosTechnology");
+    loadCategoryVideos("Sports", "videosSports");
+    loadCategoryVideos("Entertainment", "videosEntertainment");
+
 });
+// ======================================
+// LATEST VIDEOS GRID
+// ======================================
 
+async function loadLatestVideosGrid() {
 
+    const container =
+        document.getElementById("videosLatest");
+
+    if (!container) {
+
+        console.warn("videosLatest container not found");
+
+        return;
+
+    }
+
+    const { data, error } = await supabaseClient
+
+        .from("articles")
+
+        .select("*")
+
+        .eq("status", "Published")
+
+        .eq("is_video", true)
+
+        .order("publish_date", {
+            ascending: false
+        })
+
+        .limit(5);
+
+    if (error) {
+
+        console.error("Latest videos grid error:", error);
+
+        container.innerHTML = `
+            <p>Unable to load videos.</p>
+        `;
+
+        return;
+
+    }
+
+    renderVideos(container, data);
+
+}
 // ======================================
 // YOUTUBE THUMBNAIL
 // ======================================
