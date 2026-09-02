@@ -19,13 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
 // FEATURED HERO + TOP STORIES
 // ======================================
 
+// ======================================
+// DYNAMIC HERO + SIDE STORIES
+// ======================================
+
 async function loadFeaturedStory() {
 
     const { data, error } = await supabaseClient
         .from("articles")
         .select("*")
         .eq("status", "Published")
-        .order("publish_date", { ascending: false })
+        .order("publish_date", {
+            ascending: false
+        })
         .limit(12);
 
 
@@ -53,232 +59,432 @@ async function loadFeaturedStory() {
 
 
     // ==================================
-    // MAIN HERO
+    // HERO STORIES
     // ==================================
 
-    const featured =
-        data.find(article =>
-            article.is_featured === true
-        ) || data[0];
-
-
-    const heroCategory =
-        document.getElementById(
-            "heroCategory"
-        );
-
-    const heroTitle =
-        document.getElementById(
-            "heroTitle"
-        );
-
-    const heroSummary =
-        document.getElementById(
-            "heroSummary"
-        );
-
-    const heroButton =
-        document.getElementById(
-            "heroButton"
-        );
-
-    const hero =
-        document.getElementById(
-            "featuredHero"
-        );
-
-
-    if (heroCategory) {
-
-        heroCategory.textContent =
-            featured.category || "News";
-
-    }
-
-
-    if (heroTitle) {
-
-        heroTitle.textContent =
-            featured.title || "";
-
-    }
-
-
-    if (heroSummary) {
-
-        heroSummary.textContent =
-            featured.summary || "";
-
-    }
-
-
-    if (heroButton) {
-
-        heroButton.href =
-            "article.html?slug=" +
-            featured.slug;
-
-    }
-
-
-    if (
-        hero &&
-        featured.featured_image
-    ) {
-
-        hero.style.backgroundImage =
-            `linear-gradient(
-                rgba(0,0,0,.50),
-                rgba(0,0,0,.78)
-            ),
-            url('${featured.featured_image}')`;
-
-    }
-
-
-    // ==================================
-    // REMOVE HERO FROM OTHER STORIES
-    // ==================================
-
-    const otherStories =
+    let heroStories =
         data.filter(article =>
-            article.id !== featured.id
+            article.is_featured === true
+        );
+
+
+    /*
+       If there are fewer than 5 featured
+       stories, fill the remaining slides
+       with latest published stories.
+    */
+
+    if (heroStories.length < 5) {
+
+        const additionalStories =
+            data.filter(article =>
+                !heroStories.some(
+                    featured =>
+                        featured.id === article.id
+                )
+            );
+
+        heroStories = [
+            ...heroStories,
+            ...additionalStories
+        ].slice(0, 5);
+
+    } else {
+
+        heroStories =
+            heroStories.slice(0, 5);
+
+    }
+
+
+    // ==================================
+    // BUILD HERO SLIDES
+    // ==================================
+
+    const heroSlides =
+        document.getElementById(
+            "heroSlides"
+        );
+
+    const heroDots =
+        document.getElementById(
+            "heroDots"
+        );
+
+
+    if (!heroSlides) return;
+
+
+    heroSlides.innerHTML = "";
+
+
+    if (heroDots) {
+
+        heroDots.innerHTML = "";
+
+    }
+
+
+    heroStories.forEach(
+        (article, index) => {
+
+            const image =
+                article.featured_image ||
+                "images/logo.png";
+
+
+            const slide =
+                document.createElement("div");
+
+
+            slide.className =
+                "hero-slide" +
+                (index === 0
+                    ? " active"
+                    : "");
+
+
+            slide.style.backgroundImage =
+                `linear-gradient(
+                    rgba(0,0,0,.35),
+                    rgba(0,0,0,.80)
+                ),
+                url("${image}")`;
+
+
+            slide.innerHTML = `
+
+                <div class="hero-content">
+
+                    <p class="tag">
+
+                        ${article.category || "NEWS"}
+
+                    </p>
+
+
+                    <h1>
+
+                        ${article.title || ""}
+
+                    </h1>
+
+
+                    <p class="subtitle">
+
+                        ${article.summary || ""}
+
+                    </p>
+
+
+                    <a
+                        href="article.html?slug=${article.slug}"
+                        class="button">
+
+                        Read Story
+
+                    </a>
+
+                </div>
+
+            `;
+
+
+            heroSlides.appendChild(
+                slide
+            );
+
+
+            // ==================================
+            // DOT
+            // ==================================
+
+            if (heroDots) {
+
+                const dot =
+                    document.createElement(
+                        "button"
+                    );
+
+
+                dot.className =
+                    "hero-dot" +
+                    (index === 0
+                        ? " active"
+                        : "");
+
+
+                dot.setAttribute(
+                    "aria-label",
+                    `Go to story ${index + 1}`
+                );
+
+
+                dot.onclick = () => {
+
+                    showHeroSlide(index);
+
+                };
+
+
+                heroDots.appendChild(
+                    dot
+                );
+
+            }
+
+        }
+    );
+
+
+    // ==================================
+    // HERO SLIDER
+    // ==================================
+
+    let currentHeroIndex = 0;
+
+
+    function showHeroSlide(index) {
+
+        const slides =
+            document.querySelectorAll(
+                ".hero-slide"
+            );
+
+
+        const dots =
+            document.querySelectorAll(
+                ".hero-dot"
+            );
+
+
+        if (!slides.length) return;
+
+
+        currentHeroIndex =
+            (index + slides.length)
+            % slides.length;
+
+
+        slides.forEach(slide => {
+
+            slide.classList.remove(
+                "active"
+            );
+
+        });
+
+
+        dots.forEach(dot => {
+
+            dot.classList.remove(
+                "active"
+            );
+
+        });
+
+
+        slides[currentHeroIndex]
+            .classList.add("active");
+
+
+        if (dots[currentHeroIndex]) {
+
+            dots[currentHeroIndex]
+                .classList.add("active");
+
+        }
+
+    }
+
+
+    const nextButton =
+        document.getElementById(
+            "heroNext"
+        );
+
+
+    const prevButton =
+        document.getElementById(
+            "heroPrev"
+        );
+
+
+    if (nextButton) {
+
+        nextButton.onclick = () => {
+
+            showHeroSlide(
+                currentHeroIndex + 1
+            );
+
+        };
+
+    }
+
+
+    if (prevButton) {
+
+        prevButton.onclick = () => {
+
+            showHeroSlide(
+                currentHeroIndex - 1
+            );
+
+        };
+
+    }
+
+
+    // Automatically change hero
+
+    if (heroStories.length > 1) {
+
+        setInterval(() => {
+
+            showHeroSlide(
+                currentHeroIndex + 1
+            );
+
+        }, 6000);
+
+    }
+
+
+    // ==================================
+    // SIDE STORIES
+    // ==================================
+
+    const sideStories =
+        data.filter(article =>
+            !heroStories.some(
+                hero =>
+                    hero.id === article.id
+            )
         );
 
 
     // ==================================
     // SIDE STORY 1
-    // IMAGE + HEADLINE
+    // IMAGE
     // ==================================
 
-    const side1 =
-        document.getElementById(
-            "heroSideStory1"
-        );
-
-
-    if (
-        side1 &&
-        otherStories[0]
-    ) {
+    if (sideStories[0]) {
 
         const article =
-            otherStories[0];
+            sideStories[0];
 
 
-        side1.href =
-            "article.html?slug=" +
-            article.slug;
+        const card =
+            document.getElementById(
+                "heroSideStory1"
+            );
 
 
-        side1.innerHTML = `
+        const image =
+            document.getElementById(
+                "heroSideImage1"
+            );
 
-            <img
-                src="${article.featured_image || 'images/logo.png'}"
-                alt="${article.title || ''}"
-            >
 
-            <div class="hero-side-content">
+        const category =
+            document.getElementById(
+                "heroSideCategory1"
+            );
 
-                <span>
-                    ${article.category || "News"}
-                </span>
 
-                <h3>
-                    ${article.title || ""}
-                </h3>
+        const title =
+            document.getElementById(
+                "heroSideTitle1"
+            );
 
-            </div>
 
-        `;
+        const time =
+            document.getElementById(
+                "heroSideTime1"
+            );
+
+
+        if (card) {
+
+            card.href =
+                "article.html?slug=" +
+                article.slug;
+
+        }
+
+
+        if (image) {
+
+            image.src =
+                article.featured_image ||
+                "images/logo.png";
+
+            image.alt =
+                article.title || "";
+
+        }
+
+
+        if (category) {
+
+            category.textContent =
+                article.category ||
+                "NEWS";
+
+        }
+
+
+        if (title) {
+
+            title.textContent =
+                article.title || "";
+
+        }
+
+
+        if (time) {
+
+            time.textContent =
+                formatStoryTime(
+                    article.publish_date
+                );
+
+        }
 
     }
 
 
     // ==================================
     // SIDE STORY 2
-    // HEADLINE ONLY
     // ==================================
 
-    const side2 =
-        document.getElementById(
-            "heroSideStory2"
+    if (sideStories[1]) {
+
+        populateSideStory(
+            "heroSideStory2",
+            "heroSideCategory2",
+            "heroSideTitle2",
+            "heroSideTime2",
+            sideStories[1]
         );
-
-
-    if (
-        side2 &&
-        otherStories[1]
-    ) {
-
-        const article =
-            otherStories[1];
-
-
-        side2.href =
-            "article.html?slug=" +
-            article.slug;
-
-
-        side2.innerHTML = `
-
-            <div class="hero-side-content">
-
-                <span>
-                    ${article.category || "News"}
-                </span>
-
-                <h3>
-                    ${article.title || ""}
-                </h3>
-
-            </div>
-
-        `;
 
     }
 
 
     // ==================================
     // SIDE STORY 3
-    // HEADLINE ONLY
     // ==================================
 
-    const side3 =
-        document.getElementById(
-            "heroSideStory3"
+    if (sideStories[2]) {
+
+        populateSideStory(
+            "heroSideStory3",
+            "heroSideCategory3",
+            "heroSideTitle3",
+            "heroSideTime3",
+            sideStories[2]
         );
-
-
-    if (
-        side3 &&
-        otherStories[2]
-    ) {
-
-        const article =
-            otherStories[2];
-
-
-        side3.href =
-            "article.html?slug=" +
-            article.slug;
-
-
-        side3.innerHTML = `
-
-            <div class="hero-side-content">
-
-                <span>
-                    ${article.category || "News"}
-                </span>
-
-                <h3>
-                    ${article.title || ""}
-                </h3>
-
-            </div>
-
-        `;
 
     }
 
@@ -287,28 +493,34 @@ async function loadFeaturedStory() {
     // MORE TOP STORIES
     // ==================================
 
-    const moreStories =
+    const moreTopStories =
         document.getElementById(
             "moreTopStories"
         );
 
 
-    if (!moreStories) return;
+    if (!moreTopStories) return;
 
 
-    moreStories.innerHTML = "";
+    moreTopStories.innerHTML = "";
 
 
-    // Stories 4, 5, 6 and 7
-    // after the hero + 3 side stories
+    /*
+       Use stories after:
 
-    const topStories =
-        otherStories.slice(3, 7);
+       5 hero stories
+       + 3 side stories
+
+       = More Top Stories
+    */
+
+    const moreStories =
+        sideStories.slice(3, 8);
 
 
-    topStories.forEach(article => {
+    moreStories.forEach(article => {
 
-        moreStories.innerHTML += `
+        moreTopStories.innerHTML += `
 
             <a
                 href="article.html?slug=${article.slug}"
@@ -322,12 +534,18 @@ async function loadFeaturedStory() {
                 <div class="story-content">
 
                     <span>
-                        ${article.category || "News"}
+                        ${article.category || "NEWS"}
                     </span>
 
                     <h3>
                         ${article.title || ""}
                     </h3>
+
+                    <small>
+                        ${formatStoryTime(
+                            article.publish_date
+                        )}
+                    </small>
 
                 </div>
 
@@ -336,6 +554,126 @@ async function loadFeaturedStory() {
         `;
 
     });
+
+}
+
+
+// ======================================
+// SIDE STORY HELPER
+// ======================================
+
+function populateSideStory(
+    cardId,
+    categoryId,
+    titleId,
+    timeId,
+    article
+) {
+
+    const card =
+        document.getElementById(cardId);
+
+
+    const category =
+        document.getElementById(categoryId);
+
+
+    const title =
+        document.getElementById(titleId);
+
+
+    const time =
+        document.getElementById(timeId);
+
+
+    if (card) {
+
+        card.href =
+            "article.html?slug=" +
+            article.slug;
+
+    }
+
+
+    if (category) {
+
+        category.textContent =
+            article.category ||
+            "NEWS";
+
+    }
+
+
+    if (title) {
+
+        title.textContent =
+            article.title || "";
+
+    }
+
+
+    if (time) {
+
+        time.textContent =
+            formatStoryTime(
+                article.publish_date
+            );
+
+    }
+
+}
+
+
+// ======================================
+// STORY TIME
+// ======================================
+
+function formatStoryTime(date) {
+
+    if (!date) return "";
+
+
+    const published =
+        new Date(date);
+
+
+    const now =
+        new Date();
+
+
+    const diff =
+        Math.floor(
+            (now - published) /
+            60000
+        );
+
+
+    if (diff < 60) {
+
+        return `${Math.max(
+            diff,
+            1
+        )}m ago`;
+
+    }
+
+
+    const hours =
+        Math.floor(diff / 60);
+
+
+    if (hours < 24) {
+
+        return `${hours}h ago`;
+
+    }
+
+
+    const days =
+        Math.floor(hours / 24);
+
+
+    return `${days}d ago`;
 
 }
 
