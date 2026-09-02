@@ -1,16 +1,20 @@
 console.log("home.js loaded");
 
 // ======================================
-// Load everything after page loads
+// LOAD EVERYTHING AFTER PAGE LOAD
 // ======================================
 
 document.addEventListener("DOMContentLoaded", () => {
+
     loadFeaturedStory();
     loadBreakingNews();
     loadLatestUpdates();
     loadChannels();
     loadTrendingStories();
+    loadFeaturedCoverage();
+
 });
+
 
 // ======================================
 // FEATURED STORY
@@ -40,36 +44,71 @@ async function loadFeaturedStory() {
 
     console.log("Featured:", article);
 
-    // Hero Category
-    document.getElementById("heroCategory").textContent =
-        article.category || "Breaking News";
+    const category =
+        document.getElementById("heroCategory");
 
-    // Hero Title
-   const title =
-    article.title.length > 70
-        ? article.title.substring(0, 70) + "..."
-        : article.title;
+    const titleElement =
+        document.getElementById("heroTitle");
 
-document.getElementById("heroTitle").textContent = title;
+    const summaryElement =
+        document.getElementById("heroSummary");
 
-    // Hero Summary
-    document.getElementById("heroSummary").textContent =
-        article.summary || "";
+    const button =
+        document.getElementById("heroButton");
 
-    // Hero Button
-    document.getElementById("heroButton").href =
-        "article.html?slug=" + article.slug;
+    const hero =
+        document.getElementById("featuredHero");
 
-    // Hero Background
-    if (article.featured_image) {
 
-        document.getElementById("featuredHero").style.backgroundImage =
-            `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.75)),
-             url('${article.featured_image}')`;
+    if (category) {
+
+        category.textContent =
+            article.category || "Breaking News";
+
+    }
+
+
+    if (titleElement) {
+
+        const title =
+            article.title && article.title.length > 70
+                ? article.title.substring(0, 70) + "..."
+                : article.title;
+
+        titleElement.textContent = title;
+
+    }
+
+
+    if (summaryElement) {
+
+        summaryElement.textContent =
+            article.summary || "";
+
+    }
+
+
+    if (button) {
+
+        button.href =
+            "article.html?slug=" + article.slug;
+
+    }
+
+
+    if (hero && article.featured_image) {
+
+        hero.style.backgroundImage =
+            `linear-gradient(
+                rgba(0,0,0,.55),
+                rgba(0,0,0,.75)
+            ),
+            url('${article.featured_image}')`;
 
     }
 
 }
+
 
 // ======================================
 // BREAKING NEWS TICKER
@@ -85,21 +124,31 @@ async function loadBreakingNews() {
         .order("publish_date", { ascending: false });
 
     if (error) {
-        console.error("Breaking News Error:", error);
+
+        console.error(
+            "Breaking News Error:",
+            error
+        );
+
         return;
+
     }
 
-    const ticker = document.getElementById("breakingTicker");
+    const ticker =
+        document.getElementById("breakingTicker");
 
     if (!ticker) return;
 
+
     if (!data || data.length === 0) {
 
-        ticker.innerHTML = "No Breaking News";
+        ticker.innerHTML =
+            "No Breaking News";
 
         return;
 
     }
+
 
     ticker.innerHTML = data.map(article =>
 
@@ -107,9 +156,13 @@ async function loadBreakingNews() {
             🔴 ${article.title}
         </a>`
 
-    ).join("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
+    ).join(
+        "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+    );
 
 }
+
+
 // ======================================
 // LATEST UPDATES
 // ======================================
@@ -125,43 +178,62 @@ async function loadLatestUpdates() {
 
     if (error) {
 
-        console.error("Latest Updates Error:", error);
+        console.error(
+            "Latest Updates Error:",
+            error
+        );
+
         return;
 
     }
 
-    const container = document.getElementById("latestUpdates");
+
+    const container =
+        document.getElementById("latestUpdates");
 
     if (!container) return;
 
+
     if (!data || data.length === 0) {
 
-        container.innerHTML = "<p>No latest articles.</p>";
+        container.innerHTML =
+            "<p>No latest articles.</p>";
+
         return;
 
     }
 
+
     container.innerHTML = "";
+
 
     data.forEach(article => {
 
         container.innerHTML += `
+
             <div class="mini-news">
 
-                <span>${article.category}</span>
+                <span>
+                    ${article.category || "News"}
+                </span>
 
                 <p>
+
                     <a href="article.html?slug=${article.slug}">
                         ${article.title}
                     </a>
+
                 </p>
 
             </div>
+
         `;
 
     });
 
 }
+
+
 // ======================================
 // TRENDING STORIES
 // ======================================
@@ -177,13 +249,22 @@ async function loadTrendingStories() {
         .limit(3);
 
     if (error) {
-        console.error("Trending Error:", error);
+
+        console.error(
+            "Trending Error:",
+            error
+        );
+
         return;
+
     }
 
-    const container = document.getElementById("trendingStories");
+
+    const container =
+        document.getElementById("trendingStories");
 
     if (!container) return;
+
 
     if (!data || data.length === 0) {
 
@@ -195,29 +276,37 @@ async function loadTrendingStories() {
 
     }
 
+
     container.innerHTML = "";
+
 
     data.forEach(article => {
 
         container.innerHTML += `
 
-        <div class="mini-news">
+            <div class="mini-news">
 
-            <span>${article.category}</span>
+                <span>
+                    ${article.category || "News"}
+                </span>
 
-            <p>
-                <a href="article.html?slug=${article.slug}">
-                    ${article.title}
-                </a>
-            </p>
+                <p>
 
-        </div>
+                    <a href="article.html?slug=${article.slug}">
+                        ${article.title}
+                    </a>
+
+                </p>
+
+            </div>
 
         `;
 
     });
 
 }
+
+
 // ======================================
 // LATEST BY CATEGORY
 // ======================================
@@ -232,11 +321,15 @@ async function loadChannels() {
         "Entertainment"
     ];
 
-    const container = document.getElementById("channelsContainer");
+
+    const container =
+        document.getElementById("channelsContainer");
 
     if (!container) return;
 
+
     container.innerHTML = "";
+
 
     for (const category of categories) {
 
@@ -245,104 +338,382 @@ async function loadChannels() {
             .select("*")
             .eq("status", "Published")
             .eq("category", category)
-            .order("publish_date", { ascending: false })
+            .order("publish_date", {
+                ascending: false
+            })
             .limit(15);
 
+
         if (error) {
-            console.error(error);
+
+            console.error(
+                `${category} error:`,
+                error
+            );
+
             continue;
+
         }
 
-        if (!data.length) continue;
+
+        if (!data || !data.length) continue;
+
 
         let html = `
 
-<div class="channel-row">
+            <div class="channel-row">
 
-    <div class="channel-header">
+                <div class="channel-header">
 
-        <h3>${category}</h3>
+                    <h3>
+                        ${category}
+                    </h3>
 
-        <a href="${category.toLowerCase()}.html">
-            View All →
-        </a>
+                    <a href="${category.toLowerCase()}.html">
+                        View All →
+                    </a>
 
-    </div>
+                </div>
 
-    <button class="slider-arrow prev">
-        &#10094;
-    </button>
 
-    <div class="headline-slider">
+                <button class="slider-arrow prev">
+                    &#10094;
+                </button>
 
-`;
+
+                <div class="headline-slider">
+
+        `;
+
 
         data.forEach(article => {
 
             html += `
 
-<a class="headline-card"
-href="article.html?slug=${article.slug}">
+                <a
+                    class="headline-card"
+                    href="article.html?slug=${article.slug}"
+                >
 
-    <span>
-        ${article.category}
-    </span>
+                    <span>
+                        ${article.category}
+                    </span>
 
-    <h4>
-        ${article.title}
-    </h4>
+                    <h4>
+                        ${article.title}
+                    </h4>
 
-    <p>
-        ${new Date(article.publish_date).toLocaleDateString()}
-    </p>
+                    <p>
+                        ${new Date(
+                            article.publish_date
+                        ).toLocaleDateString()}
+                    </p>
 
-</a>
+                </a>
 
-`;
+            `;
 
         });
 
+
         html += `
 
-    </div>
+                </div>
 
-    <button class="slider-arrow next">
-        &#10095;
-    </button>
 
-</div>
+                <button class="slider-arrow next">
+                    &#10095;
+                </button>
 
-`;
+            </div>
+
+        `;
+
 
         container.innerHTML += html;
 
     }
 
-    // Arrow functionality
 
-    document.querySelectorAll(".channel-row").forEach(row=>{
+    // ==================================
+    // CATEGORY SLIDER ARROWS
+    // ==================================
 
-        const slider =
-            row.querySelector(".headline-slider");
+    document
+        .querySelectorAll(".channel-row")
+        .forEach(row => {
 
-        row.querySelector(".next").onclick = ()=>{
+            const slider =
+                row.querySelector(
+                    ".headline-slider"
+                );
 
-            slider.scrollBy({
-                left:300,
-                behavior:"smooth"
-            });
 
-        };
+            const next =
+                row.querySelector(".next");
 
-        row.querySelector(".prev").onclick = ()=>{
 
-            slider.scrollBy({
-                left:-300,
-                behavior:"smooth"
-            });
+            const prev =
+                row.querySelector(".prev");
 
-        };
 
-    });
+            if (next) {
+
+                next.onclick = () => {
+
+                    slider.scrollBy({
+                        left: 300,
+                        behavior: "smooth"
+                    });
+
+                };
+
+            }
+
+
+            if (prev) {
+
+                prev.onclick = () => {
+
+                    slider.scrollBy({
+                        left: -300,
+                        behavior: "smooth"
+                    });
+
+                };
+
+            }
+
+        });
+
+}
+
+
+// ======================================
+// FEATURED COVERAGE
+// ======================================
+
+async function loadFeaturedCoverage() {
+
+    const container =
+        document.getElementById(
+            "featuredCoverage"
+        );
+
+    if (!container) {
+
+        console.warn(
+            "featuredCoverage container not found"
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Each card represents a section.
+
+        We first look for articles marked
+        is_featured = true.
+
+        If there aren't enough featured
+        articles, we fall back to the
+        latest published articles.
+    */
+
+    const sections = [
+
+        {
+            name: "Beyond Politics",
+            category: "Politics",
+            link: "politics.html"
+        },
+
+        {
+            name: "Beyond Entertainment",
+            category: "Entertainment",
+            link: "entertainment.html"
+        },
+
+        {
+            name: "Beyond Talks",
+            category: "Videos",
+            link: "videos.html"
+        },
+
+        {
+            name: "Beyond Sports",
+            category: "Sports",
+            link: "sports.html"
+        }
+
+    ];
+
+
+    container.innerHTML = "";
+
+
+    for (const section of sections) {
+
+        let articles = [];
+
+
+        // ==================================
+        // FIRST: FEATURED ARTICLES
+        // ==================================
+
+        const { data: featuredData, error: featuredError } =
+            await supabaseClient
+                .from("articles")
+                .select("*")
+                .eq("status", "Published")
+                .eq("category", section.category)
+                .eq("is_featured", true)
+                .order("publish_date", {
+                    ascending: false
+                })
+                .limit(5);
+
+
+        if (
+            !featuredError &&
+            featuredData &&
+            featuredData.length > 0
+        ) {
+
+            articles = featuredData;
+
+        }
+
+
+        // ==================================
+        // FALLBACK: LATEST ARTICLES
+        // ==================================
+
+        if (articles.length === 0) {
+
+            const { data: latestData, error: latestError } =
+                await supabaseClient
+                    .from("articles")
+                    .select("*")
+                    .eq("status", "Published")
+                    .eq("category", section.category)
+                    .order("publish_date", {
+                        ascending: false
+                    })
+                    .limit(5);
+
+
+            if (
+                !latestError &&
+                latestData
+            ) {
+
+                articles = latestData;
+
+            }
+
+        }
+
+
+        // ==================================
+        // NO STORIES
+        // ==================================
+
+        if (!articles.length) {
+
+            continue;
+
+        }
+
+
+        // ==================================
+        // CREATE CARD
+        // ==================================
+
+        const card =
+            document.createElement("a");
+
+        card.className =
+            "show-card";
+
+
+        card.href =
+            `${section.link}?slug=${articles[0].slug}`;
+
+
+        container.appendChild(card);
+
+
+        // ==================================
+        // CARD CONTENT
+        // ==================================
+
+        let currentIndex = 0;
+
+
+        function updateCard() {
+
+            const article =
+                articles[currentIndex];
+
+
+            const image =
+                article.featured_image ||
+                "images/logo.png";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${image}"
+                    alt="${article.title || section.name}"
+                >
+
+
+                <div class="show-overlay">
+
+                    <span>
+                        ${section.name}
+                    </span>
+
+                    <h3>
+                        ${article.title || "Latest Story"}
+                    </h3>
+
+                </div>
+
+            `;
+
+
+            card.href =
+                `article.html?slug=${article.slug}`;
+
+        }
+
+
+        updateCard();
+
+
+        // ==================================
+        // AUTOMATIC STORY CHANGE
+        // ==================================
+
+        if (articles.length > 1) {
+
+            setInterval(() => {
+
+                currentIndex =
+                    (currentIndex + 1)
+                    % articles.length;
+
+                updateCard();
+
+            }, 5000);
+
+        }
+
+    }
 
 }
