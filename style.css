@@ -5437,3 +5437,176 @@ body.light-mode
     }
 
 }
+/* =========================================================
+   HOMEPAGE STRUCTURE FIX
+========================================================= */
+
+@media (min-width: 901px) {
+
+    .hero-layout {
+        display: grid !important;
+
+        grid-template-columns:
+            240px
+            minmax(0, 1fr)
+            240px !important;
+
+        gap: 18px !important;
+
+        align-items: start !important;
+
+        width: 100% !important;
+
+        max-width: 1700px !important;
+
+        margin-left: auto !important;
+
+        margin-right: auto !important;
+    }
+
+
+    /* LEFT */
+
+    .hero-layout > .left-news {
+        grid-column: 1 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+    }
+
+
+    /* CENTER */
+
+    .hero-layout > .center-column {
+        grid-column: 2 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        display: block !important;
+    }
+
+
+    /* RIGHT */
+
+    .hero-layout > .trending {
+        grid-column: 3 !important;
+        grid-row: 1 !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* HERO + SIDE STORIES */
+
+    .hero-feature-area {
+        display: grid !important;
+
+        grid-template-columns:
+            minmax(0, 2fr)
+            minmax(200px, 1fr) !important;
+
+        gap: 12px !important;
+
+        width: 100% !important;
+
+        min-width: 0 !important;
+    }
+
+
+    /* HERO */
+
+    .center-column > .hero {
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        height: auto !important;
+
+        min-height: 0 !important;
+
+        padding: 0 !important;
+
+        margin: 0 !important;
+
+        background: transparent !important;
+
+        border: none !important;
+
+        overflow: visible !important;
+    }
+
+
+    .center-column .slider-hero {
+        width: 100% !important;
+
+        height: 500px !important;
+
+        min-height: 500px !important;
+
+        position: relative !important;
+
+        overflow: hidden !important;
+
+        border-radius: 18px !important;
+    }
+
+
+    /* SIDE STORIES */
+
+    .hero-side-stories {
+        width: 100% !important;
+
+        height: 500px !important;
+
+        min-height: 500px !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        gap: 12px !important;
+
+        padding: 0 !important;
+
+        margin: 0 !important;
+    }
+
+
+    /* MORE TOP STORIES */
+
+    .center-column > .more-top-stories {
+        display: block !important;
+
+        width: 100% !important;
+
+        margin: 18px 0 0 !important;
+
+        padding: 0 !important;
+
+        clear: both !important;
+    }
+
+
+    .more-top-stories-grid {
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(5, minmax(0, 1fr)) !important;
+
+        gap: 10px !important;
+
+        width: 100% !important;
+
+        margin: 0 !important;
+    }
+
+}
