@@ -10,12 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadLatestVideos();
 
-    loadCategoryVideos("Politics", "politicsVideos");
-    loadCategoryVideos("Business", "businessVideos");
-    loadCategoryVideos("Technology", "technologyVideos");
-    loadCategoryVideos("Sports", "sportsVideos");
-    loadCategoryVideos("Entertainment", "entertainmentVideos");
-
+  loadCategoryVideos("Politics", "videosPolitics");
+loadCategoryVideos("Business", "videosBusiness");
+loadCategoryVideos("Technology", "videosTechnology");
+loadCategoryVideos("Sports", "videosSports");
+loadCategoryVideos("Entertainment", "videosEntertainment");
 });
 
 
