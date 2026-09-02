@@ -3880,3 +3880,137 @@ body.light-mode .footer {
 body.light-mode .footer p {
     color: #111111 !important;
 }
+/* ==========================================
+   LIGHT MODE - ARTICLE PAGE
+========================================== */
+
+body.light-mode .article-page {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .article-main {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+body.light-mode .article-main h1,
+body.light-mode .article-main h2,
+body.light-mode .article-main h3,
+body.light-mode .article-main h4 {
+    color: #111111 !important;
+}
+
+body.light-mode .article-main p {
+    color: #333333 !important;
+}
+
+body.light-mode .article-meta {
+    color: #666666 !important;
+}
+
+body.light-mode .article-content {
+    color: #222222 !important;
+}
+
+body.light-mode .article-content p {
+    color: #333333 !important;
+}
+
+body.light-mode .article-content strong {
+    color: #111111 !important;
+}
+
+body.light-mode .article-content h2,
+body.light-mode .article-content h3 {
+    color: #111111 !important;
+}
+
+body.light-mode .article-content blockquote {
+    background: #f5f5f5 !important;
+    color: #222222 !important;
+}
+
+body.light-mode .article-content td,
+body.light-mode .article-content th {
+    border-color: #dddddd !important;
+    color: #222222 !important;
+}
+
+body.light-mode .article-content th {
+    background: #eeeeee !important;
+}
+
+body.light-mode .image-caption {
+    color: #777777 !important;
+    border-bottom-color: #dddddd !important;
+}
+
+body.light-mode .article-left,
+body.light-mode .article-right {
+    color: #111111;
+}
+
+body.light-mode .latest-box,
+body.light-mode .trending-box {
+    background: #ffffff !important;
+    border: 1px solid #dddddd !important;
+}
+
+body.light-mode .latest-box h2,
+body.light-mode .trending-box h2 {
+    color: #111111 !important;
+}
+
+body.light-mode .article-sidebar {
+    color: #111111;
+}
+
+body.light-mode .mini-news {
+    border-bottom-color: #dddddd !important;
+}
+
+body.light-mode .mini-news a {
+    color: #111111 !important;
+}
+
+body.light-mode .mini-title {
+    color: #111111 !important;
+}
+
+body.light-mode .mini-news a:hover,
+body.light-mode .mini-title:hover {
+    color: #ff3b3b !important;
+}
+
+body.light-mode .share-bar button {
+    background: #eeeeee !important;
+    color: #111111 !important;
+}
+
+body.light-mode .share-bar button:hover {
+    background: #ff4040 !important;
+    color: #ffffff !important;
+}
+
+body.light-mode .related-section {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .related-section h2 {
+    color: #111111 !important;
+}
+
+body.light-mode .related-grid .card {
+    background: #ffffff !important;
+    border-color: #dddddd !important;
+}
+
+body.light-mode .related-grid h3 a {
+    color: #111111 !important;
+}
+
+body.light-mode .related-grid p {
+    color: #555555 !important;
+}
