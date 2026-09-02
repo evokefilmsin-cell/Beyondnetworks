@@ -2925,3 +2925,225 @@ body.light-mode .theme-toggle {
     color: #111111;
     border-color: #cccccc;
 }
+/* ==========================================
+   LIGHT MODE - HOMEPAGE FIXES
+========================================== */
+
+
+/* Main homepage area */
+body.light-mode {
+    background: #ffffff;
+    color: #111111;
+}
+
+
+/* ==========================================
+   HERO SECTION
+========================================== */
+
+body.light-mode .hero-layout {
+    background: #ffffff;
+}
+
+body.light-mode .hero {
+    background: #ffffff;
+}
+
+body.light-mode .side-news,
+body.light-mode .trending {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .side-news h3,
+body.light-mode .trending h2 {
+    color: #111111;
+}
+
+body.light-mode .mini-news {
+    color: #111111;
+}
+
+body.light-mode .mini-news p,
+body.light-mode .mini-news a {
+    color: #111111;
+}
+
+
+/* Keep text readable over hero image */
+body.light-mode .hero-content .tag,
+body.light-mode .hero-content h1,
+body.light-mode .hero-content .subtitle {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   BREAKING NEWS
+========================================== */
+
+body.light-mode .breaking-bar {
+    background: #f4f4f4;
+    color: #111111;
+    border-bottom: 1px solid #dddddd;
+}
+
+body.light-mode .breaking-bar marquee,
+body.light-mode .breaking-bar a {
+    color: #555555;
+}
+
+
+/* ==========================================
+   BEYOND CHANNELS
+========================================== */
+
+body.light-mode .beyond-channels {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .beyond-channels h2 {
+    color: #111111;
+}
+
+
+/*
+   The channel logos themselves contain
+   dark backgrounds, so keep the cards dark.
+   This makes the logos remain visible.
+*/
+
+body.light-mode .channel-card {
+    background: #111111;
+    border-color: #dddddd;
+}
+
+
+/* ==========================================
+   LATEST BY CATEGORY
+========================================== */
+
+body.light-mode .channels-section {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .channels-section h2,
+body.light-mode .channel-header h3 {
+    color: #111111;
+}
+
+body.light-mode .channel-header a {
+    color: #111111;
+}
+
+body.light-mode .headline-card {
+    background: #ffffff;
+    color: #111111;
+    border: 1px solid #dddddd;
+}
+
+body.light-mode .headline-card span {
+    color: #ff3030;
+}
+
+body.light-mode .headline-card h4 {
+    color: #111111;
+}
+
+body.light-mode .headline-card p {
+    color: #555555;
+}
+
+
+/* Slider arrows */
+body.light-mode .slider-arrow {
+    background: #111111;
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   FEATURED COVERAGE
+========================================== */
+
+body.light-mode .shows-section {
+    background: #ffffff;
+    color: #111111;
+}
+
+body.light-mode .shows-section h2 {
+    color: #111111;
+}
+
+
+/*
+   Featured images are intentionally darkened
+   so white text stays readable.
+*/
+
+body.light-mode .show-card {
+    background: #111111;
+    color: #ffffff;
+}
+
+body.light-mode .show-card .show-overlay {
+    color: #ffffff;
+}
+
+body.light-mode .show-card .show-overlay span {
+    color: #ff3030;
+}
+
+body.light-mode .show-card .show-overlay h3 {
+    color: #ffffff;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+body.light-mode .footer {
+    background: #f5f5f5;
+    color: #111111;
+    border-top: 1px solid #dddddd;
+}
+
+body.light-mode .footer h3,
+body.light-mode .footer h4 {
+    color: #111111;
+}
+
+body.light-mode .footer p,
+body.light-mode .footer a {
+    color: #333333;
+}
+
+body.light-mode .footer-bottom {
+    border-top: 1px solid #cccccc;
+    color: #111111;
+}
+
+
+/* ==========================================
+   SMOOTH THEME TRANSITION
+========================================== */
+
+body,
+.topbar,
+.hero-layout,
+.side-news,
+.trending,
+.beyond-channels,
+.channels-section,
+.shows-section,
+.footer,
+.headline-card,
+.channel-card {
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        border-color 0.3s ease;
+}
