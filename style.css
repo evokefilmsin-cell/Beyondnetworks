@@ -3565,3 +3565,124 @@ body.light-mode .category-section a {
         color 0.3s ease,
         border-color 0.3s ease;
 }
+/* ==========================================
+   LIGHT MODE - VIDEOS PAGE FIX
+========================================== */
+
+
+/* Featured video card */
+body.light-mode .video-featured-card {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+/* Video information area */
+body.light-mode .video-featured-card .video-content {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+/* Video category */
+body.light-mode .video-featured-card .video-category {
+    color: #ff3030 !important;
+}
+
+
+/* Video title */
+body.light-mode .video-featured-card .video-content h1 {
+    color: #111111 !important;
+}
+
+
+/* Video description */
+body.light-mode .video-featured-card .video-content p {
+    color: #555555 !important;
+}
+
+
+/* ==========================================
+   LATEST VIDEOS SIDEBAR
+========================================== */
+
+body.light-mode .videos-top .top-stories {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+body.light-mode .videos-top .top-stories-header h2 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .videos-top .top-stories-header a {
+    color: #ff3030 !important;
+}
+
+
+body.light-mode .latest-video-item {
+    color: #111111 !important;
+    border-bottom-color: #dddddd !important;
+}
+
+
+body.light-mode .latest-video-info h3 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .latest-video-info span {
+    color: #777777 !important;
+}
+
+
+/* ==========================================
+   VIDEO SECTIONS
+========================================== */
+
+body.light-mode .category-section {
+    background: #ffffff !important;
+    color: #111111 !important;
+}
+
+
+body.light-mode .category-section .section-heading h2 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .category-section .section-heading a {
+    color: #ff3030 !important;
+}
+
+
+/* Video cards */
+body.light-mode .category-section .video-card {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border-color: #dddddd !important;
+}
+
+
+body.light-mode .category-section .video-card-content {
+    background: #ffffff !important;
+}
+
+
+body.light-mode .category-section .video-card-content h3 {
+    color: #111111 !important;
+}
+
+
+body.light-mode .category-section .video-card-content p {
+    color: #666666 !important;
+}
+
+
+body.light-mode .category-section .video-card-content span {
+    color: #ff3030 !important;
+}
