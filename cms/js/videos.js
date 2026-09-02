@@ -172,28 +172,48 @@ async function loadFeaturedVideo() {
 
     const video = data[0];
 
-    const thumbnail =
-        video.featured_image ||
-        getYouTubeThumbnail(video.video_url);
+    showVideo(video);
+
+}
+// ======================================
+// PLAY VIDEO IN FEATURED PLAYER
+// ======================================
+
+function showVideo(video) {
+
+    const container =
+        document.getElementById("featuredVideo");
+
+    if (!container || !video) return;
+
+    const videoId =
+        getYouTubeId(video.video_url);
+
+    if (!videoId) {
+
+        container.innerHTML = `
+            <p>Invalid YouTube video URL.</p>
+        `;
+
+        return;
+
+    }
 
     container.innerHTML = `
 
-        <article class="video-featured-card">
+        <div class="video-featured-card">
 
-            <a href="video.html?slug=${video.slug}">
+            <div class="featured-player">
 
-                <div class="video-thumbnail">
+                <iframe
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0"
+                    title="${video.title}"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
 
-                    <img
-                        src="${thumbnail}"
-                        alt="${video.title}"
-                    >
-
-                    <span class="play-button">▶</span>
-
-                </div>
-
-            </a>
+            </div>
 
             <div class="video-content">
 
@@ -211,7 +231,7 @@ async function loadFeaturedVideo() {
 
             </div>
 
-        </article>
+        </div>
 
     `;
 
@@ -414,9 +434,9 @@ function renderVideos(container, videos) {
 
         container.innerHTML += `
 
-            <a
-                href="video.html?slug=${video.slug}"
+            <div
                 class="video-card"
+                onclick='showVideo(${JSON.stringify(video)})'
             >
 
                 <div class="video-card-image">
@@ -448,7 +468,7 @@ function renderVideos(container, videos) {
 
                 </div>
 
-            </a>
+            </div>
 
         `;
 
