@@ -4014,3 +4014,12 @@ body.light-mode .related-grid h3 a {
 body.light-mode .related-grid p {
     color: #555555 !important;
 }
+/* ==========================================
+   LIGHT MODE - FEATURED CATEGORY BADGE
+========================================== */
+
+body.light-mode .featured-content span {
+    background: #ff4040 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
