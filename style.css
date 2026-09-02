@@ -3147,3 +3147,138 @@ body,
         color 0.3s ease,
         border-color 0.3s ease;
 }
+/* ==========================================
+   LIGHT MODE - HOMEPAGE FINAL FIX
+========================================== */
+
+
+/* ==========================================
+   LEFT LATEST UPDATES
+========================================== */
+
+body.light-mode .side-news {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid #cccccc;
+}
+
+body.light-mode .side-news h3 {
+    color: #111111 !important;
+}
+
+body.light-mode .side-news .mini-news {
+    color: #111111 !important;
+}
+
+body.light-mode .side-news .mini-news span {
+    color: #ff3030 !important;
+}
+
+body.light-mode .side-news .mini-news p {
+    color: #111111 !important;
+}
+
+body.light-mode .side-news .mini-news a {
+    color: #111111 !important;
+}
+
+body.light-mode .side-news .mini-news {
+    border-bottom-color: #dddddd !important;
+}
+
+
+/* ==========================================
+   RIGHT TRENDING NOW
+========================================== */
+
+body.light-mode .trending {
+    background: transparent !important;
+    color: #111111 !important;
+}
+
+body.light-mode .trending h2 {
+    color: #111111 !important;
+}
+
+body.light-mode .trending .mini-news {
+    background: transparent !important;
+    color: #111111 !important;
+    border-bottom-color: #dddddd !important;
+}
+
+body.light-mode .trending .mini-news span {
+    color: #ff3030 !important;
+}
+
+body.light-mode .trending .mini-news p {
+    color: #111111 !important;
+}
+
+body.light-mode .trending .mini-news a {
+    color: #111111 !important;
+}
+
+
+/* ==========================================
+   BREAKING TICKER
+========================================== */
+
+body.light-mode .breaking-bar {
+    background: #f4f4f4 !important;
+}
+
+body.light-mode .breaking-label {
+    background: #e90020 !important;
+    color: #ffffff !important;
+}
+
+body.light-mode #breakingTicker {
+    color: #333333 !important;
+}
+
+body.light-mode #breakingTicker a {
+    color: #333333 !important;
+}
+
+
+/* ==========================================
+   HERO AREA
+========================================== */
+
+body.light-mode .hero-layout {
+    background: #ffffff !important;
+}
+
+body.light-mode .hero {
+    background: transparent !important;
+}
+
+
+/* ==========================================
+   HERO TEXT
+========================================== */
+
+body.light-mode .hero-content .tag,
+body.light-mode .hero-content h1,
+body.light-mode .hero-content .subtitle {
+    color: #ffffff !important;
+}
+
+
+/* ==========================================
+   HERO BUTTON
+========================================== */
+
+body.light-mode .hero-content .button {
+    color: #111111 !important;
+}
+
+
+/* ==========================================
+   HERO ARROWS
+========================================== */
+
+body.light-mode .hero-arrow {
+    background: rgba(0, 0, 0, 0.65) !important;
+    color: #ffffff !important;
+}
