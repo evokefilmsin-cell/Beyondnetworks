@@ -3313,3 +3313,12 @@ body.light-mode .side-news .mini-news p {
 body.light-mode .side-news .mini-news a {
     color: #111111 !important;
 }
+/* ==========================================
+   LIGHT MODE - LATEST UPDATES HEADER
+========================================== */
+
+body.light-mode .side-news h3 {
+    background: transparent !important;
+    color: #111111 !important;
+    padding: 0 !important;
+}
