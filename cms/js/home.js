@@ -655,42 +655,70 @@ async function loadFeaturedCoverage() {
 
         function updateCard() {
 
-            const article =
-                articles[currentIndex];
+    const article =
+        articles[currentIndex];
+
+    const image =
+        article.featured_image ||
+        "images/logo.png";
 
 
-            const image =
-                article.featured_image ||
-                "images/logo.png";
+    // Fade out current story
+    card.classList.add("coverage-changing");
 
 
-            card.innerHTML = `
+    setTimeout(() => {
 
-                <img
-                    src="${image}"
-                    alt="${article.title || section.name}"
-                >
+        card.innerHTML = `
+
+            <img
+                src="${image}"
+                alt="${article.title || section.name}"
+            >
+
+            <div class="show-overlay">
+
+                <span>
+                    ${section.name}
+                </span>
+
+                <h3>
+                    ${article.title || "Latest Story"}
+                </h3>
+
+            </div>
+
+        `;
+
+        card.href =
+            `article.html?slug=${article.slug}`;
 
 
-                <div class="show-overlay">
+        // Fade in after new image loads
+        const newImage =
+            card.querySelector("img");
 
-                    <span>
-                        ${section.name}
-                    </span>
+        if (newImage) {
 
-                    <h3>
-                        ${article.title || "Latest Story"}
-                    </h3>
+            newImage.onload = () => {
 
-                </div>
+                card.classList.remove(
+                    "coverage-changing"
+                );
 
-            `;
+            };
 
+        } else {
 
-            card.href =
-                `article.html?slug=${article.slug}`;
+            card.classList.remove(
+                "coverage-changing"
+            );
 
         }
+
+    }, 500);
+
+}
 
 
         updateCard();
