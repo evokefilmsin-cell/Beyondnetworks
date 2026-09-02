@@ -4087,3 +4087,20 @@ body.light-mode .featured-content span {
 .trending::-webkit-scrollbar-track {
     background: transparent;
 }
+/* =================================
+   HIDE SCROLLBAR - LATEST + TRENDING
+================================= */
+
+.left-news,
+.trending {
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.left-news::-webkit-scrollbar,
+.trending::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+    width: 0;
+    height: 0;
+}
