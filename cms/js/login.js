@@ -1,8 +1,14 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
     // Check if already logged in
-    const { data: { session } } =
-        await supabaseClient.auth.getSession();
+    const {
+        data: { session },
+        error: sessionError
+    } = await supabaseClient.auth.getSession();
+
+    if (sessionError) {
+        console.error("Session error:", sessionError);
+    }
 
     if (session) {
         window.location.href = "dashboard.html";
@@ -10,25 +16,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    const loginForm =
-        document.getElementById("loginForm");
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const loginError = document.getElementById("loginError");
 
-    const loginButton =
-        document.getElementById("loginButton");
 
-    const loginError =
-        document.getElementById("loginError");
-
-    const loginSuccess =
-        document.getElementById("loginSuccess");
+    if (!loginForm) {
+        console.error("Login form not found.");
+        return;
+    }
 
 
     loginForm.addEventListener("submit", async (e) => {
 
         e.preventDefault();
 
-        loginError.style.display = "none";
-        loginSuccess.style.display = "none";
 
         const email =
             document.getElementById("email").value.trim();
@@ -37,25 +39,38 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById("password").value;
 
 
+        // Clear previous error
+        if (loginError) {
+            loginError.style.display = "none";
+            loginError.textContent = "";
+        }
+
+
         loginButton.disabled = true;
         loginButton.textContent = "Logging in...";
 
 
-        const { data, error } =
-            await supabaseClient.auth.signInWithPassword({
-                email: email,
-                password: password
-            });
+        const {
+            data,
+            error
+        } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
 
 
         if (error) {
 
-            console.error(error);
+            console.error("Login error:", error);
 
-            loginError.textContent =
-                error.message || "Invalid email or password.";
+            if (loginError) {
+                loginError.textContent =
+                    error.message || "Invalid email or password.";
 
-            loginError.style.display = "block";
+                loginError.style.display = "block";
+            } else {
+                alert(error.message || "Invalid email or password.");
+            }
 
             loginButton.disabled = false;
             loginButton.textContent = "Login";
@@ -64,13 +79,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
 
-        console.log("Logged in:", data.user);
+        console.log("Login successful:", data.user);
 
-        loginSuccess.style.display = "block";
+        loginButton.textContent = "Login successful...";
 
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 500);
+
+        // Go to CMS dashboard
+        window.location.href = "dashboard.html";
 
     });
 
