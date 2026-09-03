@@ -19,44 +19,111 @@ async function loadArticles() {
 
     table.innerHTML = `
     <tr>
-        <td colspan="8" class="text-center p-5">
+        <td colspan="9" class="text-center p-5">
             Loading Articles...
         </td>
     </tr>
     `;
 
+    // ----------------------------
+    // Load User Profiles
+    // ----------------------------
+
+    const {
+        data: profiles,
+        error: profileError
+    } = await supabaseClient
+        .from("user_profiles")
+        .select("user_id, full_name, email");
+
+    if (profileError) {
+
+        console.error("Profile loading error:", profileError);
+
+    }
+
+    // Create a quick lookup:
+    // user ID → user name
+
+    const profileMap = {};
+
+    if (profiles) {
+
+        profiles.forEach(profile => {
+
+            profileMap[profile.user_id] =
+                profile.full_name || profile.email || "Unknown User";
+
+        });
+
+    }
+
+    // ----------------------------
+    // Load Articles
+    // ----------------------------
+
     let query = supabaseClient
-    .from("articles")
-    .select("*");
+        .from("articles")
+        .select("*");
+
     // Search
-if (searchInput.value.trim() !== "") {
-    query = query.ilike("title", `%${searchInput.value.trim()}%`);
-}
 
-// Brand
-if (brandFilter.value !== "All Brands") {
-    query = query.eq("brand", brandFilter.value);
-}
+    if (searchInput.value.trim() !== "") {
 
-// Category
-if (categoryFilter.value !== "Category") {
-    query = query.eq("category", categoryFilter.value);
-}
+        query = query.ilike(
+            "title",
+            `%${searchInput.value.trim()}%`
+        );
 
-// Status
-if (statusFilter.value !== "Status") {
-    query = query.eq("status", statusFilter.value);
-}
-    query = query.order("publish_date", { ascending: false });
+    }
 
-const { data, error } = await query;
+    // Brand
+
+    if (brandFilter.value !== "All Brands") {
+
+        query = query.eq(
+            "brand",
+            brandFilter.value
+        );
+
+    }
+
+    // Category
+
+    if (categoryFilter.value !== "Category") {
+
+        query = query.eq(
+            "category",
+            categoryFilter.value
+        );
+
+    }
+
+    // Status
+
+    if (statusFilter.value !== "Status") {
+
+        query = query.eq(
+            "status",
+            statusFilter.value
+        );
+
+    }
+
+    query = query.order(
+        "publish_date",
+        { ascending: false }
+    );
+
+    const { data, error } = await query;
+
     if (error) {
 
         console.error(error);
 
         table.innerHTML = `
         <tr>
-            <td colspan="8">
+            <td colspan="9">
                 Failed to load articles.
             </td>
         </tr>
@@ -69,6 +136,11 @@ const { data, error } = await query;
     table.innerHTML = "";
 
     data.forEach(article => {
+
+        const creatorName =
+            article.created_by
+                ? profileMap[article.created_by] || "Unknown User"
+                : "-";
 
         table.innerHTML += `
 
@@ -92,6 +164,7 @@ style="border-radius:8px;">
 <strong>${article.title}</strong>
 
 </td>
+
 <td>
 
 ${article.is_breaking
@@ -105,16 +178,21 @@ ${article.is_featured
 ${article.is_trending
 ? '<span class="badge bg-primary">TRENDING</span>'
 : ''}
+
 ${article.is_opinion
-? '<span class="badge bg-primary">TRENDING</span>'
+? '<span class="badge bg-info me-1">OPINION</span>'
 : ''}
+
 ${article.is_video
-? '<span class="badge bg-primary">TRENDING</span>'
+? '<span class="badge bg-dark me-1">VIDEO</span>'
 : ''}
+
 ${article.is_editor_pick
-? '<span class="badge bg-primary">TRENDING</span>'
+? '<span class="badge bg-success">EDITOR PICK</span>'
 : ''}
+
 </td>
+
 <td>
 
 ${article.brand || "Beyond News"}
@@ -124,6 +202,12 @@ ${article.brand || "Beyond News"}
 <td>
 
 ${article.category}
+
+</td>
+
+<td>
+
+<strong>${creatorName}</strong>
 
 </td>
 
@@ -141,7 +225,7 @@ ${article.publish_date
 article.status === "Published"
 ? "bg-success"
 : article.status === "Draft"
-? "bg-warning"
+? "bg-warning text-dark"
 : "bg-primary"
 }">
 
@@ -178,7 +262,6 @@ onclick="deleteArticle('${article.id}')">
     });
 
 }
-
 // ----------------------------
 // Delete
 // ----------------------------
