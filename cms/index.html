@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +15,14 @@
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css/dashboard.css">
+
+<!-- Supabase -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="js/supabase.js"></script>
+
 </head>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
 <body>
 
 <div class="login-container">
@@ -30,27 +35,37 @@
 
         <p>Sign in to continue</p>
 
-        <form action="dashboard.html">
+        <form id="loginForm">
 
             <input
                 type="email"
+                id="email"
                 placeholder="Email Address"
+                required
             >
 
             <input
                 type="password"
+                id="password"
                 placeholder="Password"
+                required
             >
 
-            <button type="submit">
-    Login
-</button>
+            <button type="submit" id="loginButton">
+                Login
+            </button>
+
+            <div id="loginError"
+                 style="color:red; margin-top:10px; display:none;">
+            </div>
 
         </form>
 
     </div>
 
 </div>
+
+<script src="js/login.js"></script>
 
 </body>
 
