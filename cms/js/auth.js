@@ -5,24 +5,16 @@ async function requireAuth() {
         error
     } = await supabaseClient.auth.getSession();
 
-
     if (error) {
-
         console.error("Auth error:", error);
-
-        window.location.href = "login.html";
-
+        window.location.href = "index.html";
         return null;
     }
-
 
     if (!session) {
-
-        window.location.href = "login.html";
-
+        window.location.href = "index.html";
         return null;
     }
-
 
     return session;
 }
@@ -34,18 +26,14 @@ async function logout() {
         await supabaseClient.auth.signOut();
 
     if (error) {
-
         console.error("Logout error:", error);
-
         return;
     }
 
-    window.location.href = "login.html";
+    window.location.href = "index.html";
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
-
     requireAuth();
-
 });
