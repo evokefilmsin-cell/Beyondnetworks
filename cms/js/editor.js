@@ -204,7 +204,26 @@ publishBtn.addEventListener("click", () => {
 
 previewBtn.addEventListener("click", previewArticle);
 async function saveArticle(status) {
-    console.log("🚀 publishArticle started");
+
+    console.log("🚀 saveArticle started");
+
+    // Get currently logged-in CMS user
+    const {
+        data: { user },
+        error: userError
+    } = await supabaseClient.auth.getUser();
+
+    if (userError || !user) {
+
+        alert("You must be logged in to create an article.");
+
+        window.location.href = "index.html";
+
+        return;
+    }
+
+    console.log("Logged-in user:", user.id);
+
     const content = editor.getData();
     let imageUrl = articleId
     ? imagePreview.src
@@ -273,14 +292,14 @@ statusInfo.innerHTML = `
 
         brand: brand.value,
 
-category: category.value,
+        category: category.value,
 
         author: author.value,
-        
+        created_by: user.id,
         status: status,
 
         featured_image: imageUrl,
-
+        
         seo_title: seoTitle.value,
 
         meta_description: metaDescription.value,
@@ -302,11 +321,17 @@ console.log(article);
 
 if(articleId){
 
+    // Editing an existing article
+    // Keep the original created_by
+    const updateArticle = { ...article };
+
+    delete updateArticle.created_by;
+
     response = await supabaseClient
 
         .from("articles")
 
-        .update(article)
+        .update(updateArticle)
 
         .eq("id", articleId)
 
@@ -314,6 +339,7 @@ if(articleId){
 
 }else{
 
+    // Creating a new article
     response = await supabaseClient
 
         .from("articles")
