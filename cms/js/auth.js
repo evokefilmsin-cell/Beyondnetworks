@@ -2,7 +2,7 @@
 // BEYOND NETWORKS CMS AUTH + ROLE PERMISSIONS
 // ======================================================
 
-let currentUser = null;
+let cmsCurrentUser = null;
 let currentUserRole = null;
 
 
@@ -28,7 +28,7 @@ async function requireAuth() {
         return null;
     }
 
-    currentUser = session.user;
+    cmsCurrentUser = session.user;
 
     return session;
 }
@@ -44,7 +44,7 @@ async function getCurrentUserRole() {
         return currentUserRole;
     }
 
-    if (!currentUser) {
+  if (!cmsCurrentUser) {
 
         const session = await requireAuth();
 
@@ -60,7 +60,7 @@ async function getCurrentUserRole() {
     } = await supabaseClient
         .from("user_roles")
         .select("role")
-        .eq("user_id", currentUser.id)
+        .eq("user_id", cmsCurrentUser.id)
         .maybeSingle();
 
 
