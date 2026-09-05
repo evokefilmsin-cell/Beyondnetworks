@@ -4,7 +4,45 @@
 // ======================================
 
 let editor;
+let editorUserRole = null;
+// ======================================
+// ROLE PERMISSIONS
+// ======================================
 
+async function checkEditorPermissions() {
+
+    editorUserRole = await getCurrentUserRole();
+
+    if (!editorUserRole) {
+        return false;
+    }
+
+    // Viewer cannot create/edit articles
+    if (editorUserRole === "viewer") {
+
+        alert(
+            "You do not have permission to edit articles."
+        );
+
+        window.location.href = "dashboard.html";
+
+        return false;
+    }
+
+    // Video Editor cannot use the normal Article Editor
+    if (editorUserRole === "video_editor") {
+
+        alert(
+            "Video Editors can only manage videos."
+        );
+
+        window.location.href = "videos.html";
+
+        return false;
+    }
+
+    return true;
+}
 // ----------------------------
 // CKEditor
 // ----------------------------
@@ -203,7 +241,109 @@ publishBtn.addEventListener("click", () => {
 });
 
 previewBtn.addEventListener("click", previewArticle);
+
+
+// ======================================
+// APPLY EDITOR PERMISSIONS
+// ======================================
+
+async function applyEditorPermissions() {
+
+    const allowed = await checkEditorPermissions();
+
+    if (!allowed) {
+        return;
+    }
+
+    // Reporter = draft only
+    if (editorUserRole === "reporter") {
+
+        if (publishBtn) {
+            publishBtn.style.display = "none";
+        }
+
+        if (scheduleBtn) {
+            scheduleBtn.style.display = "none";
+        }
+
+        // Reporter can only save drafts
+        if (draftBtn) {
+            draftBtn.textContent = "Save Draft";
+        }
+    }
+
+    // Admin / Editor can publish
+    if (
+        editorUserRole === "admin" ||
+        editorUserRole === "editor"
+    ) {
+
+        if (publishBtn) {
+            publishBtn.style.display = "";
+        }
+
+        if (scheduleBtn) {
+            scheduleBtn.style.display = "";
+        }
+    }
+}
+
+
+// ======================================
+// SAVE ARTICLE
+// ======================================
+
 async function saveArticle(status) {
+
+    // Make sure role is known
+    if (!editorUserRole) {
+        editorUserRole = await getCurrentUserRole();
+    }
+
+    // ----------------------------------
+    // REPORTER RESTRICTION
+    // ----------------------------------
+
+    if (editorUserRole === "reporter") {
+
+        if (status !== "Draft") {
+
+            alert(
+                "Reporters can only save draft articles."
+            );
+
+            return;
+        }
+    }
+
+
+    // ----------------------------------
+    // VIEWER RESTRICTION
+    // ----------------------------------
+
+    if (editorUserRole === "viewer") {
+
+        alert(
+            "You do not have permission to edit articles."
+        );
+
+        return;
+    }
+
+
+    // ----------------------------------
+    // VIDEO EDITOR RESTRICTION
+    // ----------------------------------
+
+    if (editorUserRole === "video_editor") {
+
+        alert(
+            "Video Editors cannot create normal articles."
+        );
+
+        return;
+    }
+
 
     console.log("🚀 saveArticle started");
 
@@ -417,3 +557,12 @@ function previewArticle(){
     );
 
 }
+// ======================================
+// INITIALIZE EDITOR PERMISSIONS
+// ======================================
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    await applyEditorPermissions();
+
+});
