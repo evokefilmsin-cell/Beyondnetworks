@@ -108,6 +108,20 @@ const seoTitle=document.getElementById("seoTitle");
 const metaDescription=document.getElementById("metaDescription");
 const featuredImage = document.getElementById("featuredImage");
 const imagePreview = document.getElementById("imagePreview");
+const featuredImageUrl =
+    document.getElementById("featuredImageUrl");
+
+const chooseMediaBtn =
+    document.getElementById("chooseMediaBtn");
+
+const mediaPickerSearch =
+    document.getElementById("mediaPickerSearch");
+
+const mediaPickerGrid =
+    document.getElementById("mediaPickerGrid");
+
+const mediaPickerModalElement =
+    document.getElementById("mediaPickerModal");
 const publishBtn=document.getElementById("publishBtn");
 const draftBtn = document.getElementById("draftBtn");
 const scheduleBtn = document.getElementById("scheduleBtn");
@@ -148,7 +162,316 @@ function createSlug(text){
     .replace(/--+/g,"-");
 
 }
+// ======================================
+// MEDIA LIBRARY
+// ======================================
 
+let mediaPickerFiles = [];
+
+// --------------------------------------
+// Upload New Image
+// --------------------------------------
+
+featuredImage.addEventListener("change", () => {
+
+    const file = featuredImage.files[0];
+
+    if (!file) return;
+
+    // Clear previously selected Media Library image
+    if (featuredImageUrl) {
+        featuredImageUrl.value = "";
+    }
+
+    imagePreview.src =
+        URL.createObjectURL(file);
+
+    imagePreview.style.display = "block";
+
+    const selectedMediaName =
+        document.getElementById("selectedMediaName");
+
+    if (selectedMediaName) {
+
+        selectedMediaName.textContent =
+            file.name;
+
+    }
+
+});
+
+
+// --------------------------------------
+// Open Media Library
+// --------------------------------------
+
+if (chooseMediaBtn) {
+
+    chooseMediaBtn.addEventListener(
+        "click",
+        openMediaPicker
+    );
+
+}
+
+
+// --------------------------------------
+// Load Media
+// --------------------------------------
+
+async function openMediaPicker() {
+
+    if (!mediaPickerModalElement) {
+        return;
+    }
+
+    if (mediaPickerGrid) {
+
+        mediaPickerGrid.innerHTML = `
+            <div class="text-center text-secondary p-4">
+                Loading media...
+            </div>
+        `;
+
+    }
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .storage
+        .from("news-images")
+        .list("", {
+            limit: 1000,
+            sortBy: {
+                column: "created_at",
+                order: "desc"
+            }
+        });
+
+    if (error) {
+
+        console.error(
+            "Media loading error:",
+            error
+        );
+
+        if (mediaPickerGrid) {
+
+            mediaPickerGrid.innerHTML = `
+                <div class="alert alert-danger">
+                    Failed to load media.
+                </div>
+            `;
+
+        }
+
+        return;
+    }
+
+    mediaPickerFiles = data || [];
+
+    renderMediaPicker(
+        mediaPickerFiles
+    );
+
+    const modal =
+        new bootstrap.Modal(
+            mediaPickerModalElement
+        );
+
+    modal.show();
+
+}
+
+
+// --------------------------------------
+// Render Media Picker
+// --------------------------------------
+
+function renderMediaPicker(files) {
+
+    if (!mediaPickerGrid) return;
+
+    mediaPickerGrid.innerHTML = "";
+
+    if (!files.length) {
+
+        mediaPickerGrid.innerHTML = `
+            <div class="text-center text-secondary p-4">
+                No images found.
+            </div>
+        `;
+
+        return;
+    }
+
+    files.forEach(file => {
+
+        if (!file.name) return;
+
+        const {
+            data
+        } = supabaseClient
+            .storage
+            .from("news-images")
+            .getPublicUrl(file.name);
+
+        const imageUrl =
+            data.publicUrl;
+
+        mediaPickerGrid.innerHTML += `
+
+        <div
+            class="media-picker-item"
+            style="
+                background:#16181a;
+                border:1px solid #343a40;
+                border-radius:10px;
+                overflow:hidden;
+                cursor:pointer;
+                transition:0.2s;
+            "
+            onclick="selectMediaImage('${escapeMediaUrl(imageUrl)}','${escapeMediaName(file.name)}')"
+        >
+
+            <img
+                src="${imageUrl}"
+                alt="${file.name}"
+                style="
+                    width:100%;
+                    height:130px;
+                    object-fit:cover;
+                    display:block;
+                "
+            >
+
+            <div
+                style="
+                    padding:8px;
+                    color:#fff;
+                    font-size:13px;
+                    white-space:nowrap;
+                    overflow:hidden;
+                    text-overflow:ellipsis;
+                "
+                title="${file.name}"
+            >
+                ${file.name}
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+// --------------------------------------
+// Search Media
+// --------------------------------------
+
+if (mediaPickerSearch) {
+
+    mediaPickerSearch.addEventListener(
+        "input",
+        () => {
+
+            const search =
+                mediaPickerSearch.value
+                    .trim()
+                    .toLowerCase();
+
+            const filtered =
+                mediaPickerFiles.filter(file =>
+                    file.name
+                        .toLowerCase()
+                        .includes(search)
+                );
+
+            renderMediaPicker(filtered);
+
+        }
+    );
+
+}
+
+
+// --------------------------------------
+// Select Existing Image
+// --------------------------------------
+
+function selectMediaImage(
+    imageUrl,
+    fileName
+) {
+
+    // Clear direct file upload
+    featuredImage.value = "";
+
+    // Store selected Media Library URL
+    if (featuredImageUrl) {
+
+        featuredImageUrl.value =
+            imageUrl;
+
+    }
+
+    // Show preview
+    imagePreview.src =
+        imageUrl;
+
+    imagePreview.style.display =
+        "block";
+
+    const selectedMediaName =
+        document.getElementById(
+            "selectedMediaName"
+        );
+
+    if (selectedMediaName) {
+
+        selectedMediaName.textContent =
+            fileName;
+
+    }
+
+    // Close modal
+    if (mediaPickerModalElement) {
+
+        const modal =
+            bootstrap.Modal.getInstance(
+                mediaPickerModalElement
+            );
+
+        if (modal) {
+            modal.hide();
+        }
+
+    }
+
+}
+
+
+// --------------------------------------
+// Safe Values
+// --------------------------------------
+
+function escapeMediaUrl(value) {
+
+    return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+}
+
+function escapeMediaName(value) {
+
+    return String(value)
+        .replace(/\\/g, "\\\\")
+        .replace(/'/g, "\\'");
+}
 // =====================================
 // Load Existing Article
 // =====================================
@@ -207,9 +530,30 @@ trendingStory.checked = data.is_trending;
     editor.setData(data.content);
     if (data.featured_image) {
 
-    imagePreview.src = data.featured_image;
+    imagePreview.src =
+        data.featured_image;
 
-    imagePreview.style.display = "block";
+    imagePreview.style.display =
+        "block";
+
+    if (featuredImageUrl) {
+
+        featuredImageUrl.value =
+            data.featured_image;
+
+    }
+
+    const selectedMediaName =
+        document.getElementById(
+            "selectedMediaName"
+        );
+
+    if (selectedMediaName) {
+
+        selectedMediaName.textContent =
+            "Existing featured image";
+
+    }
 
 }
 
@@ -365,9 +709,23 @@ async function saveArticle(status) {
     console.log("Logged-in user:", user.id);
 
     const content = editor.getData();
-    let imageUrl = articleId
-    ? imagePreview.src
-    : "";
+    let imageUrl = "";
+
+if (featuredImageUrl && featuredImageUrl.value) {
+
+    // Existing image selected from Media Library
+    imageUrl = featuredImageUrl.value;
+
+} else if (
+    articleId &&
+    imagePreview.src &&
+    imagePreview.src !== window.location.href
+) {
+
+    // Existing article image
+    imageUrl = imagePreview.src;
+
+}
 let publishTime = null;
 
     if (status === "Published") {
