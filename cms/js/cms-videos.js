@@ -839,15 +839,7 @@ const thumbnail =
     </td>
 
 `;
-        }
-    "
->
-                            `
-
-                            :
-
-                            `
-                            <div
+        
                                 class="
                                     d-flex
                                     align-items-center
