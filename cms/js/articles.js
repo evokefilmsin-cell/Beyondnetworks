@@ -19,7 +19,7 @@ async function loadArticles() {
 
     table.innerHTML = `
     <tr>
-        <td colspan="9" class="text-center p-5">
+        <td colspan="10" class="text-center p-5">
             Loading Articles...
         </td>
     </tr>
@@ -123,7 +123,7 @@ async function loadArticles() {
 
         table.innerHTML = `
         <tr>
-            <td colspan="9">
+            <td colspan="10">
                 Failed to load articles.
             </td>
         </tr>
@@ -214,7 +214,31 @@ ${article.category}
 <td>
 
 ${article.publish_date
-? new Date(article.publish_date).toLocaleString("en-IN", {     timeZone: "Asia/Kolkata",     day: "2-digit",     month: "2-digit",     year: "numeric",     hour: "2-digit",     minute: "2-digit",     hour12: true })
+? new Date(article.publish_date).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+})
+: "-"}
+
+</td>
+
+<td>
+
+${article.updated_at
+? new Date(article.updated_at).toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true
+})
 : "-"}
 
 </td>
@@ -222,16 +246,6 @@ ${article.publish_date
 <td>
 
 <span class="badge ${
-article.status === "Published"
-? "bg-success"
-: article.status === "Draft"
-? "bg-warning text-dark"
-: "bg-primary"
-}">
-
-${article.status}
-
-</span>
 
 </td>
 
