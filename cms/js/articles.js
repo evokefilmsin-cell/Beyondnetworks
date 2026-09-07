@@ -214,7 +214,7 @@ ${article.category}
 <td>
 
 ${article.publish_date
-? new Date(article.publish_date).toLocaleDateString()
+? new Date(article.publish_date).toLocaleString("en-IN", {     timeZone: "Asia/Kolkata",     day: "2-digit",     month: "2-digit",     year: "numeric",     hour: "2-digit",     minute: "2-digit",     hour12: true })
 : "-"}
 
 </td>
