@@ -11,6 +11,7 @@ const brandFilter = document.getElementById("brandFilter");
 const categoryFilter = document.getElementById("categoryFilter");
 const statusFilter = document.getElementById("statusFilter");
 const filterBtn = document.getElementById("filterBtn");
+
 console.log(table);
 
 loadArticles();
@@ -37,9 +38,7 @@ async function loadArticles() {
         .select("user_id, full_name, email");
 
     if (profileError) {
-
         console.error("Profile loading error:", profileError);
-
     }
 
     // Create a quick lookup:
@@ -52,7 +51,9 @@ async function loadArticles() {
         profiles.forEach(profile => {
 
             profileMap[profile.user_id] =
-                profile.full_name || profile.email || "Unknown User";
+                profile.full_name ||
+                profile.email ||
+                "Unknown User";
 
         });
 
@@ -66,7 +67,9 @@ async function loadArticles() {
         .from("articles")
         .select("*");
 
+    // ----------------------------
     // Search
+    // ----------------------------
 
     if (searchInput.value.trim() !== "") {
 
@@ -77,7 +80,9 @@ async function loadArticles() {
 
     }
 
+    // ----------------------------
     // Brand
+    // ----------------------------
 
     if (brandFilter.value !== "All Brands") {
 
@@ -88,7 +93,9 @@ async function loadArticles() {
 
     }
 
+    // ----------------------------
     // Category
+    // ----------------------------
 
     if (categoryFilter.value !== "Category") {
 
@@ -99,7 +106,9 @@ async function loadArticles() {
 
     }
 
+    // ----------------------------
     // Status
+    // ----------------------------
 
     if (statusFilter.value !== "Status") {
 
@@ -109,6 +118,10 @@ async function loadArticles() {
         );
 
     }
+
+    // ----------------------------
+    // Order
+    // ----------------------------
 
     query = query.order(
         "publish_date",
@@ -123,17 +136,20 @@ async function loadArticles() {
 
         table.innerHTML = `
         <tr>
-            <td colspan="10">
+            <td colspan="10" class="text-center p-5">
                 Failed to load articles.
             </td>
         </tr>
         `;
 
         return;
-
     }
 
     table.innerHTML = "";
+
+    // ----------------------------
+    // Render Articles
+    // ----------------------------
 
     data.forEach(article => {
 
@@ -201,7 +217,7 @@ ${article.brand || "Beyond News"}
 
 <td>
 
-${article.category}
+${article.category || "-"}
 
 </td>
 
@@ -210,6 +226,8 @@ ${article.category}
 <strong>${creatorName}</strong>
 
 </td>
+
+<!-- Date -->
 
 <td>
 
@@ -227,6 +245,8 @@ ${article.publish_date
 
 </td>
 
+<!-- Last Updated -->
+
 <td>
 
 ${article.updated_at
@@ -243,11 +263,25 @@ ${article.updated_at
 
 </td>
 
+<!-- Status -->
+
 <td>
 
 <span class="badge ${
+    article.status === "Published"
+        ? "bg-success"
+        : article.status === "Draft"
+        ? "bg-warning text-dark"
+        : "bg-primary"
+}">
+
+${article.status}
+
+</span>
 
 </td>
+
+<!-- Actions -->
 
 <td>
 
@@ -276,51 +310,67 @@ onclick="deleteArticle('${article.id}')">
     });
 
 }
+
 // ----------------------------
 // Delete
 // ----------------------------
 
-async function deleteArticle(id){
+async function deleteArticle(id) {
 
-    if(!confirm("Delete this article?"))
+    if (!confirm("Delete this article?"))
         return;
 
     const { error } = await supabaseClient
-
         .from("articles")
-
         .delete()
+        .eq("id", id);
 
-        .eq("id",id);
-
-    if(error){
+    if (error) {
 
         alert(error.message);
 
         return;
-
     }
 
     loadArticles();
-
 }
 
 // ----------------------------
 // Edit
 // ----------------------------
 
-function editArticle(id){
+function editArticle(id) {
 
     window.location =
-        "article-editor.html?id="+id;
+        "article-editor.html?id=" + id;
 
 }
-searchInput.addEventListener("input", loadArticles);
 
-brandFilter.addEventListener("change", loadArticles);
+// ----------------------------
+// Filters
+// ----------------------------
 
-categoryFilter.addEventListener("change", loadArticles);
+searchInput.addEventListener(
+    "input",
+    loadArticles
+);
 
-statusFilter.addEventListener("change", loadArticles);
+brandFilter.addEventListener(
+    "change",
+    loadArticles
+);
 
-filterBtn.addEventListener("click", loadArticles);
+categoryFilter.addEventListener(
+    "change",
+    loadArticles
+);
+
+statusFilter.addEventListener(
+    "change",
+    loadArticles
+);
+
+filterBtn.addEventListener(
+    "click",
+    loadArticles
+);
