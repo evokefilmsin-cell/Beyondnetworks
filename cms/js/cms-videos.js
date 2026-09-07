@@ -639,49 +639,206 @@ const thumbnail =
 
         row.innerHTML = `
 
-            <!-- VIDEO -->
+    <!-- VIDEO -->
 
-            <td>
+    <td>
 
-                <div
-                    class="d-flex align-items-center"
-                    style="gap:15px;"
-                >
+        <div
+            class="d-flex align-items-center"
+            style="gap:15px;"
+        >
 
-                    <div
+            <div
+                style="
+                    width:140px;
+                    height:80px;
+                    overflow:hidden;
+                    border-radius:8px;
+                    background:#222;
+                    flex-shrink:0;
+                "
+            >
+
+                ${
+                    thumbnail
+                    ?
+                    `
+                    <img
+                        src="${thumbnail}"
+                        alt="${escapeHtml(
+                            video.title || "Video"
+                        )}"
                         style="
-                            width:140px;
-                            height:80px;
-                            overflow:hidden;
-                            border-radius:8px;
-                            background:#222;
-                            flex-shrink:0;
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
                         "
+                        data-youtube-thumbnail="${youtubeThumbnail}"
+                        onerror="handleThumbnailError(this)"
                     >
+                    `
+                    :
+                    `
+                    <div
+                        class="
+                            d-flex
+                            align-items-center
+                            justify-content-center
+                            h-100
+                        "
+                        style="font-size:28px;"
+                    >
+                        🎥
+                    </div>
+                    `
+                }
 
-                        ${
-                            thumbnail
+            </div>
 
-                            ?
 
-                            `
-                            <img
-    src="${thumbnail}"
-    alt="${escapeHtml(
-        video.title ||
-        "Video"
-    )}"
-    style="
-        width:100%;
-        height:100%;
-        object-fit:cover;
-    "
-    data-youtube-thumbnail="${youtubeThumbnail}"
-    onerror="handleThumbnailError(this)"
->
-                    🎥
+            <div>
+
+                <strong>
+                    ${escapeHtml(
+                        video.title ||
+                        "Untitled Video"
+                    )}
+                </strong>
+
+
+                <div class="text-muted small mt-1">
+
+                    ${escapeHtml(
+                        video.brand ||
+                        "Beyond News"
+                    )}
+
                 </div>
-            `;
+
+
+                ${
+                    video.video_url
+                    ?
+                    `
+                    <a
+                        href="${escapeHtml(
+                            video.video_url
+                        )}"
+                        target="_blank"
+                        rel="noopener"
+                        class="small text-info"
+                    >
+                        Watch Video ↗
+                    </a>
+                    `
+                    :
+                    ""
+                }
+
+            </div>
+
+        </div>
+
+    </td>
+
+
+    <!-- CATEGORY -->
+
+    <td>
+        ${escapeHtml(
+            video.category || "—"
+        )}
+    </td>
+
+
+    <!-- CREATED BY -->
+
+    <td>
+
+        <strong>
+            ${escapeHtml(
+                creatorName
+            )}
+        </strong>
+
+    </td>
+
+
+    <!-- PUBLISHED -->
+
+    <td>
+        ${publishDate}
+    </td>
+
+
+    <!-- UPDATED -->
+
+    <td>
+        ${updatedDate}
+    </td>
+
+
+    <!-- FLAGS -->
+
+    <td>
+        ${flags}
+    </td>
+
+
+    <!-- STATUS -->
+
+    <td>
+
+        <span
+            class="badge ${statusClass}"
+        >
+            ${escapeHtml(
+                video.status || "Draft"
+            )}
+        </span>
+
+    </td>
+
+
+    <!-- ACTIONS -->
+
+    <td class="text-end">
+
+        <button
+            class="
+                btn
+                btn-sm
+                btn-outline-light
+                me-1
+                edit-btn
+            "
+            onclick="
+                editVideo('${video.id}')
+            "
+            title="Edit Video"
+        >
+            <i class="bi bi-pencil"></i>
+        </button>
+
+
+        <button
+            class="
+                btn
+                btn-sm
+                btn-outline-danger
+                delete-btn
+            "
+            onclick="
+                deleteVideo('${video.id}')
+            "
+            title="Delete Video"
+        >
+            <i class="bi bi-trash"></i>
+        </button>
+
+    </td>
+
+`;
         }
     "
 >
@@ -885,7 +1042,54 @@ const thumbnail =
 
 }
 
+// ======================================
+// THUMBNAIL ERROR HANDLER
+// ======================================
 
+function handleThumbnailError(img) {
+
+    const youtubeThumbnail =
+        img.dataset.youtubeThumbnail || "";
+
+    // If the current image is not already the YouTube thumbnail,
+    // try YouTube thumbnail as fallback.
+    if (
+        youtubeThumbnail &&
+        img.src !== youtubeThumbnail
+    ) {
+
+        img.src = youtubeThumbnail;
+
+        return;
+
+    }
+
+    // Final fallback
+    img.style.display = "none";
+
+    const parent =
+        img.parentElement;
+
+    if (parent) {
+
+        parent.innerHTML = `
+            <div
+                style="
+                    width:100%;
+                    height:100%;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:28px;
+                "
+            >
+                🎥
+            </div>
+        `;
+
+    }
+
+}
 // ======================================
 // DATE FORMAT
 // ======================================
