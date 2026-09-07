@@ -357,97 +357,105 @@ function filterVideos() {
 function getYouTubeThumbnail(url) {
 
     if (!url) {
+        return "";
+    }
+
+    try {
+
+        const parsedUrl = new URL(url);
+
+        let videoId = "";
+
+        // youtube.com/watch?v=VIDEO_ID
+        if (
+            parsedUrl.hostname.includes("youtube.com") ||
+            parsedUrl.hostname.includes("youtube-nocookie.com")
+        ) {
+
+            videoId =
+                parsedUrl.searchParams.get("v") || "";
+
+            // /shorts/VIDEO_ID
+            if (!videoId) {
+
+                const shortsMatch =
+                    parsedUrl.pathname.match(
+                        /\/shorts\/([^/]+)/i
+                    );
+
+                if (shortsMatch) {
+                    videoId = shortsMatch[1];
+                }
+
+            }
+
+            // /embed/VIDEO_ID
+            if (!videoId) {
+
+                const embedMatch =
+                    parsedUrl.pathname.match(
+                        /\/embed\/([^/]+)/i
+                    );
+
+                if (embedMatch) {
+                    videoId = embedMatch[1];
+                }
+
+            }
+
+            // /live/VIDEO_ID
+            if (!videoId) {
+
+                const liveMatch =
+                    parsedUrl.pathname.match(
+                        /\/live\/([^/]+)/i
+                    );
+
+                if (liveMatch) {
+                    videoId = liveMatch[1];
+                }
+
+            }
+
+        }
+
+        // youtu.be/VIDEO_ID
+        if (
+            !videoId &&
+            parsedUrl.hostname.includes("youtu.be")
+        ) {
+
+            videoId =
+                parsedUrl.pathname
+                    .split("/")
+                    .filter(Boolean)[0] || "";
+
+        }
+
+        if (!videoId) {
+            return "";
+        }
+
+        // Remove any accidental parameters
+        videoId =
+            videoId.split("?")[0]
+                .split("&")[0]
+                .trim();
+
+        return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+    } catch (error) {
+
+        console.error(
+            "YouTube thumbnail error:",
+            error
+        );
 
         return "";
 
     }
-
-
-    let videoId = "";
-
-
-    // youtube.com/watch?v=
-    const watchMatch =
-        url.match(
-            /[?&]v=([^&#]+)/i
-        );
-
-
-    if (watchMatch) {
-
-        videoId =
-            watchMatch[1];
-
-    }
-
-
-    // youtu.be/
-    const shortMatch =
-        url.match(
-            /youtu\.be\/([^?&#]+)/i
-        );
-
-
-    if (
-        !videoId &&
-        shortMatch
-    ) {
-
-        videoId =
-            shortMatch[1];
-
-    }
-
-
-    // youtube.com/shorts/
-    const shortsMatch =
-        url.match(
-            /youtube\.com\/shorts\/([^?&#]+)/i
-        );
-
-
-    if (
-        !videoId &&
-        shortsMatch
-    ) {
-
-        videoId =
-            shortsMatch[1];
-
-    }
-
-
-    // youtube.com/embed/
-    const embedMatch =
-        url.match(
-            /youtube\.com\/embed\/([^?&#]+)/i
-        );
-
-
-    if (
-        !videoId &&
-        embedMatch
-    ) {
-
-        videoId =
-            embedMatch[1];
-
-    }
-
-
-    if (!videoId) {
-
-        return "";
-
-    }
-
-
-    return `
-        https://img.youtube.com/vi/${videoId}/hqdefault.jpg
-    `;
 
 }
-
 
 // ======================================
 // RENDER VIDEOS
@@ -495,23 +503,22 @@ function renderVideos(videos) {
     videos.forEach(video => {
 
 
-        // ==================================
-        // THUMBNAIL
-        // ==================================
+       // ==================================
+// THUMBNAIL
+// ==================================
 
-        let thumbnail =
-            video.featured_image || "";
+const youtubeThumbnail =
+    getYouTubeThumbnail(
+        video.video_url
+    );
 
+const featuredThumbnail =
+    video.featured_image || "";
 
-        if (!thumbnail) {
-
-            thumbnail =
-                getYouTubeThumbnail(
-                    video.video_url
-                );
-
-        }
-
+const thumbnail =
+    featuredThumbnail ||
+    youtubeThumbnail ||
+    "";
 
         // ==================================
         // CREATOR
@@ -659,20 +666,42 @@ function renderVideos(videos) {
 
                             `
                             <img
-                                src="${thumbnail}"
-                                alt="${escapeHtml(
-                                    video.title ||
-                                    "Video"
-                                )}"
-                                style="
-                                    width:100%;
-                                    height:100%;
-                                    object-fit:cover;
-                                "
-                                onerror="
-                                    this.style.display='none';
-                                "
-                            >
+    src="${thumbnail}"
+    alt="${escapeHtml(
+        video.title ||
+        "Video"
+    )}"
+    style="
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    "
+    data-youtube-thumbnail="${youtubeThumbnail}"
+    onerror="
+        if (
+            this.dataset.youtubeThumbnail &&
+            this.src !== this.dataset.youtubeThumbnail
+        ) {
+            this.src = this.dataset.youtubeThumbnail;
+        } else {
+            this.style.display = 'none';
+            this.parentElement.innerHTML = `
+                <div
+                    style="
+                        width:100%;
+                        height:100%;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:28px;
+                    "
+                >
+                    🎥
+                </div>
+            `;
+        }
+    "
+>
                             `
 
                             :
