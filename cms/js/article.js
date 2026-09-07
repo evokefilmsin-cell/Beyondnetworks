@@ -53,10 +53,36 @@ async function loadArticle() {
             data.author || "Beyond News Digital";
     }
 
-    if(document.getElementById("articleDate")){
-        document.getElementById("articleDate").textContent =
-            new Date(data.publish_date).toLocaleDateString();
-    }
+   if (document.getElementById("articleDate")) {
+
+    document.getElementById("articleDate").textContent =
+        new Date(data.publish_date).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+        });
+
+}
+
+if (document.getElementById("articleUpdated")) {
+
+    document.getElementById("articleUpdated").textContent =
+        "Last Updated: " +
+        new Date(data.updated_at).toLocaleString("en-IN", {
+            timeZone: "Asia/Kolkata",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true
+        });
+
+}
 
    const image = document.getElementById("articleImage");
 
