@@ -6,41 +6,60 @@ console.log("CMS videos.js loaded");
 
 let allVideos = [];
 
+let profileMap = {};
+
 
 // ======================================
-// LOAD WHEN PAGE OPENS
+// PAGE LOAD
 // ======================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
     loadVideos();
 
-    // Search
-    const searchInput = document.getElementById("searchVideos");
+    const searchInput =
+        document.getElementById("searchVideos");
 
     if (searchInput) {
-        searchInput.addEventListener("input", filterVideos);
+
+        searchInput.addEventListener(
+            "input",
+            filterVideos
+        );
+
     }
 
-    // Status filter
-    const statusFilter = document.getElementById("statusFilter");
+
+    const statusFilter =
+        document.getElementById("statusFilter");
 
     if (statusFilter) {
-        statusFilter.addEventListener("change", filterVideos);
+
+        statusFilter.addEventListener(
+            "change",
+            filterVideos
+        );
+
     }
 
-    // Category filter
-    const categoryFilter = document.getElementById("categoryFilter");
+
+    const categoryFilter =
+        document.getElementById("categoryFilter");
 
     if (categoryFilter) {
-        categoryFilter.addEventListener("change", filterVideos);
+
+        categoryFilter.addEventListener(
+            "change",
+            filterVideos
+        );
+
     }
 
 });
 
 
 // ======================================
-// LOAD VIDEOS FROM SUPABASE
+// LOAD VIDEOS
 // ======================================
 
 async function loadVideos() {
@@ -50,24 +69,79 @@ async function loadVideos() {
     const tableBody =
         document.getElementById("videosTableBody");
 
+
     if (!tableBody) {
 
-        console.error("videosTableBody not found");
+        console.error(
+            "videosTableBody not found"
+        );
 
         return;
 
     }
 
+
     tableBody.innerHTML = `
         <tr>
-            <td colspan="6" class="text-center py-5">
+            <td colspan="8"
+                class="text-center py-5">
                 Loading videos...
             </td>
         </tr>
     `;
 
 
-    const { data, error } = await supabaseClient
+    // ==================================
+    // LOAD USER PROFILES
+    // ==================================
+
+    const {
+        data: profiles,
+        error: profileError
+    } = await supabaseClient
+
+        .from("user_profiles")
+
+        .select(
+            "user_id, full_name, email"
+        );
+
+
+    if (profileError) {
+
+        console.error(
+            "Profile loading error:",
+            profileError
+        );
+
+    }
+
+
+    profileMap = {};
+
+
+    if (profiles) {
+
+        profiles.forEach(profile => {
+
+            profileMap[profile.user_id] =
+                profile.full_name ||
+                profile.email ||
+                "Unknown User";
+
+        });
+
+    }
+
+
+    // ==================================
+    // LOAD VIDEOS
+    // ==================================
+
+    const {
+        data,
+        error
+    } = await supabaseClient
 
         .from("articles")
 
@@ -75,21 +149,33 @@ async function loadVideos() {
 
         .eq("is_video", true)
 
-        .order("created_at", {
-            ascending: false
-        });
+        .order(
+            "publish_date",
+            {
+                ascending: false
+            }
+        );
 
 
     if (error) {
 
-        console.error("Error loading videos:", error);
+        console.error(
+            "Error loading videos:",
+            error
+        );
+
 
         tableBody.innerHTML = `
             <tr>
-                <td colspan="6" class="text-center text-danger py-5">
+                <td colspan="8"
+                    class="text-center text-danger py-5">
+
                     Failed to load videos.
+
                     <br>
-                    ${error.message}
+
+                    ${escapeHtml(error.message)}
+
                 </td>
             </tr>
         `;
@@ -99,9 +185,13 @@ async function loadVideos() {
     }
 
 
-    console.log("Videos loaded:", data);
-
     allVideos = data || [];
+
+
+    console.log(
+        "Videos loaded:",
+        allVideos
+    );
 
 
     updateStats(allVideos);
@@ -112,32 +202,46 @@ async function loadVideos() {
 
 
 // ======================================
-// UPDATE STATISTICS
+// STATS
 // ======================================
 
 function updateStats(videos) {
 
-    const totalVideos =
-        document.getElementById("totalVideos");
-
-    const publishedVideos =
-        document.getElementById("publishedVideos");
-
-    const draftVideos =
-        document.getElementById("draftVideos");
+    const total =
+        document.getElementById(
+            "totalVideos"
+        );
 
 
-    if (totalVideos) {
+    const published =
+        document.getElementById(
+            "publishedVideos"
+        );
 
-        totalVideos.textContent =
+
+    const scheduled =
+        document.getElementById(
+            "scheduledVideos"
+        );
+
+
+    const drafts =
+        document.getElementById(
+            "draftVideos"
+        );
+
+
+    if (total) {
+
+        total.textContent =
             videos.length;
 
     }
 
 
-    if (publishedVideos) {
+    if (published) {
 
-        publishedVideos.textContent =
+        published.textContent =
             videos.filter(video =>
                 video.status === "Published"
             ).length;
@@ -145,9 +249,19 @@ function updateStats(videos) {
     }
 
 
-    if (draftVideos) {
+    if (scheduled) {
 
-        draftVideos.textContent =
+        scheduled.textContent =
+            videos.filter(video =>
+                video.status === "Scheduled"
+            ).length;
+
+    }
+
+
+    if (drafts) {
+
+        drafts.textContent =
             videos.filter(video =>
                 video.status === "Draft"
             ).length;
@@ -158,24 +272,34 @@ function updateStats(videos) {
 
 
 // ======================================
-// FILTER VIDEOS
+// FILTER
 // ======================================
 
 function filterVideos() {
 
     const searchInput =
-        document.getElementById("searchVideos");
+        document.getElementById(
+            "searchVideos"
+        );
+
 
     const statusFilter =
-        document.getElementById("statusFilter");
+        document.getElementById(
+            "statusFilter"
+        );
+
 
     const categoryFilter =
-        document.getElementById("categoryFilter");
+        document.getElementById(
+            "categoryFilter"
+        );
 
 
     const search =
         searchInput
-            ? searchInput.value.toLowerCase().trim()
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
             : "";
 
 
@@ -195,7 +319,6 @@ function filterVideos() {
         allVideos.filter(video => {
 
 
-            // Search title
             const matchesSearch =
                 !search ||
                 (video.title || "")
@@ -203,13 +326,11 @@ function filterVideos() {
                     .includes(search);
 
 
-            // Status
             const matchesStatus =
                 status === "all" ||
                 video.status === status;
 
 
-            // Category
             const matchesCategory =
                 category === "all" ||
                 video.category === category;
@@ -230,33 +351,135 @@ function filterVideos() {
 
 
 // ======================================
-// RENDER VIDEO TABLE
+// YOUTUBE THUMBNAIL
+// ======================================
+
+function getYouTubeThumbnail(url) {
+
+    if (!url) {
+
+        return "";
+
+    }
+
+
+    let videoId = "";
+
+
+    // youtube.com/watch?v=
+    const watchMatch =
+        url.match(
+            /[?&]v=([^&#]+)/i
+        );
+
+
+    if (watchMatch) {
+
+        videoId =
+            watchMatch[1];
+
+    }
+
+
+    // youtu.be/
+    const shortMatch =
+        url.match(
+            /youtu\.be\/([^?&#]+)/i
+        );
+
+
+    if (
+        !videoId &&
+        shortMatch
+    ) {
+
+        videoId =
+            shortMatch[1];
+
+    }
+
+
+    // youtube.com/shorts/
+    const shortsMatch =
+        url.match(
+            /youtube\.com\/shorts\/([^?&#]+)/i
+        );
+
+
+    if (
+        !videoId &&
+        shortsMatch
+    ) {
+
+        videoId =
+            shortsMatch[1];
+
+    }
+
+
+    // youtube.com/embed/
+    const embedMatch =
+        url.match(
+            /youtube\.com\/embed\/([^?&#]+)/i
+        );
+
+
+    if (
+        !videoId &&
+        embedMatch
+    ) {
+
+        videoId =
+            embedMatch[1];
+
+    }
+
+
+    if (!videoId) {
+
+        return "";
+
+    }
+
+
+    return `
+        https://img.youtube.com/vi/${videoId}/hqdefault.jpg
+    `;
+
+}
+
+
+// ======================================
+// RENDER VIDEOS
 // ======================================
 
 function renderVideos(videos) {
 
     const tableBody =
-        document.getElementById("videosTableBody");
+        document.getElementById(
+            "videosTableBody"
+        );
 
 
     if (!tableBody) {
-
-        console.error("videosTableBody not found");
 
         return;
 
     }
 
 
-    if (!videos || videos.length === 0) {
+    if (
+        !videos ||
+        videos.length === 0
+    ) {
 
         tableBody.innerHTML = `
             <tr>
-                <td
-                    colspan="6"
-                    class="text-center py-5 text-muted"
-                >
+                <td colspan="8"
+                    class="text-center py-5 text-muted">
+
                     No videos found.
+
                 </td>
             </tr>
         `;
@@ -272,37 +495,69 @@ function renderVideos(videos) {
     videos.forEach(video => {
 
 
-        // ----------------------------------
-        // Thumbnail
-        // ----------------------------------
+        // ==================================
+        // THUMBNAIL
+        // ==================================
 
         let thumbnail =
             video.featured_image || "";
 
 
-        // ----------------------------------
-        // Status badge
-        // ----------------------------------
+        if (!thumbnail) {
+
+            thumbnail =
+                getYouTubeThumbnail(
+                    video.video_url
+                );
+
+        }
+
+
+        // ==================================
+        // CREATOR
+        // ==================================
+
+        const creatorName =
+            video.created_by
+                ? (
+                    profileMap[
+                        video.created_by
+                    ] || "Unknown User"
+                )
+                : "—";
+
+
+        // ==================================
+        // STATUS
+        // ==================================
 
         let statusClass =
             "bg-secondary";
 
 
-        if (video.status === "Published") {
+        if (
+            video.status === "Published"
+        ) {
 
             statusClass =
                 "bg-success";
 
         }
 
-        if (video.status === "Draft") {
+
+        if (
+            video.status === "Draft"
+        ) {
 
             statusClass =
                 "bg-warning text-dark";
 
         }
 
-        if (video.status === "Scheduled") {
+
+        if (
+            video.status === "Scheduled"
+        ) {
 
             statusClass =
                 "bg-info text-dark";
@@ -310,40 +565,66 @@ function renderVideos(videos) {
         }
 
 
-        // ----------------------------------
-        // Publish date
-        // ----------------------------------
+        // ==================================
+        // PUBLISHED DATE
+        // ==================================
 
-        let publishDate =
-            "—";
+        const publishDate =
+            formatDate(
+                video.publish_date
+            );
 
 
-        if (video.publish_date) {
+        // ==================================
+        // UPDATED DATE
+        // ==================================
 
-            publishDate =
-                new Date(video.publish_date)
-                    .toLocaleDateString("en-IN", {
-                        day: "2-digit",
-                        month: "short",
-                        year: "numeric"
-                    });
+        const updatedDate =
+            formatDate(
+                video.updated_at
+            );
+
+
+        // ==================================
+        // FLAGS
+        // ==================================
+
+        let flags = "";
+
+
+        if (video.is_featured) {
+
+            flags += `
+                <span class="badge bg-warning text-dark me-1">
+                    FEATURED
+                </span>
+            `;
 
         }
 
 
-        // ----------------------------------
-        // Featured
-        // ----------------------------------
+        if (video.is_trending) {
 
-        const featured =
-            video.is_featured
-                ? "⭐ Yes"
-                : "—";
+            flags += `
+                <span class="badge bg-primary me-1">
+                    TRENDING
+                </span>
+            `;
+
+        }
 
 
-        // ----------------------------------
-        // Create row
-        // ----------------------------------
+        if (!flags) {
+
+            flags =
+                `<span class="text-muted">—</span>`;
+
+        }
+
+
+        // ==================================
+        // ROW
+        // ==================================
 
         const row =
             document.createElement("tr");
@@ -351,17 +632,19 @@ function renderVideos(videos) {
 
         row.innerHTML = `
 
+            <!-- VIDEO -->
+
             <td>
 
                 <div
                     class="d-flex align-items-center"
-                    style="gap: 15px;"
+                    style="gap:15px;"
                 >
 
                     <div
                         style="
-                            width:120px;
-                            height:70px;
+                            width:140px;
+                            height:80px;
                             overflow:hidden;
                             border-radius:8px;
                             background:#222;
@@ -377,11 +660,17 @@ function renderVideos(videos) {
                             `
                             <img
                                 src="${thumbnail}"
-                                alt="${escapeHtml(video.title || "Video")}"
+                                alt="${escapeHtml(
+                                    video.title ||
+                                    "Video"
+                                )}"
                                 style="
                                     width:100%;
                                     height:100%;
                                     object-fit:cover;
+                                "
+                                onerror="
+                                    this.style.display='none';
                                 "
                             >
                             `
@@ -390,10 +679,13 @@ function renderVideos(videos) {
 
                             `
                             <div
-                                class="d-flex
-                                       align-items-center
-                                       justify-content-center
-                                       h-100"
+                                class="
+                                    d-flex
+                                    align-items-center
+                                    justify-content-center
+                                    h-100
+                                "
+                                style="font-size:28px;"
                             >
                                 🎥
                             </div>
@@ -406,14 +698,41 @@ function renderVideos(videos) {
                     <div>
 
                         <strong>
-                            ${escapeHtml(video.title || "Untitled")}
+                            ${escapeHtml(
+                                video.title ||
+                                "Untitled Video"
+                            )}
                         </strong>
 
-                        <div
-                            class="text-muted small"
-                        >
-                            ${escapeHtml(video.brand || "Beyond News")}
+
+                        <div class="text-muted small mt-1">
+
+                            ${escapeHtml(
+                                video.brand ||
+                                "Beyond News"
+                            )}
+
                         </div>
+
+
+                        ${
+                            video.video_url
+                            ?
+                            `
+                            <a
+                                href="${escapeHtml(
+                                    video.video_url
+                                )}"
+                                target="_blank"
+                                rel="noopener"
+                                class="small text-info"
+                            >
+                                Watch Video ↗
+                            </a>
+                            `
+                            :
+                            ""
+                        }
 
                     </div>
 
@@ -422,25 +741,32 @@ function renderVideos(videos) {
             </td>
 
 
+            <!-- CATEGORY -->
+
             <td>
 
-                ${escapeHtml(video.category || "—")}
+                ${escapeHtml(
+                    video.category ||
+                    "—"
+                )}
 
             </td>
 
 
+            <!-- CREATED BY -->
+
             <td>
 
-                <span
-                    class="badge ${statusClass}"
-                >
-
-                    ${escapeHtml(video.status || "Draft")}
-
-                </span>
+                <strong>
+                    ${escapeHtml(
+                        creatorName
+                    )}
+                </strong>
 
             </td>
 
+
+            <!-- PUBLISHED -->
 
             <td>
 
@@ -449,19 +775,58 @@ function renderVideos(videos) {
             </td>
 
 
+            <!-- UPDATED -->
+
             <td>
 
-                ${featured}
+                ${updatedDate}
 
             </td>
 
 
+            <!-- FLAGS -->
+
+            <td>
+
+                ${flags}
+
+            </td>
+
+
+            <!-- STATUS -->
+
+            <td>
+
+                <span
+                    class="badge ${statusClass}"
+                >
+
+                    ${escapeHtml(
+                        video.status ||
+                        "Draft"
+                    )}
+
+                </span>
+
+            </td>
+
+
+            <!-- ACTIONS -->
+
             <td class="text-end">
 
                 <button
-                    class="btn btn-sm btn-outline-light me-1"
-                    onclick="editVideo('${video.id}')"
-                    title="Edit"
+                    class="
+                        btn
+                        btn-sm
+                        btn-outline-light
+                        me-1
+                        edit-btn
+                    "
+                    onclick="
+                        editVideo('${video.id}')
+                    "
+                    title="Edit Video"
                 >
 
                     <i class="bi bi-pencil"></i>
@@ -470,9 +835,16 @@ function renderVideos(videos) {
 
 
                 <button
-                    class="btn btn-sm btn-outline-danger"
-                    onclick="deleteVideo('${video.id}')"
-                    title="Delete"
+                    class="
+                        btn
+                        btn-sm
+                        btn-outline-danger
+                        delete-btn
+                    "
+                    onclick="
+                        deleteVideo('${video.id}')
+                    "
+                    title="Delete Video"
                 >
 
                     <i class="bi bi-trash"></i>
@@ -488,11 +860,66 @@ function renderVideos(videos) {
 
     });
 
+
+    // Re-apply role permissions
+    if (
+        typeof applyPagePermissions ===
+        "function"
+    ) {
+
+        applyPagePermissions();
+
+    }
+
 }
 
 
 // ======================================
-// EDIT VIDEO
+// DATE FORMAT
+// ======================================
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+
+        return "—";
+
+    }
+
+
+    return new Date(
+        dateValue
+    ).toLocaleString(
+        "en-IN",
+        {
+            timeZone:
+                "Asia/Kolkata",
+
+            day:
+                "2-digit",
+
+            month:
+                "2-digit",
+
+            year:
+                "numeric",
+
+            hour:
+                "2-digit",
+
+            minute:
+                "2-digit",
+
+            hour12:
+                true
+        }
+    );
+
+}
+
+
+// ======================================
+// EDIT
 // ======================================
 
 function editVideo(id) {
@@ -504,7 +931,7 @@ function editVideo(id) {
 
 
 // ======================================
-// DELETE VIDEO
+// DELETE
 // ======================================
 
 async function deleteVideo(id) {
@@ -522,14 +949,15 @@ async function deleteVideo(id) {
     }
 
 
-    const { error } =
-        await supabaseClient
+    const {
+        error
+    } = await supabaseClient
 
-            .from("articles")
+        .from("articles")
 
-            .delete()
+        .delete()
 
-            .eq("id", id);
+        .eq("id", id);
 
 
     if (error) {
@@ -538,6 +966,7 @@ async function deleteVideo(id) {
             "Delete video error:",
             error
         );
+
 
         alert(
             "Failed to delete video:\n" +
@@ -549,7 +978,9 @@ async function deleteVideo(id) {
     }
 
 
-    alert("Video deleted successfully.");
+    alert(
+        "Video deleted successfully."
+    );
 
 
     loadVideos();
@@ -565,14 +996,29 @@ function escapeHtml(value) {
 
     return String(value)
 
-        .replace(/&/g, "&amp;")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-        .replace(/</g, "&lt;")
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-        .replace(/>/g, "&gt;")
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-        .replace(/"/g, "&quot;")
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-        .replace(/'/g, "&#039;");
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
