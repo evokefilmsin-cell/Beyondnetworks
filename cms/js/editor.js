@@ -378,17 +378,20 @@ let publishTime = null;
 
     if (status === "Scheduled") {
 
-        if (!publishDate.value) {
+    if (!publishDate.value) {
 
-            alert("Please choose a publish date.");
+        alert("Please choose a publish date.");
 
-            return;
-
-        }
-
-        publishTime = publishDate.value;
+        return;
 
     }
+
+    // Convert browser local time to UTC
+    publishTime = new Date(
+        publishDate.value
+    ).toISOString();
+
+}
 if (featuredImage.files.length > 0) {
 
     const file = featuredImage.files[0];
