@@ -677,25 +677,8 @@ const thumbnail =
         object-fit:cover;
     "
     data-youtube-thumbnail="${youtubeThumbnail}"
-    onerror="
-        if (
-            this.dataset.youtubeThumbnail &&
-            this.src !== this.dataset.youtubeThumbnail
-        ) {
-            this.src = this.dataset.youtubeThumbnail;
-        } else {
-            this.style.display = 'none';
-            this.parentElement.innerHTML = `
-                <div
-                    style="
-                        width:100%;
-                        height:100%;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        font-size:28px;
-                    "
-                >
+    onerror="handleThumbnailError(this)"
+>
                     🎥
                 </div>
             `;
