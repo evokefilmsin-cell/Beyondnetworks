@@ -9,12 +9,18 @@
 <title>New Article | Beyond Networks CMS</title>
 
 <!-- Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    rel="stylesheet">
 
 <!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+<!-- CKEditor -->
 <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
 <!-- Dashboard CSS -->
 <link rel="stylesheet" href="css/dashboard.css">
 
@@ -25,408 +31,600 @@
 
 <body>
 
-<!-- Sidebar -->
+<!-- ======================================
+     SIDEBAR
+====================================== -->
 
 <div class="sidebar">
 
-<div class="logo">
-<img src="../images/logo.png">
+    <div class="logo">
+        <img src="../images/logo.png">
+    </div>
+
+    <a href="dashboard.html">🏠 Dashboard</a>
+
+    <a href="articles.html">📰 Articles</a>
+
+    <a href="article-editor.html" class="active">
+        ✍ New Article
+    </a>
+
+    <a href="videos.html">🎥 Videos</a>
+
+    <a href="media.html">🖼 Media Library</a>
+
+    <a href="categories.html">📂 Categories</a>
+
+    <a href="settings.html">⚙ Settings</a>
+
 </div>
 
-<a href="dashboard.html">🏠 Dashboard</a>
 
-<a href="articles.html">📰 Articles</a>
-
-<a href="article-editor.html" class="active">✍ New Article</a>
-
-<a href="videos.html">🎥 Videos</a>
-
-<a href="media.html">🖼 Media Library</a>
-
-<a href="categories.html">📂 Categories</a>
-
-<a href="settings.html">⚙ Settings</a>
-
-</div>
-
-<!-- Main -->
+<!-- ======================================
+     MAIN
+====================================== -->
 
 <div class="main">
 
 <form id="articleForm">
 
-<!-- Top -->
+
+<!-- ======================================
+     EDITOR TOP
+====================================== -->
 
 <div class="editor-top">
 
-<div>
+    <div>
 
-<h1>Create New Article</h1>
+        <h1>Create New Article</h1>
 
-<p>Write, optimize and publish your news article.</p>
-
-</div>
-
-<div class="editor-layout">
-
-<!-- LEFT -->
-
-<div class="editor-left">
-
-<div class="card p-4">
-
-<div class="mb-4">
-
-<label class="form-label">
-Article Title
-</label>
-
-<input
-id="title"
-type="text"
-class="form-control"
-placeholder="Enter article title">
-
-</div>
-
-<div class="mb-4">
-
-<label class="form-label">
-Short Description
-</label>
-
-<textarea
-id="summary"
-rows="3"
-class="form-control"
-placeholder="Write a short summary..."></textarea>
-
-</div>
-
-<div>
-
-<label class="form-label">
-Article Content
-</label>
-
-<textarea id="editor"></textarea>
-  
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="editor-right">
-
-<!-- Publish -->
-
-<div class="card p-4 mb-4">
-
-    <h5>Publishing</h5>
-
-    <div id="statusInfo" class="alert alert-secondary mt-3">
-        <strong>Status:</strong> New Article
-    </div>
-
-    <label class="form-label mt-3">
-        Publish Date & Time
-    </label>
-
-    <input
-        type="datetime-local"
-        id="publishDate"
-        class="form-control">
-<hr>
-
-<h6 class="mb-3">Homepage Options</h6>
-
-<div class="form-check mb-2">
-
-    <input
-        class="form-check-input"
-        type="checkbox"
-        id="breakingNews">
-
-    <label
-        class="form-check-label"
-        for="breakingNews">
-
-        🚨 Breaking News
-
-    </label>
-
-</div>
-
-<div class="form-check mb-2">
-
-    <input
-        class="form-check-input"
-        type="checkbox"
-        id="featuredStory">
-
-    <label
-        class="form-check-label"
-        for="featuredStory">
-
-        ⭐ Featured Story
-
-    </label>
-
-</div>
-
-<div class="form-check mb-3">
-
-    <input
-        class="form-check-input"
-        type="checkbox"
-        id="trendingStory">
-
-    <label
-        class="form-check-label"
-        for="trendingStory">
-
-        🔥 Trending Story
-
-    </label>
-
-</div>
-    <div class="d-grid gap-2 mt-4">
-
-        <button
-            id="draftBtn"
-            type="button"
-            class="btn btn-secondary">
-            <i class="bi bi-file-earmark"></i>
-            Save Draft
-        </button>
-
-        <button
-            id="previewBtn"
-            type="button"
-            class="btn btn-outline-light">
-            <i class="bi bi-eye"></i>
-            Preview
-        </button>
-
-        <button
-            id="scheduleBtn"
-            type="button"
-            class="btn btn-warning">
-            <i class="bi bi-clock-history"></i>
-            Schedule Article
-        </button>
-
-        <button
-            id="publishBtn"
-            type="button"
-            class="btn btn-danger">
-            <i class="bi bi-send"></i>
-            Publish Now
-        </button>
+        <p>
+            Write, optimize and publish your news article.
+        </p>
 
     </div>
 
-</div>
-<!-- Brand -->
 
-<div class="card p-4 mb-4">
+    <div class="editor-layout">
 
-    <h5>Brand</h5>
 
-    <select
-        id="brand"
-        class="form-select mt-3">
+        <!-- ==================================
+             LEFT COLUMN
+        ================================== -->
 
-        <option selected>Beyond News</option>
-        <option>Beyond Politics</option>
-        <option>Beyond Entertainment</option>
-        <option>Beyond Sports</option>
-        <option>Beyond Business</option>
-        <option>Beyond Knowledge</option>
+        <div class="editor-left">
 
-    </select>
 
-</div>  
-<!-- Category -->
+            <!-- ARTICLE CONTENT -->
 
-<div class="card p-4 mb-4">
+            <div class="card p-4">
 
-<h5>Category</h5>
+                <div class="mb-4">
 
-<select
-id="category"
-class="form-select mt-3">
+                    <label class="form-label">
+                        Article Title
+                    </label>
 
-<option>News</option>
-<option>Politics</option>
-<option>Business</option>
-<option>Technology</option>
-<option>Sports</option>
-<option>Entertainment</option>
+                    <input
+                        id="title"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter article title">
 
-</select>
+                </div>
 
-</div>
-<div class="card p-4 mb-4">
 
-    <h5>Display Options</h5>
+                <div class="mb-4">
 
-    <div class="form-check mt-3">
-        <input class="form-check-input" type="checkbox" id="breaking">
-        <label class="form-check-label">Breaking News</label>
+                    <label class="form-label">
+                        Short Description
+                    </label>
+
+                    <textarea
+                        id="summary"
+                        rows="3"
+                        class="form-control"
+                        placeholder="Write a short summary..."></textarea>
+
+                </div>
+
+
+                <div>
+
+                    <label class="form-label">
+                        Article Content
+                    </label>
+
+                    <textarea id="editor"></textarea>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ==================================
+             RIGHT COLUMN
+        ================================== -->
+
+        <div class="editor-right">
+
+
+            <!-- ==================================
+                 PUBLISHING
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Publishing</h5>
+
+
+                <div
+                    id="statusInfo"
+                    class="alert alert-secondary mt-3">
+
+                    <strong>Status:</strong>
+                    New Article
+
+                </div>
+
+
+                <label class="form-label mt-3">
+                    Publish Date & Time
+                </label>
+
+                <input
+                    type="datetime-local"
+                    id="publishDate"
+                    class="form-control">
+
+
+                <hr>
+
+
+                <h6 class="mb-3">
+                    Homepage Options
+                </h6>
+
+
+                <!-- Breaking -->
+
+                <div class="form-check mb-2">
+
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="breakingNews">
+
+                    <label
+                        class="form-check-label"
+                        for="breakingNews">
+
+                        🚨 Breaking News
+
+                    </label>
+
+                </div>
+
+
+                <!-- Featured -->
+
+                <div class="form-check mb-2">
+
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="featuredStory">
+
+                    <label
+                        class="form-check-label"
+                        for="featuredStory">
+
+                        ⭐ Featured Story
+
+                    </label>
+
+                </div>
+
+
+                <!-- Trending -->
+
+                <div class="form-check mb-3">
+
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="trendingStory">
+
+                    <label
+                        class="form-check-label"
+                        for="trendingStory">
+
+                        🔥 Trending Story
+
+                    </label>
+
+                </div>
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div class="d-grid gap-2 mt-4">
+
+                    <button
+                        id="draftBtn"
+                        type="button"
+                        class="btn btn-secondary">
+
+                        <i class="bi bi-file-earmark"></i>
+                        Save Draft
+
+                    </button>
+
+
+                    <button
+                        id="previewBtn"
+                        type="button"
+                        class="btn btn-outline-light">
+
+                        <i class="bi bi-eye"></i>
+                        Preview
+
+                    </button>
+
+
+                    <button
+                        id="scheduleBtn"
+                        type="button"
+                        class="btn btn-warning">
+
+                        <i class="bi bi-clock-history"></i>
+                        Schedule Article
+
+                    </button>
+
+
+                    <button
+                        id="publishBtn"
+                        type="button"
+                        class="btn btn-danger">
+
+                        <i class="bi bi-send"></i>
+                        Publish Now
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 BRAND
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Brand</h5>
+
+                <select
+                    id="brand"
+                    class="form-select mt-3">
+
+                    <option selected>
+                        Beyond News
+                    </option>
+
+                    <option>
+                        Beyond Politics
+                    </option>
+
+                    <option>
+                        Beyond Entertainment
+                    </option>
+
+                    <option>
+                        Beyond Sports
+                    </option>
+
+                    <option>
+                        Beyond Business
+                    </option>
+
+                    <option>
+                        Beyond Knowledge
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ==================================
+                 CATEGORY
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Category</h5>
+
+                <select
+                    id="category"
+                    class="form-select mt-3">
+
+                    <option>News</option>
+                    <option>Politics</option>
+                    <option>Business</option>
+                    <option>Technology</option>
+                    <option>Sports</option>
+                    <option>Entertainment</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ==================================
+                 FEATURED IMAGE
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Featured Image</h5>
+
+
+                <div class="d-grid gap-2 mt-3">
+
+
+                    <label
+                        for="featuredImage"
+                        class="btn btn-outline-light">
+
+                        <i class="bi bi-upload"></i>
+                        Upload New Image
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        id="chooseMediaBtn"
+                        class="btn btn-danger">
+
+                        <i class="bi bi-images"></i>
+                        Choose from Media Library
+
+                    </button>
+
+
+                </div>
+
+
+                <input
+                    id="featuredImage"
+                    type="file"
+                    accept="image/*"
+                    class="d-none">
+
+
+                <input
+                    type="hidden"
+                    id="featuredImageUrl">
+
+
+                <div class="mt-3">
+
+                    <img
+                        id="imagePreview"
+                        src=""
+                        alt="Featured Image Preview"
+                        style="
+                            width:100%;
+                            max-height:220px;
+                            object-fit:cover;
+                            border-radius:10px;
+                            display:none;
+                        ">
+
+                </div>
+
+
+                <div
+                    id="selectedMediaName"
+                    class="text-secondary small mt-2">
+                </div>
+
+            </div>
+
+
+            <!-- ==================================
+                 AUTHOR
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Author</h5>
+
+                <input
+                    id="author"
+                    class="form-control mt-3"
+                    placeholder="Author Name">
+
+            </div>
+
+
+            <!-- ==================================
+                 TAGS
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Tags</h5>
+
+                <input
+                    id="tags"
+                    class="form-control mt-3"
+                    placeholder="AI, Politics, India">
+
+            </div>
+
+
+            <!-- ==================================
+                 ARTICLE URL
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>Article URL</h5>
+
+                <input
+                    id="slug"
+                    class="form-control mt-3"
+                    placeholder="article-url">
+
+                <small class="text-secondary d-block mt-2">
+
+                    This becomes the article's permanent URL.
+
+                </small>
+
+            </div>
+
+
+            <!-- ==================================
+                 SEO
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>
+                    SEO
+                </h5>
+
+
+                <!-- SEO TITLE -->
+
+                <label class="form-label mt-3">
+                    SEO Title
+                </label>
+
+                <input
+                    id="seoTitle"
+                    class="form-control"
+                    placeholder="SEO Title">
+
+
+                <small class="text-secondary d-block mt-2">
+                    Recommended: around 50–60 characters.
+                </small>
+
+
+                <!-- META DESCRIPTION -->
+
+                <label class="form-label mt-3">
+                    Meta Description
+                </label>
+
+                <textarea
+                    id="metaDescription"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Write a short description for search engines..."></textarea>
+
+
+                <small class="text-secondary d-block mt-2">
+                    Recommended: around 150–160 characters.
+                </small>
+
+
+                <!-- CANONICAL URL -->
+
+                <label class="form-label mt-3">
+                    Canonical URL
+                </label>
+
+                <input
+                    id="canonicalUrl"
+                    type="url"
+                    class="form-control"
+                    placeholder="https://yourdomain.com/article.html?slug=article-url">
+
+
+                <small class="text-secondary d-block mt-2">
+                    Leave empty to automatically use the article URL.
+                </small>
+
+            </div>
+
+
+            <!-- ==================================
+                 SOCIAL MEDIA
+            ================================== -->
+
+            <div class="card p-4 mb-4">
+
+                <h5>
+                    Social Media
+                </h5>
+
+
+                <!-- SOCIAL TITLE -->
+
+                <label class="form-label mt-3">
+                    Social Title
+                </label>
+
+                <input
+                    id="socialTitle"
+                    class="form-control"
+                    placeholder="Facebook / Instagram / X Title">
+
+
+                <small class="text-secondary d-block mt-2">
+                    Used when the article is shared on social platforms.
+                </small>
+
+
+                <!-- SOCIAL DESCRIPTION -->
+
+                <label class="form-label mt-3">
+                    Social Description
+                </label>
+
+                <textarea
+                    id="socialDescription"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Write a description for Facebook, Instagram, WhatsApp and X..."></textarea>
+
+
+                <small class="text-secondary d-block mt-2">
+                    Leave empty to use the Meta Description automatically.
+                </small>
+
+
+                <!-- SOCIAL IMAGE INFO -->
+
+                <div class="alert alert-secondary mt-3 mb-0">
+
+                    <i class="bi bi-image"></i>
+
+                    <strong>Social Image:</strong>
+
+                    The Featured Image will automatically be used
+                    when this article is shared.
+
+                </div>
+
+            </div>
+
+
+        </div>
+
     </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="featured">
-        <label class="form-check-label">Featured Story</label>
-    </div>
-
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="trending">
-        <label class="form-check-label">Trending Story</label>
-    </div>
-
-</div>
-
-<!-- Featured Image -->
-
-<div class="card p-4 mb-4">
-
-    <h5>Featured Image</h5>
-
-    <div class="d-grid gap-2 mt-3">
-
-        <label
-            for="featuredImage"
-            class="btn btn-outline-light">
-
-            <i class="bi bi-upload"></i>
-            Upload New Image
-
-        </label>
-
-        <button
-            type="button"
-            id="chooseMediaBtn"
-            class="btn btn-danger">
-
-            <i class="bi bi-images"></i>
-            Choose from Media Library
-
-        </button>
-
-    </div>
-
-    <input
-        id="featuredImage"
-        type="file"
-        accept="image/*"
-        class="d-none">
-
-    <input
-        type="hidden"
-        id="featuredImageUrl">
-
-    <div class="mt-3">
-
-        <img
-            id="imagePreview"
-            src=""
-            alt="Featured Image Preview"
-            style="
-                width:100%;
-                max-height:220px;
-                object-fit:cover;
-                border-radius:10px;
-                display:none;
-            ">
-
-    </div>
-
-    <div
-        id="selectedMediaName"
-        class="text-secondary small mt-2">
-    </div>
-
-</div>
-
-<!-- Author -->
-
-<div class="card p-4 mb-4">
-
-<h5>Author</h5>
-
-<input
-id="author"
-class="form-control mt-3"
-placeholder="Author Name">
-
-</div>
-
-<!-- Tags -->
-
-<div class="card p-4 mb-4">
-
-<h5>Tags</h5>
-
-<input
-id="tags"
-class="form-control mt-3"
-placeholder="AI, Politics, India">
-
-</div>
-
-<!-- URL -->
-
-<div class="card p-4 mb-4">
-
-<h5>Article URL</h5>
-
-<input
-id="slug"
-class="form-control mt-3"
-placeholder="article-url">
-
-</div>
-
-<!-- SEO -->
-
-<div class="card p-4">
-
-<h5>SEO</h5>
-
-<input
-id="seoTitle"
-class="form-control mt-3 mb-3"
-placeholder="SEO Title">
-
-<textarea
-id="metaDescription"
-rows="4"
-class="form-control"
-placeholder="Meta Description"></textarea>
-
-</div>
-<div class="card p-4 mt-4">
-
-    <h5>Social Media</h5>
-
-    <input
-        id="facebookTitle"
-        class="form-control mt-3"
-        placeholder="Facebook Title">
-
-    <input
-        id="twitterTitle"
-        class="form-control mt-3"
-        placeholder="Twitter / X Title">
-
-</div>
-  
-</div>
 
 </div>
 
@@ -445,15 +643,27 @@ placeholder="Meta Description"></textarea>
     tabindex="-1"
     aria-hidden="true">
 
-    <div class="modal-dialog modal-xl modal-dialog-centered">
 
-        <div class="modal-content bg-dark border-secondary">
+    <div
+        class="modal-dialog modal-xl modal-dialog-centered">
 
-            <div class="modal-header border-secondary">
+
+        <div
+            class="modal-content bg-dark border-secondary">
+
+
+            <!-- MODAL HEADER -->
+
+            <div
+                class="modal-header border-secondary">
+
 
                 <h5 class="modal-title text-white">
+
                     Choose from Media Library
+
                 </h5>
+
 
                 <button
                     type="button"
@@ -461,9 +671,14 @@ placeholder="Meta Description"></textarea>
                     data-bs-dismiss="modal">
                 </button>
 
+
             </div>
 
+
+            <!-- MODAL BODY -->
+
             <div class="modal-body">
+
 
                 <div class="mb-3">
 
@@ -475,6 +690,7 @@ placeholder="Meta Description"></textarea>
 
                 </div>
 
+
                 <div
                     id="mediaPickerGrid"
                     style="
@@ -483,8 +699,11 @@ placeholder="Meta Description"></textarea>
                         gap:15px;
                     ">
 
-                    <div class="text-center text-secondary p-4">
+                    <div
+                        class="text-center text-secondary p-4">
+
                         Loading media...
+
                     </div>
 
                 </div>
@@ -502,9 +721,15 @@ placeholder="Meta Description"></textarea>
      SCRIPTS
 ====================================== -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+</script>
+
 
 <script src="js/supabase.js"></script>
 
@@ -514,4 +739,5 @@ placeholder="Meta Description"></textarea>
 
 
 </body>
+
 </html>
