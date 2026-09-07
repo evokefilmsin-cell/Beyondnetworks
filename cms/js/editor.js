@@ -386,7 +386,8 @@ let publishTime = null;
 
     }
 
-    // Convert browser local time to UTC
+    // datetime-local is entered in the user's local time (IST).
+    // Convert that local time to UTC before saving to Supabase.
     publishTime = new Date(
         publishDate.value
     ).toISOString();
