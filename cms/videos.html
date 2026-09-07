@@ -84,7 +84,6 @@
 </div>
 
 
-
 <!-- ====================================== -->
 <!-- MAIN -->
 <!-- ====================================== -->
@@ -92,9 +91,7 @@
 <div class="main">
 
 
-    <!-- ================================== -->
-    <!-- PAGE HEADER -->
-    <!-- ================================== -->
+    <!-- HEADER -->
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
@@ -125,7 +122,6 @@
     </div>
 
 
-
     <!-- ================================== -->
     <!-- STATS -->
     <!-- ================================== -->
@@ -133,101 +129,80 @@
     <div class="row g-3 mb-4">
 
 
-        <div class="col-md-4">
+        <div class="col-md-3">
 
             <div class="card p-4">
 
-                <div class="d-flex justify-content-between">
+                <p class="text-muted mb-1">
+                    Total Videos
+                </p>
 
-                    <div>
-
-                        <p class="text-muted mb-1">
-                            Total Videos
-                        </p>
-
-                        <h2
-                            id="totalVideos"
-                            class="mb-0"
-                        >
-                            0
-                        </h2>
-
-                    </div>
-
-
-                    <div class="fs-1">
-                        🎥
-                    </div>
-
-                </div>
+                <h2
+                    id="totalVideos"
+                    class="mb-0"
+                >
+                    0
+                </h2>
 
             </div>
 
         </div>
 
 
-
-        <div class="col-md-4">
+        <div class="col-md-3">
 
             <div class="card p-4">
 
-                <div class="d-flex justify-content-between">
+                <p class="text-muted mb-1">
+                    Published
+                </p>
 
-                    <div>
-
-                        <p class="text-muted mb-1">
-                            Published
-                        </p>
-
-                        <h2
-                            id="publishedVideos"
-                            class="mb-0"
-                        >
-                            0
-                        </h2>
-
-                    </div>
-
-
-                    <div class="fs-1">
-                        ✅
-                    </div>
-
-                </div>
+                <h2
+                    id="publishedVideos"
+                    class="mb-0"
+                >
+                    0
+                </h2>
 
             </div>
 
         </div>
 
 
-
-        <div class="col-md-4">
+        <div class="col-md-3">
 
             <div class="card p-4">
 
-                <div class="d-flex justify-content-between">
+                <p class="text-muted mb-1">
+                    Scheduled
+                </p>
 
-                    <div>
+                <h2
+                    id="scheduledVideos"
+                    class="mb-0"
+                >
+                    0
+                </h2>
 
-                        <p class="text-muted mb-1">
-                            Drafts
-                        </p>
+            </div>
 
-                        <h2
-                            id="draftVideos"
-                            class="mb-0"
-                        >
-                            0
-                        </h2>
-
-                    </div>
+        </div>
 
 
-                    <div class="fs-1">
-                        📝
-                    </div>
+        <div class="col-md-3">
 
-                </div>
+            <div class="card p-4">
+
+                <p class="text-muted mb-1">
+                    Drafts
+                </p>
+
+                <h2
+                    id="draftVideos"
+                    class="mb-0"
+                >
+                    0
+                </h2>
 
             </div>
 
@@ -236,17 +211,14 @@
     </div>
 
 
-
     <!-- ================================== -->
-    <!-- VIDEO TABLE -->
+    <!-- FILTERS -->
     <!-- ================================== -->
 
-    <div class="card p-4">
+    <div class="card p-4 mb-4">
 
+        <div class="row g-3">
 
-        <!-- SEARCH -->
-
-        <div class="row mb-4">
 
             <div class="col-md-6">
 
@@ -337,11 +309,14 @@
 
         </div>
 
+    </div>
 
 
-        <!-- ================================== -->
-        <!-- TABLE -->
-        <!-- ================================== -->
+    <!-- ================================== -->
+    <!-- VIDEO TABLE -->
+    <!-- ================================== -->
+
+    <div class="card p-4">
 
         <div class="table-responsive">
 
@@ -351,7 +326,7 @@
 
                     <tr>
 
-                        <th>
+                        <th style="min-width:350px;">
                             Video
                         </th>
 
@@ -360,7 +335,7 @@
                         </th>
 
                         <th>
-                            Status
+                            Created By
                         </th>
 
                         <th>
@@ -368,7 +343,15 @@
                         </th>
 
                         <th>
-                            Featured
+                            Last Updated
+                        </th>
+
+                        <th>
+                            Flags
+                        </th>
+
+                        <th>
+                            Status
                         </th>
 
                         <th class="text-end">
@@ -385,7 +368,7 @@
                     <tr>
 
                         <td
-                            colspan="6"
+                            colspan="8"
                             class="text-center py-5"
                         >
 
@@ -401,17 +384,13 @@
 
         </div>
 
-
     </div>
 
 
 </div>
 
 
-
-<!-- ====================================== -->
 <!-- SUPABASE -->
-<!-- ====================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
