@@ -5,7 +5,6 @@ console.log("CMS videos.js loaded");
 // ======================================
 
 let allVideos = [];
-
 let profileMap = {};
 
 
@@ -21,38 +20,30 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("searchVideos");
 
     if (searchInput) {
-
         searchInput.addEventListener(
             "input",
             filterVideos
         );
-
     }
-
 
     const statusFilter =
         document.getElementById("statusFilter");
 
     if (statusFilter) {
-
         statusFilter.addEventListener(
             "change",
             filterVideos
         );
-
     }
-
 
     const categoryFilter =
         document.getElementById("categoryFilter");
 
     if (categoryFilter) {
-
         categoryFilter.addEventListener(
             "change",
             filterVideos
         );
-
     }
 
 });
@@ -69,22 +60,14 @@ async function loadVideos() {
     const tableBody =
         document.getElementById("videosTableBody");
 
-
     if (!tableBody) {
-
-        console.error(
-            "videosTableBody not found"
-        );
-
+        console.error("videosTableBody not found");
         return;
-
     }
-
 
     tableBody.innerHTML = `
         <tr>
-            <td colspan="8"
-                class="text-center py-5">
+            <td colspan="8" class="text-center py-5">
                 Loading videos...
             </td>
         </tr>
@@ -99,26 +82,17 @@ async function loadVideos() {
         data: profiles,
         error: profileError
     } = await supabaseClient
-
         .from("user_profiles")
-
-        .select(
-            "user_id, full_name, email"
-        );
-
+        .select("user_id, full_name, email");
 
     if (profileError) {
-
         console.error(
             "Profile loading error:",
             profileError
         );
-
     }
 
-
     profileMap = {};
-
 
     if (profiles) {
 
@@ -142,18 +116,12 @@ async function loadVideos() {
         data,
         error
     } = await supabaseClient
-
         .from("articles")
-
         .select("*")
-
         .eq("is_video", true)
-
         .order(
             "publish_date",
-            {
-                ascending: false
-            }
+            { ascending: false }
         );
 
 
@@ -163,7 +131,6 @@ async function loadVideos() {
             "Error loading videos:",
             error
         );
-
 
         tableBody.innerHTML = `
             <tr>
@@ -187,7 +154,6 @@ async function loadVideos() {
 
     allVideos = data || [];
 
-
     console.log(
         "Videos loaded:",
         allVideos
@@ -208,34 +174,20 @@ async function loadVideos() {
 function updateStats(videos) {
 
     const total =
-        document.getElementById(
-            "totalVideos"
-        );
-
+        document.getElementById("totalVideos");
 
     const published =
-        document.getElementById(
-            "publishedVideos"
-        );
-
+        document.getElementById("publishedVideos");
 
     const scheduled =
-        document.getElementById(
-            "scheduledVideos"
-        );
-
+        document.getElementById("scheduledVideos");
 
     const drafts =
-        document.getElementById(
-            "draftVideos"
-        );
+        document.getElementById("draftVideos");
 
 
     if (total) {
-
-        total.textContent =
-            videos.length;
-
+        total.textContent = videos.length;
     }
 
 
@@ -278,21 +230,13 @@ function updateStats(videos) {
 function filterVideos() {
 
     const searchInput =
-        document.getElementById(
-            "searchVideos"
-        );
-
+        document.getElementById("searchVideos");
 
     const statusFilter =
-        document.getElementById(
-            "statusFilter"
-        );
-
+        document.getElementById("statusFilter");
 
     const categoryFilter =
-        document.getElementById(
-            "categoryFilter"
-        );
+        document.getElementById("categoryFilter");
 
 
     const search =
@@ -317,7 +261,6 @@ function filterVideos() {
 
     const filteredVideos =
         allVideos.filter(video => {
-
 
             const matchesSearch =
                 !search ||
@@ -360,13 +303,18 @@ function getYouTubeThumbnail(url) {
         return "";
     }
 
+
     try {
 
-        const parsedUrl = new URL(url);
+        const parsedUrl =
+            new URL(url);
+
 
         let videoId = "";
 
+
         // youtube.com/watch?v=VIDEO_ID
+
         if (
             parsedUrl.hostname.includes("youtube.com") ||
             parsedUrl.hostname.includes("youtube-nocookie.com")
@@ -375,51 +323,59 @@ function getYouTubeThumbnail(url) {
             videoId =
                 parsedUrl.searchParams.get("v") || "";
 
-            // /shorts/VIDEO_ID
+
+            // Shorts
+
             if (!videoId) {
 
-                const shortsMatch =
+                const match =
                     parsedUrl.pathname.match(
                         /\/shorts\/([^/]+)/i
                     );
 
-                if (shortsMatch) {
-                    videoId = shortsMatch[1];
+                if (match) {
+                    videoId = match[1];
                 }
 
             }
 
-            // /embed/VIDEO_ID
+
+            // Embed
+
             if (!videoId) {
 
-                const embedMatch =
+                const match =
                     parsedUrl.pathname.match(
                         /\/embed\/([^/]+)/i
                     );
 
-                if (embedMatch) {
-                    videoId = embedMatch[1];
+                if (match) {
+                    videoId = match[1];
                 }
 
             }
 
-            // /live/VIDEO_ID
+
+            // Live
+
             if (!videoId) {
 
-                const liveMatch =
+                const match =
                     parsedUrl.pathname.match(
                         /\/live\/([^/]+)/i
                     );
 
-                if (liveMatch) {
-                    videoId = liveMatch[1];
+                if (match) {
+                    videoId = match[1];
                 }
 
             }
 
         }
 
+
         // youtu.be/VIDEO_ID
+
         if (
             !videoId &&
             parsedUrl.hostname.includes("youtu.be")
@@ -432,17 +388,24 @@ function getYouTubeThumbnail(url) {
 
         }
 
+
         if (!videoId) {
             return "";
         }
 
-        // Remove any accidental parameters
+
         videoId =
-            videoId.split("?")[0]
+            videoId
+                .split("?")[0]
                 .split("&")[0]
                 .trim();
 
-        return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+
+        return (
+            "https://img.youtube.com/vi/" +
+            videoId +
+            "/hqdefault.jpg"
+        );
 
     } catch (error) {
 
@@ -457,6 +420,7 @@ function getYouTubeThumbnail(url) {
 
 }
 
+
 // ======================================
 // RENDER VIDEOS
 // ======================================
@@ -470,9 +434,7 @@ function renderVideos(videos) {
 
 
     if (!tableBody) {
-
         return;
-
     }
 
 
@@ -485,9 +447,7 @@ function renderVideos(videos) {
             <tr>
                 <td colspan="8"
                     class="text-center py-5 text-muted">
-
                     No videos found.
-
                 </td>
             </tr>
         `;
@@ -503,22 +463,25 @@ function renderVideos(videos) {
     videos.forEach(video => {
 
 
-       // ==================================
-// THUMBNAIL
-// ==================================
+        // ==================================
+        // THUMBNAIL
+        // ==================================
 
-const youtubeThumbnail =
-    getYouTubeThumbnail(
-        video.video_url
-    );
+        const youtubeThumbnail =
+            getYouTubeThumbnail(
+                video.video_url
+            );
 
-const featuredThumbnail =
-    video.featured_image || "";
 
-const thumbnail =
-    featuredThumbnail ||
-    youtubeThumbnail ||
-    "";
+        const featuredThumbnail =
+            video.featured_image || "";
+
+
+        const thumbnail =
+            featuredThumbnail ||
+            youtubeThumbnail ||
+            "";
+
 
         // ==================================
         // CREATOR
@@ -529,7 +492,8 @@ const thumbnail =
                 ? (
                     profileMap[
                         video.created_by
-                    ] || "Unknown User"
+                    ] ||
+                    "Unknown User"
                 )
                 : "—";
 
@@ -573,7 +537,7 @@ const thumbnail =
 
 
         // ==================================
-        // PUBLISHED DATE
+        // DATES
         // ==================================
 
         const publishDate =
@@ -581,10 +545,6 @@ const thumbnail =
                 video.publish_date
             );
 
-
-        // ==================================
-        // UPDATED DATE
-        // ==================================
 
         const updatedDate =
             formatDate(
@@ -639,214 +599,54 @@ const thumbnail =
 
         row.innerHTML = `
 
-    <!-- VIDEO -->
+            <td>
 
-    <td>
+                <div
+                    class="d-flex align-items-center"
+                    style="gap:15px;"
+                >
 
-        <div
-            class="d-flex align-items-center"
-            style="gap:15px;"
-        >
-
-            <div
-                style="
-                    width:140px;
-                    height:80px;
-                    overflow:hidden;
-                    border-radius:8px;
-                    background:#222;
-                    flex-shrink:0;
-                "
-            >
-
-                ${
-                    thumbnail
-                    ?
-                    `
-                    <img
-                        src="${thumbnail}"
-                        alt="${escapeHtml(
-                            video.title || "Video"
-                        )}"
-                        style="
-                            width:100%;
-                            height:100%;
-                            object-fit:cover;
-                        "
-                        data-youtube-thumbnail="${youtubeThumbnail}"
-                        onerror="handleThumbnailError(this)"
-                    >
-                    `
-                    :
-                    `
                     <div
-                        class="
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            h-100
+                        style="
+                            width:140px;
+                            height:80px;
+                            overflow:hidden;
+                            border-radius:8px;
+                            background:#222;
+                            flex-shrink:0;
                         "
-                        style="font-size:28px;"
                     >
-                        🎥
-                    </div>
-                    `
-                }
 
-            </div>
-
-
-            <div>
-
-                <strong>
-                    ${escapeHtml(
-                        video.title ||
-                        "Untitled Video"
-                    )}
-                </strong>
-
-
-                <div class="text-muted small mt-1">
-
-                    ${escapeHtml(
-                        video.brand ||
-                        "Beyond News"
-                    )}
-
-                </div>
-
-
-                ${
-                    video.video_url
-                    ?
-                    `
-                    <a
-                        href="${escapeHtml(
-                            video.video_url
-                        )}"
-                        target="_blank"
-                        rel="noopener"
-                        class="small text-info"
-                    >
-                        Watch Video ↗
-                    </a>
-                    `
-                    :
-                    ""
-                }
-
-            </div>
-
-        </div>
-
-    </td>
-
-
-    <!-- CATEGORY -->
-
-    <td>
-        ${escapeHtml(
-            video.category || "—"
-        )}
-    </td>
-
-
-    <!-- CREATED BY -->
-
-    <td>
-
-        <strong>
-            ${escapeHtml(
-                creatorName
-            )}
-        </strong>
-
-    </td>
-
-
-    <!-- PUBLISHED -->
-
-    <td>
-        ${publishDate}
-    </td>
-
-
-    <!-- UPDATED -->
-
-    <td>
-        ${updatedDate}
-    </td>
-
-
-    <!-- FLAGS -->
-
-    <td>
-        ${flags}
-    </td>
-
-
-    <!-- STATUS -->
-
-    <td>
-
-        <span
-            class="badge ${statusClass}"
-        >
-            ${escapeHtml(
-                video.status || "Draft"
-            )}
-        </span>
-
-    </td>
-
-
-    <!-- ACTIONS -->
-
-    <td class="text-end">
-
-        <button
-            class="
-                btn
-                btn-sm
-                btn-outline-light
-                me-1
-                edit-btn
-            "
-            onclick="
-                editVideo('${video.id}')
-            "
-            title="Edit Video"
-        >
-            <i class="bi bi-pencil"></i>
-        </button>
-
-
-        <button
-            class="
-                btn
-                btn-sm
-                btn-outline-danger
-                delete-btn
-            "
-            onclick="
-                deleteVideo('${video.id}')
-            "
-            title="Delete Video"
-        >
-            <i class="bi bi-trash"></i>
-        </button>
-
-    </td>
-
-`;
-        
-                                class="
-                                    d-flex
-                                    align-items-center
-                                    justify-content-center
-                                    h-100
+                        ${
+                            thumbnail
+                            ?
+                            `
+                            <img
+                                src="${thumbnail}"
+                                alt="${escapeHtml(
+                                    video.title ||
+                                    "Video"
+                                )}"
+                                style="
+                                    width:100%;
+                                    height:100%;
+                                    object-fit:cover;
                                 "
-                                style="font-size:28px;"
+                                data-youtube-thumbnail="${youtubeThumbnail}"
+                                onerror="handleThumbnailError(this)"
+                            >
+                            `
+                            :
+                            `
+                            <div
+                                style="
+                                    width:100%;
+                                    height:100%;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    font-size:28px;
+                                "
                             >
                                 🎥
                             </div>
@@ -866,13 +666,13 @@ const thumbnail =
                         </strong>
 
 
-                        <div class="text-muted small mt-1">
-
+                        <div
+                            class="text-muted small mt-1"
+                        >
                             ${escapeHtml(
                                 video.brand ||
                                 "Beyond News"
                             )}
-
                         </div>
 
 
@@ -902,8 +702,6 @@ const thumbnail =
             </td>
 
 
-            <!-- CATEGORY -->
-
             <td>
 
                 ${escapeHtml(
@@ -913,8 +711,6 @@ const thumbnail =
 
             </td>
 
-
-            <!-- CREATED BY -->
 
             <td>
 
@@ -927,16 +723,12 @@ const thumbnail =
             </td>
 
 
-            <!-- PUBLISHED -->
-
             <td>
 
                 ${publishDate}
 
             </td>
 
-
-            <!-- UPDATED -->
 
             <td>
 
@@ -945,8 +737,6 @@ const thumbnail =
             </td>
 
 
-            <!-- FLAGS -->
-
             <td>
 
                 ${flags}
@@ -954,25 +744,19 @@ const thumbnail =
             </td>
 
 
-            <!-- STATUS -->
-
             <td>
 
                 <span
                     class="badge ${statusClass}"
                 >
-
                     ${escapeHtml(
                         video.status ||
                         "Draft"
                     )}
-
                 </span>
 
             </td>
 
-
-            <!-- ACTIONS -->
 
             <td class="text-end">
 
@@ -982,16 +766,13 @@ const thumbnail =
                         btn-sm
                         btn-outline-light
                         me-1
-                        edit-btn
                     "
                     onclick="
                         editVideo('${video.id}')
                     "
                     title="Edit Video"
                 >
-
                     <i class="bi bi-pencil"></i>
-
                 </button>
 
 
@@ -1007,9 +788,7 @@ const thumbnail =
                     "
                     title="Delete Video"
                 >
-
                     <i class="bi bi-trash"></i>
-
                 </button>
 
             </td>
@@ -1022,7 +801,10 @@ const thumbnail =
     });
 
 
-    // Re-apply role permissions
+    // ==================================
+    // ROLE PERMISSIONS
+    // ==================================
+
     if (
         typeof applyPagePermissions ===
         "function"
@@ -1034,6 +816,7 @@ const thumbnail =
 
 }
 
+
 // ======================================
 // THUMBNAIL ERROR HANDLER
 // ======================================
@@ -1041,26 +824,30 @@ const thumbnail =
 function handleThumbnailError(img) {
 
     const youtubeThumbnail =
-        img.dataset.youtubeThumbnail || "";
+        img.dataset.youtubeThumbnail ||
+        "";
 
-    // If the current image is not already the YouTube thumbnail,
-    // try YouTube thumbnail as fallback.
+
     if (
         youtubeThumbnail &&
         img.src !== youtubeThumbnail
     ) {
 
-        img.src = youtubeThumbnail;
+        img.src =
+            youtubeThumbnail;
 
         return;
 
     }
 
-    // Final fallback
-    img.style.display = "none";
+
+    img.style.display =
+        "none";
+
 
     const parent =
         img.parentElement;
+
 
     if (parent) {
 
@@ -1082,6 +869,8 @@ function handleThumbnailError(img) {
     }
 
 }
+
+
 // ======================================
 // DATE FORMAT
 // ======================================
@@ -1089,9 +878,7 @@ function handleThumbnailError(img) {
 function formatDate(dateValue) {
 
     if (!dateValue) {
-
         return "—";
-
     }
 
 
@@ -1151,20 +938,15 @@ async function deleteVideo(id) {
 
 
     if (!confirmed) {
-
         return;
-
     }
 
 
     const {
         error
     } = await supabaseClient
-
         .from("articles")
-
         .delete()
-
         .eq("id", id);
 
 
