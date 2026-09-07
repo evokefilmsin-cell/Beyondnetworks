@@ -608,7 +608,22 @@ async function saveVideo(status) {
 
 
     try {
+const {
+    data: { user },
+    error: userError
+} = await supabaseClient.auth.getUser();
 
+if (userError || !user) {
+
+    alert("You must be logged in to save a video.");
+
+    window.location.href = "index.html";
+
+    return;
+
+}
+
+console.log("Logged-in user:", user.id);
 
         // ==================================
         // VIDEO URL
@@ -878,6 +893,8 @@ async function saveVideo(status) {
 
             status:
                 status,
+                created_by:
+        user.id,
 
             is_video:
                 true,
