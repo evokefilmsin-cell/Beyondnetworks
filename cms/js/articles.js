@@ -20,7 +20,7 @@ async function loadArticles() {
 
     table.innerHTML = `
     <tr>
-        <td colspan="10" class="text-center p-5">
+        <td colspan="11" class="text-center p-5">
             Loading Articles...
         </td>
     </tr>
@@ -136,7 +136,7 @@ async function loadArticles() {
 
         table.innerHTML = `
         <tr>
-            <td colspan="10" class="text-center p-5">
+            <td colspan="11" class="text-center p-5">
                 Failed to load articles.
             </td>
         </tr>
